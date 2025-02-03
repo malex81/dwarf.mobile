@@ -20,6 +20,7 @@ namespace Dwarf.Minstrel.WinUI
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
     }
 
 }
