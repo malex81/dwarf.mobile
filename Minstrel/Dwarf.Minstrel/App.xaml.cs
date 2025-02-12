@@ -2,12 +2,15 @@
 {
     public partial class App : Application
     {
-		const int WindowWidth = 400;
+#if WINDOWS
+        const int WindowWidth = 400;
 		const int WindowHeight = 750;
+#endif
 
 		public App()
         {
             InitializeComponent();
+
 			// https://learn.microsoft.com/ru-ru/dotnet/maui/user-interface/handlers/?view=net-maui-9.0
 			Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
 			{
@@ -21,6 +24,7 @@
                 appWindow.Resize(new Windows.Graphics.SizeInt32(WindowWidth, WindowHeight));
 #endif
 			});
+
 			MainPage = new AppShell();
         }
     }
