@@ -3,8 +3,8 @@
     public partial class App : Application
     {
 #if WINDOWS
-        const int WindowWidth = 400;
-		const int WindowHeight = 750;
+        const int WindowWidth = 480;
+		const int WindowHeight = 800;
 #endif
 
 		public App()
