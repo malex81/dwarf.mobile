@@ -1,0 +1,15 @@
+# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
+root = true
+
+# All files
+[*.{cs,js,xaml,axaml}]
+indent_style = tab
+
+# C# code
+[*.cs]
+# используйте конкретные типы, если это возможно для повышения производительности
+dotnet_diagnostic.CA1859.severity = none
+# Использование основного конструктора
+dotnet_diagnostic.IDE0290.severity = silent
+# Кривое упрощение создания коллекций
+dotnet_diagnostic.IDE0306.severity = silent

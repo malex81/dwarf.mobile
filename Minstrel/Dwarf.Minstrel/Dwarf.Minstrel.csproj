@@ -76,4 +76,8 @@
 	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Common\Dwarf.Framework\Dwarf.Framework.csproj" />
+	</ItemGroup>
+
 </Project>
