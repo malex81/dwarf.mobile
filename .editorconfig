@@ -12,4 +12,5 @@ dotnet_diagnostic.CA1859.severity = none
 # Использование основного конструктора
 dotnet_diagnostic.IDE0290.severity = silent
 # Кривое упрощение создания коллекций
+dotnet_diagnostic.IDE0305.severity = silent
 dotnet_diagnostic.IDE0306.severity = silent
