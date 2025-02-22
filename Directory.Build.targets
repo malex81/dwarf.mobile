@@ -1,0 +1,22 @@
+<Project>
+	<PropertyGroup>
+		<NoWarn>$(NoWarn);NU1603</NoWarn>
+	</PropertyGroup>
+
+	<Import Project=".\build\NUnit.Tests.targets" />
+
+	<Choose>
+		<When Condition="$(Configuration)=='Release'">
+			<PropertyGroup>
+				<ConfigurationBasis>Release</ConfigurationBasis>
+			</PropertyGroup>			
+		</When>
+		<!-- For any other configuration (such as Test), use Debug properties-->
+		<Otherwise>
+			<PropertyGroup>
+				<ConfigurationBasis>Debug</ConfigurationBasis>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+	
+</Project>

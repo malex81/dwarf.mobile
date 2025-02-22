@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Configurations>$(Configurations);Tests</Configurations>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Tests'">
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<IsPackable>false</IsPackable>
+		<SignAssembly>false</SignAssembly>
+		<Optimize>false</Optimize>
+		<DefineConstants>$(DefineConstants);DEBUG;TRACE;TESTS</DefineConstants>
+		<WarningLevel>0</WarningLevel>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Tests'">
+		<PackageReference Include="nunit" Version="4.2.*" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.6.*" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.*" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' != 'Tests'">
+		<Compile Remove="**\Tests\**" />
+	</ItemGroup>
+
+</Project>
