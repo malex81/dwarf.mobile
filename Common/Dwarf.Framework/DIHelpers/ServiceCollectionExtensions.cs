@@ -1,4 +1,6 @@
-﻿namespace Dwarf.Framework.DIHelpers;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Dwarf.Framework.DIHelpers;
 
 public static partial class ServiceCollectionExtensions
 {

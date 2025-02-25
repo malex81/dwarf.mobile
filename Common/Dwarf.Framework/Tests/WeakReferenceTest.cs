@@ -1,4 +1,4 @@
-﻿using MisCore.Framework.SystemExtension;
+﻿using Dwarf.Framework.WeakReferenceUtils;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

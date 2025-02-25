@@ -128,9 +128,11 @@ public partial class BindingSplice : IDisposable
 }
 
 public partial class BindingSplice<TSrc, TSrcV, TTarg, TTargV> : BindingSplice
+	where TSrc : notnull
+	where TTarg : notnull
 {
-	Func<TSrcV, TTargV> sourceToTargetConverter;
-	Func<TTargV, TSrcV> targetToSourceConverter;
+	Func<TSrcV, TTargV>? sourceToTargetConverter;
+	Func<TTargV, TSrcV>? targetToSourceConverter;
 
 	public BindingSplice(IBindingNode<TSrc, TSrcV> source, IBindingNode<TTarg, TTargV> target) : base(source, target) { }
 
@@ -156,7 +158,7 @@ public partial class BindingSplice<TSrc, TSrcV, TTarg, TTargV> : BindingSplice
 
 	protected override void CopyValue(IBindingNode from, IBindingNode to, bool sourceToTarget)
 	{
-		var converter = sourceToTarget ? (Delegate)sourceToTargetConverter : (Delegate)targetToSourceConverter;
+		Delegate? converter = sourceToTarget ? sourceToTargetConverter : targetToSourceConverter;
 		if (converter == null)
 			base.CopyValue(from, to, sourceToTarget);
 		else

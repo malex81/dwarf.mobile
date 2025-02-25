@@ -1,5 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using Dwarf.Framework.Caches;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Dwarf.Framework.DIHelpers;

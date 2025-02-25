@@ -15,6 +15,8 @@ internal class MinstrelDatabase
 		if (db is not null)
 			return;
 
+		await Task.Delay(100);
+
 		db = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
 		//var result = await db.CreateTableAsync<TodoItem>();
 	}

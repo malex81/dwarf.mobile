@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MisCore.Framework.SystemExtension;
+using Dwarf.Framework.SystemExtension;
 using NUnit.Framework;
 
 namespace MisCore.Framework.Tests
