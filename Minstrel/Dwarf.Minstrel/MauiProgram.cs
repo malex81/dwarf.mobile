@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Dwarf.Framework.DIHelpers;
 using Microsoft.Extensions.Logging;
 
 namespace Dwarf.Minstrel;
@@ -10,8 +11,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-		.UseMauiCommunityToolkitMediaElement()
-		.ConfigureFonts(fonts =>
+			.UseMauiCommunityToolkitMediaElement()
+			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
@@ -24,6 +25,9 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+		builder.Services.AddSingleton<ViewModels.RadiocastModel>();
+		builder.Services.AddSingleton<Views.RadiocastPage>();
+		builder.Services.AddBatch<Data.Services>();
 		return builder.Build();
 	}
 }

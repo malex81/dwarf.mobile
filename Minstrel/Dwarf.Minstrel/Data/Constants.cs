@@ -1,6 +1,5 @@
 ﻿namespace Dwarf.Minstrel.Data;
 
-// https://learn.microsoft.com/ru-ru/dotnet/maui/data-cloud/database-sqlite?view=net-maui-9.0
 public static class Constants
 {
 	public const string DatabaseFilename = "Minstrel.db3";

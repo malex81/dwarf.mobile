@@ -1,31 +1,30 @@
-﻿namespace Dwarf.Minstrel
+﻿namespace Dwarf.Minstrel;
+
+public partial class App : Application
 {
-    public partial class App : Application
-    {
 #if WINDOWS
-        const int WindowWidth = 480;
-		const int WindowHeight = 800;
+	const int WindowWidth = 480;
+	const int WindowHeight = 800;
 #endif
 
-		public App()
-        {
-            InitializeComponent();
+	public App()
+	{
+		InitializeComponent();
 
-			// https://learn.microsoft.com/ru-ru/dotnet/maui/user-interface/handlers/?view=net-maui-9.0
-			Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
-			{
+		// https://learn.microsoft.com/ru-ru/dotnet/maui/user-interface/handlers/?view=net-maui-9.0
+		Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
+		{
 #if WINDOWS
-                var mauiWindow = handler.VirtualView;
-                var nativeWindow = handler.PlatformView;
-                nativeWindow.Activate();
-                IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
-                var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
-                var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-                appWindow.Resize(new Windows.Graphics.SizeInt32(WindowWidth, WindowHeight));
+			var mauiWindow = handler.VirtualView;
+			var nativeWindow = handler.PlatformView;
+			nativeWindow.Activate();
+			IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+			var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
+			var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+			appWindow.Resize(new Windows.Graphics.SizeInt32(WindowWidth, WindowHeight));
 #endif
-			});
+		});
 
-			MainPage = new AppShell();
-        }
-    }
+		MainPage = new AppShell();
+	}
 }
