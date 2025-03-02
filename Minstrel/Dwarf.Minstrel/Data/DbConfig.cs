@@ -1,6 +1,6 @@
 ﻿namespace Dwarf.Minstrel.Data;
 
-public static class Constants
+public static class DBConfig
 {
 	public const string DatabaseFilename = "Minstrel.db3";
 

@@ -1,8 +1,13 @@
-﻿using SQLite;
+﻿using Dwarf.Minstrel.Data.Tables;
+using SQLite;
 
 namespace Dwarf.Minstrel.Data;
 
-// https://learn.microsoft.com/ru-ru/dotnet/maui/data-cloud/database-sqlite?view=net-maui-9.0
+/* https://learn.microsoft.com/ru-ru/dotnet/maui/data-cloud/database-sqlite?view=net-maui-9.0
+ * https://github.com/praeclarum/sqlite-net
+ * https://github.com/praeclarum/sqlite-net/wiki
+ * https://github.com/praeclarum/sqlite-net/wiki/Synchronous-API
+ */
 
 internal class MinstrelDatabase
 {
@@ -17,9 +22,7 @@ internal class MinstrelDatabase
 		if (db is not null)
 			return;
 
-		await Task.Delay(100);
-
-		db = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-		//var result = await db.CreateTableAsync<TodoItem>();
+		db = new SQLiteAsyncConnection(DBConfig.DatabasePath, DBConfig.Flags);
+		var _res = await db.CreateTableAsync<RadioSource>();
 	}
 }
