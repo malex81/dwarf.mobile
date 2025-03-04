@@ -1,17 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:local="clr-namespace:Dwarf.Minstrel"
              x:Class="Dwarf.Minstrel.MainPage"
+			 x:DataType="local:MainPageModel"
 			 Title="Главная страница">
-
-    <ScrollView>
+	
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	
+	<ScrollView>
         <VerticalStackLayout
 			x:Name="MainPane"
             Padding="30,0"
             Spacing="25">
             <Image
-                Source="marusy_fm.webp"
-                HeightRequest="185"
+                Source="{Binding ImageSample, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                HeightRequest="240"
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a race car number eight" />
 

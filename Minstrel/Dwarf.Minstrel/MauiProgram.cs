@@ -11,6 +11,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.UseMauiCommunityToolkitMediaElement()
 			.ConfigureFonts(fonts =>
 			{
@@ -25,6 +26,7 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+		builder.Services.AddSingleton<MainPage>();
 		builder.Services.AddSingleton<ViewModels.RadiocastModel>();
 		builder.Services.AddSingleton<Views.RadiocastPage>();
 		builder.Services.AddBatch<Data.Services>();
