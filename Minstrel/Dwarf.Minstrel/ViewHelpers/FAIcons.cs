@@ -1,10 +1,13 @@
 ﻿namespace Dwarf.Minstrel.ViewHelpers;
-
+/*
+ * https://fontawesome.com/search?ic=free
+ */
 public enum FASolidGlyphs
 {
 	None = 0,
 	Music = 0xf001,
-	Radio = 0xf8d7
+	Radio = 0xf8d7,
+	Gear = 0xf013,
 }
 
 public enum FARegularGlyphs

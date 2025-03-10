@@ -22,18 +22,19 @@
 		</DataTemplate>
 	</Shell.ItemTemplate>-->
 	<!--https://learn.microsoft.com/ru-ru/dotnet/maui/fundamentals/shell/flyout?view=net-maui-9.0-->
-	<FlyoutItem Title="Home" Icon="dotnet_bot.png" FlyoutDisplayOptions="AsSingleItem">
-		<ShellContent Title="Item 11" vh:FAIcons.RegularGlyph="CirclePlay" ContentTemplate="{DataTemplate local:MainPage}" />
+	<!--<FlyoutItem Title="Home" Icon="dotnet_bot.png" FlyoutDisplayOptions="AsSingleItem">-->
+	<FlyoutItem>
+		<!--<ShellContent Title="Item 11" vh:FAIcons.RegularGlyph="CirclePlay" ContentTemplate="{DataTemplate local:MainPage}" />
 		<ShellContent Title="Item 22" ContentTemplate="{DataTemplate views:RadiocastPage}">
 			<ShellContent.Icon>
 				<FontImageSource vh:FAIcons.SolidGlyph="Music" />
 			</ShellContent.Icon>
-		</ShellContent>
+		</ShellContent>-->
 		<ShellContent Title="Радио" vh:FAIcons.SolidGlyph="Radio" ContentTemplate="{DataTemplate views:RadiocastPage}" />
+		<ShellContent Title="Настройки" vh:FAIcons.SolidGlyph="Gear" ContentTemplate="{DataTemplate views:ServicesPage}" />
 
 		<!--<ShellContent.Icon>
 			<FontImageSource FontFamily="FASolid" Glyph="&#xf8d7;" />
 		</ShellContent.Icon>-->
-
 	</FlyoutItem>
 </Shell>

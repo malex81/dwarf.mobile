@@ -1,12 +1,13 @@
-﻿using Dwarf.Minstrel.Data;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Dwarf.Minstrel.Data;
 
 namespace Dwarf.Minstrel.ViewModels;
 
-public partial class RadiocastModel : IDisposable
+public partial class RadiocastPageModel : ObservableObject, IDisposable
 {
 	private readonly MinstrelDatabase db;
 
-	public RadiocastModel(MinstrelDatabase db)
+	public RadiocastPageModel(MinstrelDatabase db)
 	{
 		this.db = db;
 		LoadData();

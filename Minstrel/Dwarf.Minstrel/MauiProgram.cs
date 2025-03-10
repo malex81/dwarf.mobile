@@ -20,6 +20,8 @@ public static class MauiProgram
 				fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "FARegular");
 				fonts.AddFont("Font Awesome 6 Brands-Regular-400.otf", "FABrands");
 				fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FASolid");
+			}).ConfigureMauiHandlers(handlers =>
+			{
 			});
 
 #if DEBUG
@@ -27,8 +29,13 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddSingleton<MainPage>();
-		builder.Services.AddSingleton<ViewModels.RadiocastModel>();
+
+		builder.Services.AddSingleton<ViewModels.RadiocastPageModel>();
+		builder.Services.AddSingleton<ViewModels.ServicesPageModel>();
+
 		builder.Services.AddSingleton<Views.RadiocastPage>();
+		builder.Services.AddSingleton<Views.ServicesPage>();
+
 		builder.Services.AddBatch<Data.Services>();
 		return builder.Build();
 	}
