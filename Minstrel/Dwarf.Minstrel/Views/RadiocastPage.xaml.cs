@@ -4,12 +4,12 @@ namespace Dwarf.Minstrel.Views;
 
 public partial class RadiocastPage : ContentPage
 {
-	private readonly RadiocastPageModel radiocastModel;
+	//private readonly RadiocastPageModel radiocastModel;
 
 	public RadiocastPage(RadiocastPageModel radiocastModel)
 	{
 		InitializeComponent();
-		this.radiocastModel = radiocastModel;
+		//this.radiocastModel = radiocastModel;
 		BindingContext = radiocastModel;
 	}
 }

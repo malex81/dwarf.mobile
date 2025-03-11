@@ -25,5 +25,10 @@ internal static class InitData
 			Logo = await ResourceHelper.LoadResource("vesti_fm.webp"),
 			StreamUrl = "https://icecast-vgtrk.cdnvideo.ru/vestifm_mp3_192kbps"
 		};
+		yield return new()
+		{
+			Title = "БИМ Радио",
+			StreamUrl = "https://av.bimradio.ru/bim_mp3_128k"
+		};
 	}
 }

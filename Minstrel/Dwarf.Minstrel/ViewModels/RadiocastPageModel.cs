@@ -3,9 +3,12 @@ using Dwarf.Minstrel.Data;
 
 namespace Dwarf.Minstrel.ViewModels;
 
-public partial class RadiocastPageModel : ObservableObject, IDisposable
+public partial class RadiocastPageModel : ObservableObject
 {
 	private readonly MinstrelDatabase db;
+
+	[ObservableProperty]
+	public partial RadioItem[]? RadioSet { get; set; }
 
 	public RadiocastPageModel(MinstrelDatabase db)
 	{
@@ -16,10 +19,6 @@ public partial class RadiocastPageModel : ObservableObject, IDisposable
 	async void LoadData()
 	{
 		var radioList = await db.LoadRadioSources();
-	}
-
-	public void Dispose()
-	{
-		GC.SuppressFinalize(this);
+		RadioSet = radioList.Select(r => new RadioItem(r)).ToArray();
 	}
 }
