@@ -6,7 +6,7 @@ namespace Dwarf.Minstrel.ViewModels;
 
 public partial class RadioItem(RadioSource radioSource) : ObservableObject
 {
-	static readonly byte[] DefaultIcon = ResourceHelper.LoadResource("radio_def.png").GetAwaiter().GetResult();
+	static readonly byte[] DefaultIcon = ResourceHelper.LoadResource("radio_def_r.png").GetAwaiter().GetResult();
 
 	private readonly RadioSource radioSource = radioSource;
 
