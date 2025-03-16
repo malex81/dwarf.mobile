@@ -8,6 +8,9 @@ public enum FASolidGlyphs
 	Music = 0xf001,
 	Radio = 0xf8d7,
 	Gear = 0xf013,
+	Star = 0xf005,
+	Heart = 0xf004,
+	Bookmark = 0xf02e
 }
 
 public enum FARegularGlyphs
@@ -16,6 +19,9 @@ public enum FARegularGlyphs
 	CirclePlay = 0xf144,
 	CircleStop = 0xf28d,
 	CirclePause = 0xf28b,
+	Star = 0xf005,
+	Heart = 0xf004,
+	Bookmark = 0xf02e
 }
 
 public static class FAIcons
