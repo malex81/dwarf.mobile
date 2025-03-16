@@ -16,29 +16,31 @@
 	<CollectionView ItemsSource="{Binding RadioSet}">
 		<CollectionView.ItemTemplate>
 			<DataTemplate x:DataType="vm:RadioItem">
-				<Grid Padding="10" RowDefinitions="auto, *" ColumnDefinitions="auto, *">
-					<Image Grid.RowSpan="2"
-						Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
-						Aspect="AspectFit"
-						HeightRequest="128"
-						WidthRequest="128" />
-					<Label Grid.Column="1"
-						   Text="{Binding Title}"
-						   FontSize="20"
-						   Padding="10" />
-					<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
-						<Button toolkit:DockLayout.DockPosition="Left" WidthRequest="60" HeightRequest="60" VerticalOptions="End">
-							<Button.ImageSource>
-								<FontImageSource vh:FAIcons.RegularGlyph="CirclePlay" />
-							</Button.ImageSource>
-						</Button>
-						<Button toolkit:DockLayout.DockPosition="Right" WidthRequest="60" HeightRequest="60" HorizontalOptions="End" VerticalOptions="End">
-							<Button.ImageSource>
-								<FontImageSource vh:FAIcons.RegularGlyph="Heart" />
-							</Button.ImageSource>
-						</Button>
-					</toolkit:DockLayout>
-				</Grid>
+				<Border Margin="0, 1" Style="{StaticResource borderCard}">
+					<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
+						<Image Grid.RowSpan="2"
+							Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+							Aspect="AspectFit"
+							HeightRequest="128"
+							WidthRequest="128" />
+						<Label Grid.Column="1"
+							Text="{Binding Title}"
+							FontSize="20"
+							Padding="10" />
+						<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
+							<Button toolkit:DockLayout.DockPosition="Left" VerticalOptions="End" Style="{StaticResource iconButton}">
+								<Button.ImageSource>
+									<FontImageSource vh:FAIcons.RegularGlyph="CirclePlay" />
+								</Button.ImageSource>
+							</Button>
+							<Button toolkit:DockLayout.DockPosition="Right" HorizontalOptions="End" VerticalOptions="End" Style="{StaticResource iconButton}">
+								<Button.ImageSource>
+									<FontImageSource vh:FAIcons.RegularGlyph="Heart" />
+								</Button.ImageSource>
+							</Button>
+						</toolkit:DockLayout>
+					</Grid>
+				</Border>
 			</DataTemplate>
 		</CollectionView.ItemTemplate>
 	</CollectionView>

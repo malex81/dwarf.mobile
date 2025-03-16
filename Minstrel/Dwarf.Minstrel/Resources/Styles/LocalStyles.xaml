@@ -2,8 +2,27 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Dwarf.Minstrel.Resources.Styles.LocalStyles">
-	<Style TargetType="Button" x:Key="Icon">
+	<Style TargetType="Button" x:Key="iconButton">
 		<Setter Property="WidthRequest" Value="60"/>
 		<Setter Property="HeightRequest" Value="60"/>
+	</Style>
+
+	<Style TargetType="Border" x:Key="borderCard">
+		<Setter Property="Padding" Value="10"/>
+		<Setter Property="StrokeShape">
+			<Setter.Value>
+				<RoundRectangle CornerRadius="10"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush EndPoint="0,1">
+					<GradientStop Color="#6000a0a0"
+                          Offset="0.0" />
+					<GradientStop Color="#600060cd"
+                          Offset="1.0" />
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
 	</Style>
 </ResourceDictionary>
