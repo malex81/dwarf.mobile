@@ -30,12 +30,16 @@
 						<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
 							<Button toolkit:DockLayout.DockPosition="Left" VerticalOptions="End" Style="{StaticResource iconButton}">
 								<Button.ImageSource>
-									<FontImageSource vh:FAIcons.RegularGlyph="CirclePlay" />
+									<FontImageSource vh:FAIcons.RegularGlyph="CirclePlay" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
 								</Button.ImageSource>
 							</Button>
-							<Button toolkit:DockLayout.DockPosition="Right" HorizontalOptions="End" VerticalOptions="End" Style="{StaticResource iconButton}">
+							<Button toolkit:DockLayout.DockPosition="Right"
+									HorizontalOptions="End"
+									VerticalOptions="End"
+									Style="{StaticResource iconButton}"
+									Command="{Binding ToggleFavoritesCommand}">
 								<Button.ImageSource>
-									<FontImageSource vh:FAIcons.RegularGlyph="Heart" />
+									<FontImageSource vh:FAIcons.RegularGlyph="Heart" Color="{toolkit:AppThemeResource ButtonTextColor}" />
 								</Button.ImageSource>
 							</Button>
 						</toolkit:DockLayout>
@@ -44,10 +48,4 @@
 			</DataTemplate>
 		</CollectionView.ItemTemplate>
 	</CollectionView>
-	<!--<VerticalStackLayout>
-		<Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-	</VerticalStackLayout>-->
 </ContentPage>

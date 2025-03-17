@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Dwarf.Minstrel.Data.Tables;
 using Dwarf.Minstrel.Helpers;
 
@@ -13,4 +14,13 @@ public partial class RadioItem(RadioSource radioSource) : ObservableObject
 	public int Id => radioSource.Id;
 	public string Title => radioSource.Title ?? $"Неизветсное #{Id}";
 	public byte[]? Icon => radioSource.Logo ?? DefaultIcon;
+
+	[ObservableProperty]
+	public partial bool InFavorites { get; set; }
+
+	[RelayCommand]
+	void ToggleFavorites()
+	{
+		InFavorites = !InFavorites;
+	}
 }
