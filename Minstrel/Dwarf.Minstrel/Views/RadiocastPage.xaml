@@ -41,6 +41,16 @@
 								<Button.ImageSource>
 									<FontImageSource vh:FAIcons.RegularGlyph="Heart" Color="{toolkit:AppThemeResource ButtonTextColor}" />
 								</Button.ImageSource>
+								<Button.Triggers>
+									<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
+										<Setter Property="BorderColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
+										<Setter Property="ImageSource">
+											<Setter.Value>
+												<FontImageSource vh:FAIcons.SolidGlyph="Heart" Color="{toolkit:AppThemeResource SuccessColor}" />
+											</Setter.Value>
+										</Setter>
+									</DataTrigger>
+								</Button.Triggers>
 							</Button>
 						</toolkit:DockLayout>
 					</Grid>

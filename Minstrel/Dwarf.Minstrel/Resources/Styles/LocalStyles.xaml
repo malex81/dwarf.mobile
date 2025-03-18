@@ -5,6 +5,8 @@
 	<Style TargetType="Button" x:Key="iconButton">
 		<Setter Property="WidthRequest" Value="60"/>
 		<Setter Property="HeightRequest" Value="60"/>
+		<Setter Property="Padding" Value="2"/>
+		<Setter Property="BorderWidth" Value="2"/>
 	</Style>
 
 	<Style TargetType="Border" x:Key="borderCard">
@@ -16,10 +18,10 @@
 		</Setter>
 		<Setter Property="Background">
 			<Setter.Value>
-				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.6,1">
-					<GradientStop Color="#4000caa0"
+				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.45,1">
+					<GradientStop Color="#10a99000"
                           Offset="0.0" />
-					<GradientStop Color="#300060fa"
+					<GradientStop Color="#1010b060"
                           Offset="1.0" />
 				</LinearGradientBrush>
 			</Setter.Value>
