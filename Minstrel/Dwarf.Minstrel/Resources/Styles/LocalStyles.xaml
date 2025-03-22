@@ -8,6 +8,7 @@
 		<Setter Property="FontSize" Value="32"/>
 		<Setter Property="Padding" Value="2"/>
 		<Setter Property="BorderWidth" Value="2"/>
+		<Setter Property="BorderColor" Value="{StaticResource Translucent2}"/>
 	</Style>
 
 	<Style TargetType="Border" x:Key="borderCard">
