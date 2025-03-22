@@ -5,10 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
-	<Color x:Key="LightGreen">#60f080</Color>
-	<Color x:Key="DarkGreen">#108020</Color>
+	<Color x:Key="LightGreen">#20de40</Color>
+	<Color x:Key="DarkGreen">#10fe90</Color>
 	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource LightGreen}" Dark="{StaticResource DarkGreen}"/>
 	<toolkit:AppThemeColor x:Key="ButtonTextColor" Light="{StaticResource White}" Dark="{StaticResource PrimaryDarkText}"/>
+	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="#faaa60" Dark="#deaa90"/>
 
 	<SolidColorBrush x:Key="ButtonTextBrush" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
 	<SolidColorBrush x:Key="SuccessBrush" Color="{toolkit:AppThemeResource SuccessColor}"/>

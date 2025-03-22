@@ -28,10 +28,23 @@
 							FontSize="20"
 							Padding="10" />
 						<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
-							<Button toolkit:DockLayout.DockPosition="Left" VerticalOptions="End" Style="{StaticResource iconButton}">
+							<Button toolkit:DockLayout.DockPosition="Left"
+									VerticalOptions="End"
+									Style="{StaticResource iconButton}"
+									Command="{Binding TogglePlayingCommand}">
 								<Button.ImageSource>
 									<FontImageSource vh:FAIcons.RegularGlyph="CirclePlay" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
 								</Button.ImageSource>
+								<Button.Triggers>
+									<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
+										<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
+										<Setter Property="ImageSource">
+											<Setter.Value>
+												<FontImageSource vh:FAIcons.RegularGlyph="CirclePause" Color="{toolkit:AppThemeResource ButtonIndicatorColor}" />
+											</Setter.Value>
+										</Setter>
+									</DataTrigger>
+								</Button.Triggers>
 							</Button>
 							<Button toolkit:DockLayout.DockPosition="Right"
 									HorizontalOptions="End"
@@ -43,10 +56,11 @@
 								</Button.ImageSource>
 								<Button.Triggers>
 									<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
-										<Setter Property="BorderColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
+										<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
+										<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}" />
 										<Setter Property="ImageSource">
 											<Setter.Value>
-												<FontImageSource vh:FAIcons.SolidGlyph="Heart" Color="{toolkit:AppThemeResource SuccessColor}" />
+												<FontImageSource vh:FAIcons.SolidGlyph="Heart" Color="{toolkit:AppThemeResource ButtonTextColor}" />
 											</Setter.Value>
 										</Setter>
 									</DataTrigger>

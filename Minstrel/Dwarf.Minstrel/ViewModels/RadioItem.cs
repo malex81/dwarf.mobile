@@ -17,10 +17,18 @@ public partial class RadioItem(RadioSource radioSource) : ObservableObject
 
 	[ObservableProperty]
 	public partial bool InFavorites { get; set; }
+	[ObservableProperty]
+	public partial bool IsPlaying { get; set; }
 
 	[RelayCommand]
 	void ToggleFavorites()
 	{
 		InFavorites = !InFavorites;
+	}
+
+	[RelayCommand]
+	void TogglePlaying()
+	{
+		IsPlaying = !IsPlaying;
 	}
 }
