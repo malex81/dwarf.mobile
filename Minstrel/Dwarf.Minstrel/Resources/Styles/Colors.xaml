@@ -2,12 +2,13 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
     <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
+    <Color x:Key="PrimaryDark">#607aca</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
@@ -42,4 +43,15 @@
     <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+	<Color x:Key="Translucent">#40808080</Color>
+	<Color x:Key="LightGreen">#20de40</Color>
+	<Color x:Key="DarkGreen">#109020</Color>
+	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource LightGreen}" Dark="{StaticResource DarkGreen}"/>
+	<toolkit:AppThemeColor x:Key="ButtonTextColor" Light="{StaticResource White}" Dark="{StaticResource PrimaryDarkText}"/>
+	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="#ffaf60" Dark="#a03a2a"/>
+
+	<SolidColorBrush x:Key="ButtonTextBrush" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
+	<SolidColorBrush x:Key="SuccessBrush" Color="{toolkit:AppThemeResource SuccessColor}"/>
+
 </ResourceDictionary>

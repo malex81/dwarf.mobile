@@ -67,5 +67,11 @@ public static class FAIcons
 			};
 			return;
 		}
+		if (view is Button btn)
+		{
+			btn.FontFamily = font;
+			btn.Text = Convert.ToChar(glyph).ToString();
+			return;
+		}
 	}
 }

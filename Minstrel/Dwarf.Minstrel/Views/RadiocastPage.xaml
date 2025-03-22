@@ -31,18 +31,14 @@
 							<Button toolkit:DockLayout.DockPosition="Left"
 									VerticalOptions="End"
 									Style="{StaticResource iconButton}"
-									Command="{Binding TogglePlayingCommand}">
-								<Button.ImageSource>
-									<FontImageSource vh:FAIcons.RegularGlyph="CirclePlay" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
-								</Button.ImageSource>
+									Command="{Binding TogglePlayingCommand}"
+									vh:FAIcons.RegularGlyph="CirclePlay">
 								<Button.Triggers>
 									<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
-										<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
-										<Setter Property="ImageSource">
-											<Setter.Value>
-												<FontImageSource vh:FAIcons.RegularGlyph="CirclePause" Color="{toolkit:AppThemeResource ButtonIndicatorColor}" />
-											</Setter.Value>
-										</Setter>
+										<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
+										<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
+										<Setter Property="Background" Value="{StaticResource Translucent}" />
+										<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}"/>-->
 									</DataTrigger>
 								</Button.Triggers>
 							</Button>
@@ -50,19 +46,16 @@
 									HorizontalOptions="End"
 									VerticalOptions="End"
 									Style="{StaticResource iconButton}"
-									Command="{Binding ToggleFavoritesCommand}">
-								<Button.ImageSource>
-									<FontImageSource vh:FAIcons.RegularGlyph="Heart" Color="{toolkit:AppThemeResource ButtonTextColor}" />
-								</Button.ImageSource>
+									Command="{Binding ToggleFavoritesCommand}"
+									vh:FAIcons.RegularGlyph="Heart">
 								<Button.Triggers>
 									<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
 										<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
-										<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}" />
-										<Setter Property="ImageSource">
-											<Setter.Value>
-												<FontImageSource vh:FAIcons.SolidGlyph="Heart" Color="{toolkit:AppThemeResource ButtonTextColor}" />
-											</Setter.Value>
-										</Setter>
+										<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
+										<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
+										<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}" />-->
+										<Setter Property="Background" Value="{StaticResource Translucent}" />
+										<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
 									</DataTrigger>
 								</Button.Triggers>
 							</Button>

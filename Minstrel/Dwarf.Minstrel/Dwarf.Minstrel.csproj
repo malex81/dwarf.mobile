@@ -60,9 +60,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Resources\Styles\LocalColors.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\LocalStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
