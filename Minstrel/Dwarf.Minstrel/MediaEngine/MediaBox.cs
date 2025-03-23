@@ -1,27 +1,60 @@
-﻿using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Core.Primitives;
+using CommunityToolkit.Maui.Views;
+using Dwarf.Framework.SystemExtension;
 
 namespace Dwarf.Minstrel.MediaEngine;
 
+public record MediaState(string URL, MediaElementState CurrentSate, string ErrorMessage);
+
 public class MediaBox
 {
-	private readonly MediaElement mediaPlayer;
+	private readonly IApplication app;
+	private readonly DisposableList mediaHandlers = [];
+	private MediaElement? mediaPlayer;
 
 	public MediaBox(IApplication app)
 	{
-		var page = ((App)app).MainPage;
-		mediaPlayer = new()
+		//mediaPlayer = new()
+		//{
+		//	IsVisible = false,
+		//	ShouldAutoPlay = true
+		//};
+		this.app = app;
+	}
+
+	MediaElement? GetPlayer()
+	{
+		if (mediaPlayer == null)
 		{
-			IsVisible = false,
-			ShouldAutoPlay = true
-		};
-		//mediaPlayer.Parent = page;
-		page!.AddLogicalChild(mediaPlayer);
-		//wnd.Children.Add(mediaPlayer);
+			var page = ((App)app).MainPage;
+			mediaPlayer = page!.GetVisualTreeDescendants().OfType<MediaElement>().FirstOrDefault();
+			if (mediaPlayer != null)
+			{
+				mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
+				mediaPlayer.MediaFailed += MediaPlayer_MediaFailed;
+				mediaHandlers.AddAction(() =>
+				{
+					mediaPlayer.MediaOpened -= MediaPlayer_MediaOpened;
+					mediaPlayer.MediaFailed -= MediaPlayer_MediaFailed;
+				});
+			}
+		}
+		return mediaPlayer;
+	}
+
+	private void MediaPlayer_MediaOpened(object? sender, EventArgs e)
+	{
+	}
+
+	private void MediaPlayer_MediaFailed(object? sender, MediaFailedEventArgs e)
+	{
 	}
 
 	public void PlayURL(string trackURL)
 	{
-		mediaPlayer.Source = MediaSource.FromUri(trackURL);
-		mediaPlayer.Play();
+		var mp = GetPlayer();
+		if (mp == null) return;
+		mp.Source = MediaSource.FromUri(trackURL);
+		mp.Play();
 	}
 }

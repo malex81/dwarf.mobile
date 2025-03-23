@@ -12,57 +12,59 @@
 			<toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
 		</ResourceDictionary>
 	</ContentPage.Resources>
-
-	<CollectionView ItemsSource="{Binding RadioSet}">
-		<CollectionView.ItemTemplate>
-			<DataTemplate x:DataType="vm:RadioItem">
-				<Border Margin="0, 1" Style="{StaticResource borderCard}">
-					<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
-						<Image Grid.RowSpan="2"
+	<Grid>
+		<CollectionView ItemsSource="{Binding RadioSet}">
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="vm:RadioItem">
+					<Border Margin="0, 1" Style="{StaticResource borderCard}">
+						<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
+							<Image Grid.RowSpan="2"
 							Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
 							Aspect="AspectFit"
 							HeightRequest="128"
 							WidthRequest="128" />
-						<Label Grid.Column="1"
+							<Label Grid.Column="1"
 							Text="{Binding Title}"
 							FontSize="20"
 							Padding="10" />
-						<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
-							<Button toolkit:DockLayout.DockPosition="Left"
+							<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
+								<Button toolkit:DockLayout.DockPosition="Left"
 									VerticalOptions="End"
 									Style="{StaticResource iconButton}"
 									Command="{Binding TogglePlayingCommand}"
 									vh:FAIcons.RegularGlyph="CirclePlay">
-								<Button.Triggers>
-									<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
-										<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
-										<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
-										<Setter Property="Background" Value="{StaticResource Translucent}" />
-										<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}"/>-->
-									</DataTrigger>
-								</Button.Triggers>
-							</Button>
-							<Button toolkit:DockLayout.DockPosition="Right"
+									<Button.Triggers>
+										<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
+											<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
+											<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
+											<Setter Property="Background" Value="{StaticResource Translucent}" />
+											<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}"/>-->
+										</DataTrigger>
+									</Button.Triggers>
+								</Button>
+								<Button toolkit:DockLayout.DockPosition="Right"
 									HorizontalOptions="End"
 									VerticalOptions="End"
 									Style="{StaticResource iconButton}"
 									Command="{Binding ToggleFavoritesCommand}"
 									vh:FAIcons.RegularGlyph="Heart">
-								<Button.Triggers>
-									<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
-										<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
-										<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
-										<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
-										<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}" />-->
-										<Setter Property="Background" Value="{StaticResource Translucent}" />
-										<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
-									</DataTrigger>
-								</Button.Triggers>
-							</Button>
-						</toolkit:DockLayout>
-					</Grid>
-				</Border>
-			</DataTemplate>
-		</CollectionView.ItemTemplate>
-	</CollectionView>
+									<Button.Triggers>
+										<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
+											<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
+											<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
+											<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
+											<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}" />-->
+											<Setter Property="Background" Value="{StaticResource Translucent}" />
+											<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
+										</DataTrigger>
+									</Button.Triggers>
+								</Button>
+							</toolkit:DockLayout>
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+		<toolkit:MediaElement IsVisible="False"/>
+	</Grid>
 </ContentPage>
