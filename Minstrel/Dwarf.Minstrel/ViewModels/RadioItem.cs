@@ -31,7 +31,9 @@ public partial class RadioItem(RadioSource radioSource, MediaBox mediaBox) : Obs
 	[RelayCommand]
 	void TogglePlaying()
 	{
-		IsPlaying = !IsPlaying;
+		//IsPlaying = !IsPlaying;
+		if(radioSource.StreamUrl != null)
+			mediaBox.PlayURL(radioSource.StreamUrl);
 	}
 }
 

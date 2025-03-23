@@ -8,12 +8,20 @@ public class MediaBox
 
 	public MediaBox(IApplication app)
 	{
-		var wnd = app.Windows[0];
+		var page = ((App)app).MainPage;
 		mediaPlayer = new()
 		{
 			IsVisible = false,
 			ShouldAutoPlay = true
 		};
-		wnd.Children.Add(mediaPlayer);
+		//mediaPlayer.Parent = page;
+		page!.AddLogicalChild(mediaPlayer);
+		//wnd.Children.Add(mediaPlayer);
+	}
+
+	public void PlayURL(string trackURL)
+	{
+		mediaPlayer.Source = MediaSource.FromUri(trackURL);
+		mediaPlayer.Play();
 	}
 }
