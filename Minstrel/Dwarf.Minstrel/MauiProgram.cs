@@ -30,13 +30,10 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<MainPage>();
 
-		builder.Services.AddSingleton<ViewModels.RadiocastPageModel>();
-		builder.Services.AddSingleton<ViewModels.ServicesPageModel>();
-
-		builder.Services.AddSingleton<Views.RadiocastPage>();
-		builder.Services.AddSingleton<Views.ServicesPage>();
-
-		builder.Services.AddBatch<Data.Services>();
+		builder.Services.AddBatch<Data.Services>()
+			.AddBatch<MediaEngine.Services>()
+			.AddBatch<Views.Services>()
+			.AddBatch<ViewModels.Services>();
 		return builder.Build();
 	}
 }
