@@ -27,19 +27,18 @@
 								<Label
 									Text="{Binding Title}"
 									FontSize="20"
-									Padding="10" />
+									Padding="10, 2" />
 								<Label
-									Text="{Binding Title}"
+									Text="{Binding ErrorMessage}"
 									TextColor="{StaticResource Danger}"
-									FontSize="10"
-									Padding="10" />
+									FontSize="12"
+									Padding="10, 0" />
 							</VerticalStackLayout>
 							<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
 								<Button toolkit:DockLayout.DockPosition="Left"
 									VerticalOptions="End"
 									Style="{StaticResource iconButton}"
 									Command="{Binding TogglePlayingCommand}"
-									IsEnabled="{Binding IsEnablePlayToggle}"
 									vh:FAIcons.RegularGlyph="CirclePlay">
 									<Button.Triggers>
 										<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">

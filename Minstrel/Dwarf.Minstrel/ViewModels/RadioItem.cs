@@ -44,8 +44,8 @@ public partial class RadioItem : ObservableObject, IDisposable
 			ErrorMessage = null;
 			return;
 		}
-		IsPlaying = mediaBox.State.CurrentSate == MediaElementState.Playing;
-		IsEnablePlayToggle = mediaBox.State.CurrentSate == MediaElementState.None;
+		var curState = mediaBox.State.CurrentSate;
+		IsPlaying = curState == MediaElementState.Playing || curState == MediaElementState.Buffering;
 		ErrorMessage = mediaBox.State.ErrorMessage;
 	}
 
@@ -58,8 +58,6 @@ public partial class RadioItem : ObservableObject, IDisposable
 	public partial bool InFavorites { get; set; }
 	[ObservableProperty]
 	public partial bool IsPlaying { get; set; }
-	[ObservableProperty]
-	public partial bool IsEnablePlayToggle { get; set; }
 	[ObservableProperty]
 	public partial string? ErrorMessage { get; set; }
 
