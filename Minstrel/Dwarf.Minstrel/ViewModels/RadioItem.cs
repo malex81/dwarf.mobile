@@ -1,26 +1,67 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core.Primitives;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Dwarf.Framework.SystemExtension;
 using Dwarf.Minstrel.Data.Tables;
 using Dwarf.Minstrel.Helpers;
 using Dwarf.Minstrel.MediaEngine;
+using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;
 
-public partial class RadioItem(RadioSource radioSource, MediaBox mediaBox) : ObservableObject
+public partial class RadioItem : ObservableObject, IDisposable
 {
 	static readonly byte[] DefaultIcon = ResourceHelper.LoadResource("radio_def_r.png").GetAwaiter().GetResult();
 
-	private readonly RadioSource radioSource = radioSource;
-	private readonly MediaBox mediaBox = mediaBox;
+	private readonly DisposableList dispSelf = [];
+	private readonly RadioSource radioSource;
+	private readonly MediaBox mediaBox;
+
+	public RadioItem(RadioSource radioSource, MediaBox mediaBox)
+	{
+		this.radioSource = radioSource;
+		this.mediaBox = mediaBox;
+
+		UpdateState();
+		mediaBox.PropertyChanged += MediaBox_PropertyChanged;
+		dispSelf.AddAction(() =>
+		{
+			mediaBox.PropertyChanged -= MediaBox_PropertyChanged;
+		});
+	}
+
+	private void MediaBox_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+	{
+		if (e.PropertyName == nameof(mediaBox.State))
+			UpdateState();
+	}
+
+	void UpdateState()
+	{
+		if (mediaBox.State.URL != StreamUrl)
+		{
+			IsPlaying = false;
+			ErrorMessage = null;
+			return;
+		}
+		IsPlaying = mediaBox.State.CurrentSate == MediaElementState.Playing;
+		IsEnablePlayToggle = mediaBox.State.CurrentSate == MediaElementState.None;
+		ErrorMessage = mediaBox.State.ErrorMessage;
+	}
 
 	public int Id => radioSource.Id;
 	public string Title => radioSource.Title ?? $"Неизветсное #{Id}";
 	public byte[]? Icon => radioSource.Logo ?? DefaultIcon;
+	public string? StreamUrl => radioSource.StreamUrl;
 
 	[ObservableProperty]
 	public partial bool InFavorites { get; set; }
 	[ObservableProperty]
 	public partial bool IsPlaying { get; set; }
+	[ObservableProperty]
+	public partial bool IsEnablePlayToggle { get; set; }
+	[ObservableProperty]
+	public partial string? ErrorMessage { get; set; }
 
 	[RelayCommand]
 	void ToggleFavorites()
@@ -31,9 +72,16 @@ public partial class RadioItem(RadioSource radioSource, MediaBox mediaBox) : Obs
 	[RelayCommand]
 	void TogglePlaying()
 	{
-		//IsPlaying = !IsPlaying;
-		if(radioSource.StreamUrl != null)
-			mediaBox.PlayURL(radioSource.StreamUrl);
+		if (IsPlaying)
+			mediaBox.Stop();
+		else if (StreamUrl != null)
+			mediaBox.PlayURL(StreamUrl);
+	}
+
+	public void Dispose()
+	{
+		dispSelf.Dispose();
+		GC.SuppressFinalize(this);
 	}
 }
 

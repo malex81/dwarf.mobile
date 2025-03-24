@@ -58,5 +58,13 @@ public partial class MediaBox : ObservableObject
 		if (mp == null) return;
 		mp.Source = MediaSource.FromUri(trackURL);
 		mp.Play();
+		State = new(trackURL, mp.CurrentState);
+	}
+
+	public void Stop()
+	{
+		var mp = GetPlayer();
+		if (mp == null) return;
+		mp.Stop();
 	}
 }

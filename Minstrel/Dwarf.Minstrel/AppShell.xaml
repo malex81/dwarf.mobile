@@ -33,8 +33,10 @@
 		<ShellContent Title="Радио" vh:FAIcons.SolidGlyph="Radio" ContentTemplate="{DataTemplate views:RadiocastPage}" />
 		<ShellContent Title="Настройки" vh:FAIcons.SolidGlyph="Gear" ContentTemplate="{DataTemplate views:ServicesPage}" />
 
-		<!--<ShellContent.Icon>
-			<FontImageSource FontFamily="FASolid" Glyph="&#xf8d7;" />
-		</ShellContent.Icon>-->
+		<ShellContent Title="Item 22" ContentTemplate="{DataTemplate views:RadiocastPage}">
+			<ShellContent.Icon>
+				<FontImageSource FontFamily="FASolid" Glyph="&#xf8d7;" />
+			</ShellContent.Icon>
+		</ShellContent>
 	</FlyoutItem>
 </Shell>

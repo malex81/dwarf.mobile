@@ -19,19 +19,27 @@
 					<Border Margin="0, 1" Style="{StaticResource borderCard}">
 						<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
 							<Image Grid.RowSpan="2"
-							Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
-							Aspect="AspectFit"
-							HeightRequest="128"
-							WidthRequest="128" />
-							<Label Grid.Column="1"
-							Text="{Binding Title}"
-							FontSize="20"
-							Padding="10" />
+								Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+								Aspect="AspectFit"
+								HeightRequest="128"
+								WidthRequest="128" />
+							<VerticalStackLayout Grid.Column="1">
+								<Label
+									Text="{Binding Title}"
+									FontSize="20"
+									Padding="10" />
+								<Label
+									Text="{Binding Title}"
+									TextColor="{StaticResource Danger}"
+									FontSize="10"
+									Padding="10" />
+							</VerticalStackLayout>
 							<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
 								<Button toolkit:DockLayout.DockPosition="Left"
 									VerticalOptions="End"
 									Style="{StaticResource iconButton}"
 									Command="{Binding TogglePlayingCommand}"
+									IsEnabled="{Binding IsEnablePlayToggle}"
 									vh:FAIcons.RegularGlyph="CirclePlay">
 									<Button.Triggers>
 										<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
