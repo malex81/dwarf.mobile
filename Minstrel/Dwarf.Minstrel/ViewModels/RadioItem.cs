@@ -22,7 +22,8 @@ public partial class RadioItem : ObservableObject, IDisposable
 		this.radioSource = radioSource;
 		this.mediaBox = mediaBox;
 
-		UpdateState();
+		//UpdateState();
+		Dispatcher.GetForCurrentThread()!.DispatchDelayed(TimeSpan.FromMilliseconds(100), UpdateState);
 		mediaBox.PropertyChanged += MediaBox_PropertyChanged;
 		dispSelf.AddAction(() =>
 		{
@@ -41,11 +42,13 @@ public partial class RadioItem : ObservableObject, IDisposable
 		if (mediaBox.State.URL != StreamUrl)
 		{
 			IsPlaying = false;
+			ShowLoading = false;
 			ErrorMessage = null;
 			return;
 		}
 		var curState = mediaBox.State.CurrentSate;
 		IsPlaying = curState == MediaElementState.Playing || curState == MediaElementState.Buffering;
+		ShowLoading = curState == MediaElementState.Opening || curState == MediaElementState.Buffering;
 		ErrorMessage = mediaBox.State.ErrorMessage;
 	}
 
@@ -58,6 +61,8 @@ public partial class RadioItem : ObservableObject, IDisposable
 	public partial bool InFavorites { get; set; }
 	[ObservableProperty]
 	public partial bool IsPlaying { get; set; }
+	[ObservableProperty]
+	public partial bool ShowLoading { get; set; } = true;
 	[ObservableProperty]
 	public partial string? ErrorMessage { get; set; }
 

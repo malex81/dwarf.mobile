@@ -23,6 +23,11 @@
 								Aspect="AspectFit"
 								HeightRequest="128"
 								WidthRequest="128" />
+							<Image Source="around_the_world.gif"
+								   Grid.Column="1" Grid.RowSpan="2"
+								   HeightRequest="128" WidthRequest="128"
+								   Opacity="0.3" IsAnimationPlaying="{Binding ShowLoading}"
+								   IsVisible="{Binding ShowLoading}"/>
 							<VerticalStackLayout Grid.Column="1">
 								<Label
 									Text="{Binding Title}"
