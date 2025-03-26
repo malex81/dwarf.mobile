@@ -16,7 +16,6 @@
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
     <Color x:Key="MidnightBlue">#190649</Color>
     <Color x:Key="OffBlack">#1f1f1f</Color>
 
@@ -49,6 +48,7 @@
 	<Color x:Key="Translucent">#40708090</Color>
 	<Color x:Key="Translucent2">#80708090</Color>
 	<Color x:Key="Green">#109020</Color>
+	<!--<Color x:Key="TabLight">#3080a0</Color>-->
 	<Color x:Key="Danger">#da1010</Color>
 	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource Green}" Dark="{StaticResource Green}"/>
 	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="#ca5a3a" Dark="#a03a2a"/>
