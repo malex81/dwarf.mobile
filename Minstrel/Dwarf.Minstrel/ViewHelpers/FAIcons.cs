@@ -10,7 +10,10 @@ public enum FASolidGlyphs
 	Gear = 0xf013,
 	Star = 0xf005,
 	Heart = 0xf004,
-	Bookmark = 0xf02e
+	Bookmark = 0xf02e,
+	TowerCell = 0xe585,
+	TowerBroadcast = 0xf519,
+	Signal = 0xf012
 }
 
 public enum FARegularGlyphs
