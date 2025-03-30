@@ -1,4 +1,6 @@
-﻿namespace Dwarf.Minstrel;
+﻿using Dwarf.Minstrel.MediaEngine;
+
+namespace Dwarf.Minstrel;
 
 public partial class App : Application
 {
@@ -6,9 +8,11 @@ public partial class App : Application
 	const int WindowWidth = 480;
 	const int WindowHeight = 800;
 #endif
+	private readonly IServiceProvider services;
 
-	public App()
+	public App(IServiceProvider services)
 	{
+		this.services = services;
 		InitializeComponent();
 
 		// https://learn.microsoft.com/ru-ru/dotnet/maui/user-interface/handlers/?view=net-maui-9.0
@@ -26,5 +30,19 @@ public partial class App : Application
 		});
 
 		MainPage = new AppShell();
+	}
+
+	/*
+	 * https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/app-lifecycle?view=net-maui-9.0
+	 */
+	protected override Window CreateWindow(IActivationState? activationState)
+	{
+		var mediaBox = services.GetService<MediaBox>();
+		Window window = base.CreateWindow(activationState);
+
+		window.Created += (s, e) => { };
+		window.Stopped += (s, e) => { };
+		window.Destroying += (s, e) => { mediaBox?.Stop(); };
+		return window;
 	}
 }

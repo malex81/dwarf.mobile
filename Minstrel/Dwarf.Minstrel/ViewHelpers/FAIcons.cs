@@ -55,10 +55,11 @@ public static class FAIcons
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
 	{
+		var glyphText = Convert.ToChar(glyph).ToString();
 		if (view is FontImageSource fis)
 		{
 			fis.FontFamily = font;
-			fis.Glyph = Convert.ToChar(glyph).ToString();
+			fis.Glyph = glyphText;
 			return;
 		}
 		if (view is ShellContent shellContent)
@@ -66,14 +67,23 @@ public static class FAIcons
 			shellContent.Icon = new FontImageSource
 			{
 				FontFamily = font,
-				Glyph = Convert.ToChar(glyph).ToString()
+				Glyph = glyphText
 			};
 			return;
 		}
 		if (view is Button btn)
 		{
 			btn.FontFamily = font;
-			btn.Text = Convert.ToChar(glyph).ToString();
+			btn.Text = glyphText;
+			return;
+		}
+		if (view is Image img)
+		{
+			img.Source = new FontImageSource
+			{
+				FontFamily = font,
+				Glyph = glyphText
+			};
 			return;
 		}
 	}

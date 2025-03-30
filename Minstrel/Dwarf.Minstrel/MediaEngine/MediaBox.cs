@@ -7,7 +7,7 @@ namespace Dwarf.Minstrel.MediaEngine;
 
 public record MediaBaxState(string URL, MediaElementState CurrentSate, string? ErrorMessage = null);
 
-public partial class MediaBox : ObservableObject
+public partial class MediaBox : ObservableObject, IDisposable
 {
 	private readonly IApplication app;
 	private readonly DisposableList mediaHandlers = [];
@@ -74,5 +74,10 @@ public partial class MediaBox : ObservableObject
 		var mp = GetPlayer();
 		if (mp == null) return;
 		mp.Stop();
+	}
+
+	public void Dispose()
+	{
+		GC.SuppressFinalize(this);
 	}
 }

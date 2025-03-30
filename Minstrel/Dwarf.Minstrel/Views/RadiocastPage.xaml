@@ -71,6 +71,12 @@
 										</DataTrigger>
 									</Button.Triggers>
 								</Button>
+								<!--<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
+									   VerticalOptions="End"
+									   HorizontalOptions="Start"
+									   Margin="10, 0"
+									   WidthRequest="40"
+									   HeightRequest="40"/>-->
 							</toolkit:DockLayout>
 						</Grid>
 					</Border>
