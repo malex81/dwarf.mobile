@@ -53,6 +53,17 @@ public static class FAIcons
 		SetGlyph(view, "FARegular", (uint)glyph);
 	}
 
+	public static readonly BindableProperty GlyphColorProperty =
+	   BindableProperty.CreateAttached("GlyphColor", typeof(Color), typeof(FAIcons), default(Color), propertyChanged: OnGlyphColorChanged);
+
+	public static Color GetGlyphColor(BindableObject view) => (Color)view.GetValue(GlyphColorProperty);
+	public static void SetGlyphColor(BindableObject view, Color value) => view.SetValue(GlyphColorProperty, value);
+
+	static void OnGlyphColorChanged(BindableObject view, object oldValue, object newValue)
+	{
+		Color? color = newValue as Color;
+	}
+
 	static void SetGlyph(BindableObject view, string font, uint glyph)
 	{
 		var glyphText = Convert.ToChar(glyph).ToString();
