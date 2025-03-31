@@ -11,6 +11,11 @@
 		<Setter Property="BorderColor" Value="{StaticResource Translucent2}"/>
 	</Style>
 
+	<Style TargetType="Image" x:Key="iconImage">
+		<Setter Property="WidthRequest" Value="42"/>
+		<Setter Property="HeightRequest" Value="42"/>
+	</Style>
+
 	<Style TargetType="Border" x:Key="borderCard">
 		<Setter Property="Padding" Value="10"/>
 		<Setter Property="StrokeShape">

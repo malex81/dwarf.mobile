@@ -23,11 +23,6 @@
 								Aspect="AspectFit"
 								HeightRequest="128"
 								WidthRequest="128" />
-							<Image Source="around_the_world.gif"
-								   Grid.Column="1" Grid.RowSpan="2"
-								   HeightRequest="128" WidthRequest="128"
-								   Opacity="0.3" IsAnimationPlaying="{Binding ShowLoading}"
-								   IsVisible="{Binding ShowLoading}"/>
 							<VerticalStackLayout Grid.Column="1">
 								<Label
 									Text="{Binding Title}"
@@ -72,11 +67,18 @@
 									</Button.Triggers>
 								</Button>
 								<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
+									   vh:FAIcons.GlyphColor="{StaticResource Danger}"
+									   Style="{StaticResource iconImage}"
+									   IsVisible="{Binding ShowLoading}"
 									   VerticalOptions="End"
 									   HorizontalOptions="Start"
-									   Margin="10, 0"
-									   WidthRequest="40"
-									   HeightRequest="40"/>
+									   Margin="10, 0">
+									<Image.Behaviors>
+										<vh:AnimationBehavior>
+											<vh:PulseAnimation/>
+										</vh:AnimationBehavior>
+									</Image.Behaviors>
+								</Image>
 							</toolkit:DockLayout>
 						</Grid>
 					</Border>

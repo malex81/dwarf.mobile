@@ -28,8 +28,6 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		builder.Services.AddSingleton<MainPage>();
-
 		builder.Services.AddBatch<Data.Services>()
 			.AddBatch<MediaEngine.Services>()
 			.AddBatch<Views.Services>()

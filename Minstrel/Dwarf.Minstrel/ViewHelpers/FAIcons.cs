@@ -61,7 +61,12 @@ public static class FAIcons
 
 	static void OnGlyphColorChanged(BindableObject view, object oldValue, object newValue)
 	{
-		Color? color = newValue as Color;
+		Color color = (Color)newValue;
+		if (view is Image img && img.Source is FontImageSource fis)
+		{
+			fis.Color = color;
+			return;
+		}
 	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
