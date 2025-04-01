@@ -53,7 +53,7 @@ public partial class RadioItem : ObservableObject, IDisposable
 	}
 
 	public int Id => radioSource.Id;
-	public string Title => radioSource.Title ?? $"Неизветсное #{Id}";
+	public string Title => radioSource.Title ?? $"Неизвестное #{Id}";
 	public byte[]? Icon => radioSource.Logo ?? DefaultIcon;
 	public string? StreamUrl => radioSource.StreamUrl;
 

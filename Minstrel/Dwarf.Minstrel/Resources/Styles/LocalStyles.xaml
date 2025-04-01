@@ -12,8 +12,8 @@
 	</Style>
 
 	<Style TargetType="Image" x:Key="iconImage">
-		<Setter Property="WidthRequest" Value="42"/>
-		<Setter Property="HeightRequest" Value="42"/>
+		<Setter Property="WidthRequest" Value="32"/>
+		<Setter Property="HeightRequest" Value="32"/>
 	</Style>
 
 	<Style TargetType="Border" x:Key="borderCard">
