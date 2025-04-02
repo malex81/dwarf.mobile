@@ -8,5 +8,6 @@ class Services : IServicesBatch
 	{
 		services.AddSingleton<RadiocastPage>();
 		services.AddSingleton<ServicesPage>();
+		services.AddSingleton<AppInfoPage>();
 	}
 }

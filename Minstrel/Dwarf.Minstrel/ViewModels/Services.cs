@@ -8,6 +8,7 @@ class Services : IServicesBatch
 	{
 		services.AddSingleton<RadiocastPageModel>();
 		services.AddSingleton<ServicesPageModel>();
+		services.AddSingleton<AppInfoPageModel>();
 
 		services.RegisterFactory<IRadioItemFactory>();
 	}

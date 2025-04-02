@@ -63,6 +63,9 @@
 	  <MauiXaml Update="Resources\Styles\LocalStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AppInfoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\RadiocastPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

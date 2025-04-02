@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Dwarf.Framework.DIHelpers;
+using Dwarf.Minstrel.Views;
 using Microsoft.Extensions.Logging;
 
 namespace Dwarf.Minstrel;
@@ -28,10 +29,17 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+		RegisterRouting();
+
 		builder.Services.AddBatch<Data.Services>()
 			.AddBatch<MediaEngine.Services>()
 			.AddBatch<Views.Services>()
 			.AddBatch<ViewModels.Services>();
 		return builder.Build();
+	}
+
+	static void RegisterRouting()
+	{
+		Routing.RegisterRoute("appInfo", typeof(AppInfoPage));
 	}
 }

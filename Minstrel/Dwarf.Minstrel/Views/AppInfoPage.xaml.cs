@@ -2,9 +2,9 @@ using Dwarf.Minstrel.ViewModels;
 
 namespace Dwarf.Minstrel.Views;
 
-public partial class ServicesPage : ContentPage
+public partial class AppInfoPage : ContentPage
 {
-	public ServicesPage(ServicesPageModel model)
+	public AppInfoPage(AppInfoPageModel model)
 	{
 		InitializeComponent();
 		BindingContext = model;

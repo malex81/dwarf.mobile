@@ -13,7 +13,16 @@ public enum FASolidGlyphs
 	Bookmark = 0xf02e,
 	TowerCell = 0xe585,
 	TowerBroadcast = 0xf519,
-	Signal = 0xf012
+	Signal = 0xf012,
+	Info = 0xf129,
+	Question = 0x3f,
+	CircleQuestion = 0xf059,
+	XMark = 0xf00d,
+	CircleXMark = 0xf057,
+	ArrowRight = 0xf061,
+	ArrowLeft = 0xf060,
+	ArrowUp = 0xf062,
+	ArrowDown = 0xf063,
 }
 
 public enum FARegularGlyphs
@@ -24,7 +33,10 @@ public enum FARegularGlyphs
 	CirclePause = 0xf28b,
 	Star = 0xf005,
 	Heart = 0xf004,
-	Bookmark = 0xf02e
+	Bookmark = 0xf02e,
+	CircleQuestion = 0xf059,
+	CircleXMark = 0xf057,
+	Lightbulb = 0xf0eb
 }
 
 public static class FAIcons
