@@ -73,46 +73,39 @@ public static class FAIcons
 
 	static void OnGlyphColorChanged(BindableObject view, object oldValue, object newValue)
 	{
-		Color color = (Color)newValue;
-		if (view is Image img && img.Source is FontImageSource fis)
+		var fis = view switch
 		{
-			fis.Color = color;
-			return;
-		}
+			Image img => img.Source as FontImageSource,
+			ToolbarItem tabItem => tabItem.IconImageSource as FontImageSource,
+			_ => null
+		};
+		if (fis != null)
+			fis.Color = (Color)newValue;
 	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
 	{
 		var glyphText = Convert.ToChar(glyph).ToString();
+		FontImageSource createFontImageSource() => new()
+		{
+			FontFamily = font,
+			Glyph = glyphText
+		};
 		if (view is FontImageSource fis)
 		{
 			fis.FontFamily = font;
 			fis.Glyph = glyphText;
-			return;
 		}
-		if (view is ShellContent shellContent)
-		{
-			shellContent.Icon = new FontImageSource
-			{
-				FontFamily = font,
-				Glyph = glyphText
-			};
-			return;
-		}
-		if (view is Button btn)
+		else if (view is ShellContent shellContent)
+			shellContent.Icon = createFontImageSource();
+		else if (view is Button btn)
 		{
 			btn.FontFamily = font;
 			btn.Text = glyphText;
-			return;
 		}
-		if (view is Image img)
-		{
-			img.Source = new FontImageSource
-			{
-				FontFamily = font,
-				Glyph = glyphText
-			};
-			return;
-		}
+		else if (view is Image img)
+			img.Source = createFontImageSource();
+		else if (view is ToolbarItem tabItem)
+			tabItem.IconImageSource = createFontImageSource();
 	}
 }

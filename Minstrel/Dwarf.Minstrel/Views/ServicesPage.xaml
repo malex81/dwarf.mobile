@@ -5,20 +5,21 @@
 			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
              x:Class="Dwarf.Minstrel.Views.ServicesPage"
 			 x:DataType="vm:ServicesPageModel"
-             Title="ServicesPage"
-			 Shell.NavBarIsVisible="True">
+             Title="Настройки">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="Add item"
-                 IconImageSource="dotnet_bot.png" />
+		<ToolbarItem Text="О программе"
+					 vh:FAIcons.SolidGlyph="CircleQuestion"
+					 vh:FAIcons.GlyphColor="Blue"
+					 Command="{Binding ShowAppInfoCommand}" />
 	</ContentPage.ToolbarItems>
 	<VerticalStackLayout>
-        <Label 
+		<!--<Label 
             Text="Служебная страничка"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 		<Button vh:FAIcons.SolidGlyph="Question"
 				Command="{Binding ShowAppInfoCommand}"
 				IsEnabled="{Binding EnableInfo}"/>
-		<Button Command="{Binding TestCommand}" Text="Test"/>
+		<Button Command="{Binding TestCommand}" Text="Test"/>-->
 	</VerticalStackLayout>
 </ContentPage>

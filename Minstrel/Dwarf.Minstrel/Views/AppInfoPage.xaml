@@ -5,7 +5,7 @@
 			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
              x:Class="Dwarf.Minstrel.Views.AppInfoPage"
 			 x:DataType="vm:AppInfoPageModel"
-             Title="AppInfoPage">
+             Title="О программе">
 	<VerticalStackLayout>
         <Label 
             Text="Welcome to .NET MAUI!"
