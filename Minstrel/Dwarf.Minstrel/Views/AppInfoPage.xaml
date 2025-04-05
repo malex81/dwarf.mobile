@@ -7,9 +7,15 @@
 			 x:DataType="vm:AppInfoPageModel"
              Title="О программе">
 	<VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+		<CollectionView ItemsSource="{Binding InfoList}" Margin="0, 60">
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="vm:InfoItem">
+					<Grid ColumnDefinitions="*,*">
+						<Label Grid.Column="0" FontAttributes="Bold" FontSize="18" HorizontalOptions="End" Margin="20, 0" Text="{Binding Name}"/>
+						<Label Grid.Column="1" VerticalOptions="Center" Text="{Binding Value}"/>
+					</Grid>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+	</VerticalStackLayout>
 </ContentPage>
