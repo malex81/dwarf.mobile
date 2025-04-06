@@ -7,14 +7,19 @@
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
-    <Color x:Key="Primary">#51FB74</Color>
-    <Color x:Key="PrimaryDark">#607aca</Color>
+	<Color x:Key="Primary">#A65A2E</Color>
+	<Color x:Key="PrimaryDark">#8C3F23</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#38a055</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+	<Color x:Key="Secondary">#80BFBF</Color>
+	<Color x:Key="SecondaryDarkText">#246473</Color>
+	<Color x:Key="Tertiary">#D9965B</Color>
 
-    <Color x:Key="White">White</Color>
+	<Color x:Key="Light">#e0f0fa</Color>
+	<Color x:Key="Light2">#90D9965B</Color>
+	<Color x:Key="Dark">#283030</Color>
+	<Color x:Key="Dark2">#90246473</Color>
+
+	<Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
     <Color x:Key="MidnightBlue">#190649</Color>
     <Color x:Key="OffBlack">#1f1f1f</Color>
@@ -51,7 +56,8 @@
 	<!--<Color x:Key="TabLight">#3080a0</Color>-->
 	<Color x:Key="Danger">#da1010</Color>
 	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource Green}" Dark="{StaticResource Green}"/>
-	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="#ca5a3a" Dark="#a03a2a"/>
+	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="{StaticResource Primary}" Dark="{StaticResource Primary}"/>
+	<toolkit:AppThemeColor x:Key="ActiveButtonBgColor" Light="{StaticResource Secondary}" Dark="{StaticResource Dark}"/>
 
 	<SolidColorBrush x:Key="ButtonTextBrush" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
 	<SolidColorBrush x:Key="SuccessBrush" Color="{toolkit:AppThemeResource SuccessColor}"/>

@@ -14,9 +14,13 @@
 	</ContentPage.Resources>
 	<Grid>
 		<CollectionView ItemsSource="{Binding RadioSet}">
+			<CollectionView.ItemsLayout>
+				<LinearItemsLayout Orientation="Vertical"
+								   ItemSpacing="2" />
+			</CollectionView.ItemsLayout>
 			<CollectionView.ItemTemplate>
 				<DataTemplate x:DataType="vm:RadioItem">
-					<Border Margin="0, 1" Style="{StaticResource borderCard}">
+					<Border Style="{StaticResource borderCard}">
 						<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
 							<Image Grid.RowSpan="2"
 								Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
@@ -44,8 +48,8 @@
 										<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
 											<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
 											<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
-											<Setter Property="Background" Value="{StaticResource Translucent}" />
-											<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}"/>-->
+											<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
+											<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
 										</DataTrigger>
 									</Button.Triggers>
 								</Button>
@@ -60,8 +64,8 @@
 											<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
 											<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
 											<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
-											<!--<Setter Property="Background" Value="{toolkit:AppThemeResource SuccessColor}" />-->
-											<Setter Property="Background" Value="{StaticResource Translucent}" />
+											<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
+											<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
 											<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
 										</DataTrigger>
 									</Button.Triggers>
