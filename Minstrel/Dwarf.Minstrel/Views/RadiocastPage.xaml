@@ -28,9 +28,8 @@
 								HeightRequest="128"
 								WidthRequest="128" />
 							<VerticalStackLayout Grid.Column="1">
-								<Label
+								<Label Style="{StaticResource SubHeadline}"
 									Text="{Binding Title}"
-									FontSize="20"
 									Padding="10, 2" />
 								<Label
 									Text="{Binding ErrorMessage}"

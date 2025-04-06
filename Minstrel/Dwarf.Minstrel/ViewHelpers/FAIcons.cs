@@ -89,7 +89,8 @@ public static class FAIcons
 		FontImageSource createFontImageSource() => new()
 		{
 			FontFamily = font,
-			Glyph = glyphText
+			Glyph = glyphText,
+			Color = GetGlyphColor(view)
 		};
 		if (view is FontImageSource fis)
 		{

@@ -9,7 +9,6 @@
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="О программе"
 					 vh:FAIcons.SolidGlyph="CircleQuestion"
-					 vh:FAIcons.GlyphColor="Blue"
 					 Command="{Binding ShowAppInfoCommand}" />
 	</ContentPage.ToolbarItems>
 	<VerticalStackLayout>
