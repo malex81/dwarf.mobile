@@ -11,7 +11,7 @@ public partial class ServicesPageModel : ObservableObject
 	[RelayCommand]
 	async Task ShowAppInfo()
 	{
-		await Task.Delay(10);
+		//await Task.Delay(10);
 		await Shell.Current.GoToAsync("appInfo");
 	}
 

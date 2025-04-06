@@ -29,6 +29,6 @@
 	</Style>
 
 	<Style TargetType="ToolbarItem">
-		<Setter Property="vh:FAIcons.GlyphColor" Value="{AppThemeBinding Light={StaticResource SecondaryDarkText}, Dark={StaticResource Primary}}"/>
+		<Setter Property="vh:FAIcons.GlyphColor" Value="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource Primary}}"/>
 	</Style>
 </ResourceDictionary>

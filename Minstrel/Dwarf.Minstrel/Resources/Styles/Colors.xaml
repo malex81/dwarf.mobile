@@ -14,7 +14,7 @@
 	<Color x:Key="SecondaryDarkText">#246473</Color>
 	<Color x:Key="Tertiary">#D9965B</Color>
 
-	<Color x:Key="Light">#e0f0fa</Color>
+	<Color x:Key="Light">#daeaf0</Color>
 	<Color x:Key="Light2">#90D9965B</Color>
 	<Color x:Key="Dark">#283030</Color>
 	<Color x:Key="Dark2">#90246473</Color>
@@ -53,11 +53,10 @@
 	<Color x:Key="Translucent">#40708090</Color>
 	<Color x:Key="Translucent2">#80708090</Color>
 	<Color x:Key="Green">#109020</Color>
-	<!--<Color x:Key="TabLight">#3080a0</Color>-->
 	<Color x:Key="Danger">#da1010</Color>
 	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource Green}" Dark="{StaticResource Green}"/>
 	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="{StaticResource Primary}" Dark="{StaticResource Primary}"/>
-	<toolkit:AppThemeColor x:Key="ActiveButtonBgColor" Light="{StaticResource Secondary}" Dark="{StaticResource Dark}"/>
+	<toolkit:AppThemeColor x:Key="ActiveButtonBgColor" Light="{StaticResource Light}" Dark="{StaticResource Dark}"/>
 
 	<SolidColorBrush x:Key="ButtonTextBrush" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
 	<SolidColorBrush x:Key="SuccessBrush" Color="{toolkit:AppThemeResource SuccessColor}"/>

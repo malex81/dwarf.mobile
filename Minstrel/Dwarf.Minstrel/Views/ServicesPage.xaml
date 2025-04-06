@@ -12,11 +12,12 @@
 					 Command="{Binding ShowAppInfoCommand}" />
 	</ContentPage.ToolbarItems>
 	<VerticalStackLayout>
-		<!--<Label 
+		<Label FontSize="30"
             Text="Служебная страничка"
+			TextColor="White"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-		<Button vh:FAIcons.SolidGlyph="Question"
+		<!--<Button vh:FAIcons.SolidGlyph="Question"
 				Command="{Binding ShowAppInfoCommand}"
 				IsEnabled="{Binding EnableInfo}"/>
 		<Button Command="{Binding TestCommand}" Text="Test"/>-->
