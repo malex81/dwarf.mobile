@@ -54,8 +54,8 @@
 
 	<Color x:Key="Translucent">#40708090</Color>
 	<Color x:Key="Translucent2">#80708090</Color>
-	<Color x:Key="Green">#109020</Color>
-	<Color x:Key="Danger">#da1010</Color>
+	<Color x:Key="Green">#009010</Color>
+	<Color x:Key="Danger">#da1000</Color>
 	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource Green}" Dark="{StaticResource Green}"/>
 	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="{StaticResource Primary}" Dark="{StaticResource Primary}"/>
 	<toolkit:AppThemeColor x:Key="ActiveButtonBgColor" Light="{StaticResource Light}" Dark="{StaticResource Dark}"/>

@@ -22,11 +22,13 @@
 				<DataTemplate x:DataType="vm:RadioItem">
 					<Border Style="{StaticResource borderCard}">
 						<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
-							<Image Grid.RowSpan="2"
-								Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
-								Aspect="AspectFit"
-								HeightRequest="128"
-								WidthRequest="128" />
+							<Frame Grid.RowSpan="2" Padding="0">
+								<Image
+									Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+									Aspect="AspectFit"
+									HeightRequest="128"
+									WidthRequest="128" />
+							</Frame>
 							<VerticalStackLayout Grid.Column="1">
 								<Label Style="{StaticResource SubHeadline}"
 									Text="{Binding Title}"
