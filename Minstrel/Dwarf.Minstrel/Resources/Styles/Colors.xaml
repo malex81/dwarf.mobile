@@ -49,6 +49,8 @@
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
 
 	<toolkit:AppThemeColor x:Key="ButtonTextColor" Light="{StaticResource White}" Dark="{StaticResource PrimaryDarkText}"/>
+	<toolkit:AppThemeColor x:Key="NavBarBgColor" Light="{StaticResource Secondary}" Dark="{StaticResource PrimaryDark}"/>
+	<toolkit:AppThemeColor x:Key="NavBarFgColor" Light="{StaticResource Black}" Dark="{StaticResource Gray100}"/>
 
 	<Color x:Key="Translucent">#40708090</Color>
 	<Color x:Key="Translucent2">#80708090</Color>
