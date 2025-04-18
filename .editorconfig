@@ -14,5 +14,9 @@ dotnet_diagnostic.IDE0290.severity = silent
 # Кривое упрощение создания коллекций
 dotnet_diagnostic.IDE0305.severity = silent
 dotnet_diagnostic.IDE0306.severity = silent
+# Упростить имя - глючит с nullable типами
+dotnet_diagnostic.IDE0001.severity = none
 # namespace не соответсвует пути
 dotnet_diagnostic.IDE0130.severity = silent
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = silent	
