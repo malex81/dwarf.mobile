@@ -23,6 +23,8 @@ public enum FASolidGlyphs
 	ArrowLeft = 0xf060,
 	ArrowUp = 0xf062,
 	ArrowDown = 0xf063,
+	Trash = 0xf1f8,
+	TrashCan = 0xf2ed,
 }
 
 public enum FARegularGlyphs
@@ -36,7 +38,8 @@ public enum FARegularGlyphs
 	Bookmark = 0xf02e,
 	CircleQuestion = 0xf059,
 	CircleXMark = 0xf057,
-	Lightbulb = 0xf0eb
+	Lightbulb = 0xf0eb,
+	TrashCan = 0xf2ed,
 }
 
 public static class FAIcons
@@ -76,7 +79,7 @@ public static class FAIcons
 		var fis = view switch
 		{
 			Image img => img.Source as FontImageSource,
-			ToolbarItem tabItem => tabItem.IconImageSource as FontImageSource,
+			MenuItem tabItem => tabItem.IconImageSource as FontImageSource,
 			_ => null
 		};
 		if (fis != null)
@@ -106,7 +109,7 @@ public static class FAIcons
 		}
 		else if (view is Image img)
 			img.Source = createFontImageSource();
-		else if (view is ToolbarItem tabItem)
+		else if (view is MenuItem tabItem)
 			tabItem.IconImageSource = createFontImageSource();
 	}
 }

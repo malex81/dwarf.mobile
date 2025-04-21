@@ -81,6 +81,13 @@ public partial class RadioItem : ObservableObject, IDisposable
 			mediaBox.PlayURL(StreamUrl);
 	}
 
+	[RelayCommand]
+	async Task Delete()
+	{
+		await Task.Delay(1000);
+		//await DisplayAlert("Alert", "You have been alerted", "OK");
+	}
+
 	public void Dispose()
 	{
 		dispSelf.Dispose();
