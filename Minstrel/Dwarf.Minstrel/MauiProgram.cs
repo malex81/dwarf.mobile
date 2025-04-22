@@ -33,6 +33,7 @@ public static class MauiProgram
 
 		builder.Services.AddBatch<Data.Services>()
 			.AddBatch<MediaEngine.Services>()
+			.AddBatch<ViewHelpers.Services>()
 			.AddBatch<Views.Services>()
 			.AddBatch<ViewModels.Services>();
 		return builder.Build();

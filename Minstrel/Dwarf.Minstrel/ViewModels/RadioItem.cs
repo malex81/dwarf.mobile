@@ -5,6 +5,7 @@ using Dwarf.Framework.SystemExtension;
 using Dwarf.Minstrel.Data.Tables;
 using Dwarf.Minstrel.Helpers;
 using Dwarf.Minstrel.MediaEngine;
+using Dwarf.Minstrel.ViewHelpers;
 using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;
@@ -16,11 +17,13 @@ public partial class RadioItem : ObservableObject, IDisposable
 	private readonly DisposableList dispSelf = [];
 	private readonly RadioSource radioSource;
 	private readonly MediaBox mediaBox;
+	private readonly IAlertService alertService;
 
-	public RadioItem(RadioSource radioSource, MediaBox mediaBox)
+	public RadioItem(RadioSource radioSource, MediaBox mediaBox, IAlertService alertService)
 	{
 		this.radioSource = radioSource;
 		this.mediaBox = mediaBox;
+		this.alertService = alertService;
 
 		//UpdateState();
 		Dispatcher.GetForCurrentThread()!.DispatchDelayed(TimeSpan.FromMilliseconds(100), UpdateState);
@@ -84,8 +87,9 @@ public partial class RadioItem : ObservableObject, IDisposable
 	[RelayCommand]
 	async Task Delete()
 	{
-		await Task.Delay(1000);
-		//await DisplayAlert("Alert", "You have been alerted", "OK");
+		//await Task.Delay(1000);
+		if (await alertService.ShowAlert("Удаление", "Удалять?", "Да", "Не"))
+			await alertService.ShowAlert("Удаление", "Ну все - не слушать тебе больше эту лабуду", "OK");
 	}
 
 	public void Dispose()
