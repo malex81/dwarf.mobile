@@ -14,9 +14,9 @@
 	<VerticalStackLayout>
 		<Label FontSize="30"
             Text="Служебная страничка"
-			TextColor="White"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+		<!--<Image Source="rus_radio.webp"/>-->
 		<!--<Button vh:FAIcons.SolidGlyph="Question"
 				Command="{Binding ShowAppInfoCommand}"
 				IsEnabled="{Binding EnableInfo}"/>

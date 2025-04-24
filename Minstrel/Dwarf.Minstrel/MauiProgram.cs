@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Framework.DIHelpers;
 using Dwarf.Minstrel.Views;
 using Microsoft.Extensions.Logging;
@@ -36,6 +37,9 @@ public static class MauiProgram
 			.AddBatch<ViewHelpers.Services>()
 			.AddBatch<Views.Services>()
 			.AddBatch<ViewModels.Services>();
+
+		builder.Services.AddSingleton<IMessenger, WeakReferenceMessenger>();
+		
 		return builder.Build();
 	}
 

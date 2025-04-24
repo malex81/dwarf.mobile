@@ -32,9 +32,28 @@ public class MinstrelDatabase
 		}
 	}
 
+	async Task Disconnect()
+	{
+		if (db is null) return;
+		await db.CloseAsync();
+		db = null;
+	}
+
+	public async Task RecreateDb()
+	{
+		await Disconnect();
+		File.Delete(DBConfig.DatabasePath);
+	}
+
 	public async Task<RadioSource[]> LoadRadioSources()
 	{
 		await Init();
 		return await db.Table<RadioSource>().ToArrayAsync();
+	}
+
+	public async Task RemoveRadioSource(RadioSource radioSource)
+	{
+		if (db is null) return;
+		await db.DeleteAsync(radioSource);
 	}
 }
