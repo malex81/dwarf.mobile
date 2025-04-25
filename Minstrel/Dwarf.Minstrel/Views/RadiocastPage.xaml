@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
 			 xmlns:vm="clr-namespace:Dwarf.Minstrel.ViewModels"
 			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
              x:Class="Dwarf.Minstrel.Views.RadiocastPage"
@@ -13,100 +14,105 @@
 		</ResourceDictionary>
 	</ContentPage.Resources>
 	<Grid>
-		<CollectionView ItemsSource="{Binding RadioSet}">
-			<CollectionView.ItemsLayout>
-				<LinearItemsLayout Orientation="Vertical"
+		<RefreshView
+				windows:RefreshView.RefreshPullDirection="TopToBottom"
+				IsRefreshing="{Binding IsRefreshing}"
+				Command="{Binding RefreshCommand}">
+			<CollectionView ItemsSource="{Binding RadioSet}">
+				<CollectionView.ItemsLayout>
+					<LinearItemsLayout Orientation="Vertical"
 								   ItemSpacing="2" />
-			</CollectionView.ItemsLayout>
-			<CollectionView.ItemTemplate>
-				<DataTemplate x:DataType="vm:RadioItem">
-					<SwipeView>
-						<SwipeView.RightItems>
-							<SwipeItem Text="Удалить"
+				</CollectionView.ItemsLayout>
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="vm:RadioItem">
+						<SwipeView>
+							<SwipeView.RightItems>
+								<SwipeItem Text="Удалить"
 									   vh:FAIcons.SolidGlyph="TrashCan"
 									   Command="{Binding DeleteCommand}"
 									   BackgroundColor="{StaticResource Danger}">
-							</SwipeItem>
-						</SwipeView.RightItems>
-						<Border Style="{StaticResource borderCard}">
-							<FlyoutBase.ContextFlyout>
-								<MenuFlyout>
-									<MenuFlyoutItem Text="Удалить"
+								</SwipeItem>
+							</SwipeView.RightItems>
+							<Border Style="{StaticResource borderCard}">
+								<FlyoutBase.ContextFlyout>
+									<MenuFlyout>
+										<MenuFlyoutItem Text="Удалить"
 													vh:FAIcons.SolidGlyph="TrashCan"
 													vh:FAIcons.GlyphColor="{StaticResource Danger}"
 													Command="{Binding DeleteCommand}" />
-								</MenuFlyout>
-							</FlyoutBase.ContextFlyout>
-							<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
-								<Frame Grid.RowSpan="2" Padding="0">
-									<Image
+									</MenuFlyout>
+								</FlyoutBase.ContextFlyout>
+								<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
+									<Frame Grid.RowSpan="2" Padding="0">
+										<Image
 										Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
 										Aspect="AspectFit"
 										HeightRequest="128"
 										WidthRequest="128" />
-								</Frame>
-								<VerticalStackLayout Grid.Column="1">
-									<Label Style="{StaticResource SubHeadline}"
+									</Frame>
+									<VerticalStackLayout Grid.Column="1">
+										<Label Style="{StaticResource SubHeadline}"
 										Text="{Binding Title}"
 										Padding="10, 2" />
-									<Label
+										<Label
 										Text="{Binding ErrorMessage}"
 										TextColor="{StaticResource Danger}"
 										FontSize="12"
 										Padding="10, 0" />
-								</VerticalStackLayout>
-								<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
-									<Button toolkit:DockLayout.DockPosition="Left"
+									</VerticalStackLayout>
+									<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
+										<Button toolkit:DockLayout.DockPosition="Left"
 										VerticalOptions="End"
 										Style="{StaticResource iconButton}"
 										Command="{Binding TogglePlayingCommand}"
 										vh:FAIcons.RegularGlyph="CirclePlay">
-										<Button.Triggers>
-											<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
-												<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
-												<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
-												<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
-												<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
-											</DataTrigger>
-										</Button.Triggers>
-									</Button>
-									<Button toolkit:DockLayout.DockPosition="Right"
+											<Button.Triggers>
+												<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
+													<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
+													<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
+													<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
+													<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
+												</DataTrigger>
+											</Button.Triggers>
+										</Button>
+										<Button toolkit:DockLayout.DockPosition="Right"
 										HorizontalOptions="End"
 										VerticalOptions="End"
 										Style="{StaticResource iconButton}"
 										Command="{Binding ToggleFavoritesCommand}"
 										vh:FAIcons.RegularGlyph="Heart">
-										<Button.Triggers>
-											<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
-												<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
-												<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
-												<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
-												<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
-												<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
-												<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
-											</DataTrigger>
-										</Button.Triggers>
-									</Button>
-									<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
+											<Button.Triggers>
+												<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
+													<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
+													<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
+													<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
+													<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
+													<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
+													<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
+												</DataTrigger>
+											</Button.Triggers>
+										</Button>
+										<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
 										   vh:FAIcons.GlyphColor="{StaticResource Danger}"
 										   Style="{StaticResource iconImage}"
 										   IsVisible="{Binding ShowLoading}"
 										   VerticalOptions="End"
 										   HorizontalOptions="Start"
 										   Margin="10, 0">
-										<Image.Behaviors>
-											<vh:AnimationBehavior>
-												<vh:PulseAnimation/>
-											</vh:AnimationBehavior>
-										</Image.Behaviors>
-									</Image>
-								</toolkit:DockLayout>
-							</Grid>
-						</Border>
-					</SwipeView>
-				</DataTemplate>
-			</CollectionView.ItemTemplate>
-		</CollectionView>
+											<Image.Behaviors>
+												<vh:AnimationBehavior>
+													<vh:PulseAnimation/>
+												</vh:AnimationBehavior>
+											</Image.Behaviors>
+										</Image>
+									</toolkit:DockLayout>
+								</Grid>
+							</Border>
+						</SwipeView>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+		</RefreshView>
 		<toolkit:MediaElement IsVisible="False"/>
 	</Grid>
 </ContentPage>
