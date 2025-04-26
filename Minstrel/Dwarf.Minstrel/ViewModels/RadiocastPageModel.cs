@@ -3,10 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Framework.SystemExtension;
 using Dwarf.Minstrel.Data;
+using Dwarf.Minstrel.Messaging;
 
 namespace Dwarf.Minstrel.ViewModels;
 
-public partial class RadiocastPageModel : ObservableObject
+public partial class RadiocastPageModel : ObservableObject, IRecipient<RadiocastMessage>
 {
 	private readonly MinstrelDatabase db;
 	private readonly IRadioItemFactory itemFactory;
@@ -29,10 +30,10 @@ public partial class RadiocastPageModel : ObservableObject
 	async Task LoadData()
 	{
 		IsRefreshing = true;
-		await Task.Delay(1000);
+		//await Task.Delay(1000);
 		var radioList = await db.LoadRadioSources();
 		RadioSet.DisposeAll();
-		RadioSet = radioList.Select(r => itemFactory.Create(r)).ToArray();
+		RadioSet = radioList.Select(itemFactory.Create).ToArray();
 		IsRefreshing = false;
 	}
 
@@ -40,5 +41,11 @@ public partial class RadiocastPageModel : ObservableObject
 	async Task Refresh()
 	{
 		await LoadData();
+	}
+
+	public void Receive(RadiocastMessage message)
+	{
+		if (message.Command == RadiocastCommandKind.Refresh)
+			_ = Refresh();
 	}
 }

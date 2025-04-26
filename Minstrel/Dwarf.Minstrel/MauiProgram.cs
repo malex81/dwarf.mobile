@@ -36,9 +36,8 @@ public static class MauiProgram
 			.AddBatch<MediaEngine.Services>()
 			.AddBatch<ViewHelpers.Services>()
 			.AddBatch<Views.Services>()
-			.AddBatch<ViewModels.Services>();
-
-		builder.Services.AddSingleton<IMessenger, WeakReferenceMessenger>();
+			.AddBatch<ViewModels.Services>()
+			.AddBatch<Messaging.Services>();
 		
 		return builder.Build();
 	}

@@ -36,6 +36,9 @@
 							<Border Style="{StaticResource borderCard}">
 								<FlyoutBase.ContextFlyout>
 									<MenuFlyout>
+										<MenuFlyoutItem Text="Обновить"
+													vh:FAIcons.SolidGlyph="RotateRight"
+													Command="{Binding RefreshCommand}" />
 										<MenuFlyoutItem Text="Удалить"
 													vh:FAIcons.SolidGlyph="TrashCan"
 													vh:FAIcons.GlyphColor="{StaticResource Danger}"

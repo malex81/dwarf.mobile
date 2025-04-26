@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Framework.SystemExtension;
 using Dwarf.Minstrel.Data;
 using Dwarf.Minstrel.Data.Tables;
 using Dwarf.Minstrel.Helpers;
 using Dwarf.Minstrel.MediaEngine;
+using Dwarf.Minstrel.Messaging;
 using Dwarf.Minstrel.ViewHelpers;
 using System.ComponentModel;
 
@@ -20,13 +22,15 @@ public partial class RadioItem : ObservableObject, IDisposable
 	private readonly MinstrelDatabase db;
 	private readonly MediaBox mediaBox;
 	private readonly IAlertService alertService;
+	private readonly IMessenger messenger;
 
-	public RadioItem(RadioSource radioSource, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService)
+	public RadioItem(RadioSource radioSource, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
 	{
 		this.radioSource = radioSource;
 		this.db = db;
 		this.mediaBox = mediaBox;
 		this.alertService = alertService;
+		this.messenger = messenger;
 
 		//UpdateState();
 		Dispatcher.GetForCurrentThread()!.DispatchDelayed(TimeSpan.FromMilliseconds(100), UpdateState);
@@ -93,6 +97,12 @@ public partial class RadioItem : ObservableObject, IDisposable
 		await Task.Delay(200);
 		//if (await alertService.ShowAlert("Удаление", "Удалять?", "Да", "Не"))
 		//	await alertService.ShowAlert("Удаление", "Ну все - не слушать тебе больше эту лабуду", "OK");
+	}
+
+	[RelayCommand]
+	void Refresh()
+	{
+		messenger.Send(RadiocastMessage.Refresh);
 	}
 
 	public void Dispose()
