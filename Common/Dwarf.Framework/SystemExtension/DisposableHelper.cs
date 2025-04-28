@@ -28,7 +28,7 @@ public static partial class DisposableHelper
 
 	public static IDisposable FromAction(Action action, bool obligatory = true) => new Internals.DisposableAction(action, obligatory);
 	public static IDisposable FromAction(Action<IDisposable> action, bool obligatory = true) => new Internals.DisposableAction(action, obligatory);
-	public static void DisposeAll<T>(this IEnumerable<T> list) => list?.OfType<IDisposable>().ForEach(d => d.Dispose());
+	public static void DisposeAll<T>(this IEnumerable<T>? list) => list?.OfType<IDisposable>().ForEach(d => d.Dispose());
 	public static void AddAction(this ICollection<IDisposable> dispList, Action action, bool obligatory = true) => dispList.Add(FromAction(action, obligatory));
 	public static IDisposable ToDisposable(this IEnumerable<IDisposable> collection) => new DisposableList(collection);
 	public static T TryAdd<T>(this ICollection<IDisposable> dispList, T elem)
