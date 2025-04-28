@@ -30,6 +30,7 @@ public enum FASolidGlyphs
 	RotateRight = 0xf2f9,
 	ArrowRotateRight = 0xf01e,
 	Repeat = 0xf363,
+	Database = 0xf1c0
 }
 
 public enum FARegularGlyphs

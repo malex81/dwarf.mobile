@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
 			 xmlns:vm="clr-namespace:Dwarf.Minstrel.ViewModels"
 			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
              x:Class="Dwarf.Minstrel.Views.ServicesPage"
@@ -12,14 +14,35 @@
 					 Command="{Binding ShowAppInfoCommand}" />
 	</ContentPage.ToolbarItems>
 	<VerticalStackLayout>
-		<Label FontSize="30"
-            Text="Служебная страничка"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-		<!--<Image Source="rus_radio.webp"/>-->
-		<!--<Button vh:FAIcons.SolidGlyph="Question"
-				Command="{Binding ShowAppInfoCommand}"
-				IsEnabled="{Binding EnableInfo}"/>
-		<Button Command="{Binding TestCommand}" Text="Test"/>-->
+		<CollectionView ItemsSource="{Binding ServiceActions}">
+			<CollectionView.ItemsLayout>
+				<LinearItemsLayout Orientation="Vertical"
+					   ItemSpacing="2" />
+			</CollectionView.ItemsLayout>
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="vm:ServiceActionModel">
+					<Border Style="{StaticResource borderCard}">
+						<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
+							<Frame Grid.RowSpan="2" Padding="0">
+								<Image
+									Source="{Binding Icon}"
+									Aspect="AspectFit"
+									HeightRequest="64"
+									WidthRequest="64" />
+							</Frame>
+							<VerticalStackLayout Grid.Column="1">
+								<Label Style="{StaticResource SubHeadline}"
+									Text="{Binding Title}"
+									Padding="10, 2" />
+								<Label
+									Text="{Binding Description}"
+									FontSize="12"
+									Padding="10, 0" />
+							</VerticalStackLayout>
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
 	</VerticalStackLayout>
 </ContentPage>
