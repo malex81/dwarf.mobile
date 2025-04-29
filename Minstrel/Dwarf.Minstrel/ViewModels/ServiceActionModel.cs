@@ -12,8 +12,8 @@ public partial class ServiceActionModel : ObservableObject
 	[ObservableProperty]
 	public partial ICommand Command { get; set; }
 	[ObservableProperty]
-	public partial ImageSource Icon { get; set; }
+	public partial object Icon { get; set; }
 	[ObservableProperty]
-	public partial ImageSource SecondaryIcon { get; set; }
+	public partial object SecondaryIcon { get; set; }
 
 }

@@ -13,6 +13,10 @@
 					 vh:FAIcons.SolidGlyph="CircleQuestion"
 					 Command="{Binding ShowAppInfoCommand}" />
 	</ContentPage.ToolbarItems>
+	<ContentPage.Resources>
+		<vh:ImageSourceConverter x:Key="mainIconConverter" GlyphColor="{toolkit:AppThemeResource NavBarBgColor}"/>
+		<vh:ImageSourceConverter x:Key="secondaryIconConverter" GlyphColor="{StaticResource Danger}"/>
+	</ContentPage.Resources>
 	<VerticalStackLayout>
 		<CollectionView ItemsSource="{Binding ServiceActions}">
 			<CollectionView.ItemsLayout>
@@ -22,14 +26,21 @@
 			<CollectionView.ItemTemplate>
 				<DataTemplate x:DataType="vm:ServiceActionModel">
 					<Border Style="{StaticResource borderCard}">
-						<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
-							<Frame Grid.RowSpan="2" Padding="0">
+						<Grid ColumnDefinitions="auto, *">
+							<Frame Padding="0">
 								<Image
-									Source="{Binding Icon}"
+									Source="{Binding Icon, Converter={StaticResource mainIconConverter}}"
 									Aspect="AspectFit"
 									HeightRequest="64"
 									WidthRequest="64" />
 							</Frame>
+							<Image
+								Source="{Binding SecondaryIcon, Converter={StaticResource secondaryIconConverter}}"
+								VerticalOptions="End"
+								HorizontalOptions="End"
+								Aspect="AspectFit"
+								HeightRequest="24"
+								WidthRequest="24" />
 							<VerticalStackLayout Grid.Column="1">
 								<Label Style="{StaticResource SubHeadline}"
 									Text="{Binding Title}"

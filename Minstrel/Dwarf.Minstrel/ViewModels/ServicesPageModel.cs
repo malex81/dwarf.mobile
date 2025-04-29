@@ -28,7 +28,8 @@ public partial class ServicesPageModel : ObservableObject
 		ServiceActions = [
 			new() {
 				Title = "Очистить базу данных",
-				Icon = new FontImageSource().WithAttached(FAIcons.SolidGlyphProperty, FASolidGlyphs.Database).WithBigSize(),
+				Icon = new FontIconDescriptor(FASolidGlyphs.Database),
+				SecondaryIcon = new FontIconDescriptor(FASolidGlyphs.Repeat),
 				Command = ClearDbCommand
 			}
 		];

@@ -52,7 +52,7 @@
 	<toolkit:AppThemeColor x:Key="NavBarBgColor" Light="{StaticResource Secondary}" Dark="{StaticResource PrimaryDark}"/>
 	<toolkit:AppThemeColor x:Key="NavBarFgColor" Light="{StaticResource Black}" Dark="{StaticResource Gray100}"/>
 
-	<Color x:Key="Translucent">#40708090</Color>
+	<Color x:Key="Translucent">#a0708090</Color>
 	<Color x:Key="Translucent2">#80708090</Color>
 	<Color x:Key="Green">#009010</Color>
 	<Color x:Key="Danger">#da1000</Color>
