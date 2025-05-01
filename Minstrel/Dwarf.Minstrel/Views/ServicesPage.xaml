@@ -14,7 +14,8 @@
 					 Command="{Binding ShowAppInfoCommand}" />
 	</ContentPage.ToolbarItems>
 	<ContentPage.Resources>
-		<vh:ImageSourceConverter x:Key="mainIconConverter" GlyphColor="{toolkit:AppThemeResource NavBarBgColor}"/>
+		<!--<vh:ImageSourceConverter x:Key="mainIconConverter" GlyphColor="{toolkit:AppThemeResource NavBarBgColor}"/>-->
+		<vh:ImageSourceConverter x:Key="mainIconConverter" GlyphColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource TertiaryDark}}"/>
 		<vh:ImageSourceConverter x:Key="secondaryIconConverter" GlyphColor="{StaticResource Danger}"/>
 	</ContentPage.Resources>
 	<VerticalStackLayout>
