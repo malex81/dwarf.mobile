@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Dwarf.Minstrel.Views.ActionFrame">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+			 xmlns:vm="using:Dwarf.Minstrel.ViewModels"
+			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
+			 xmlns:local="using:Dwarf.Minstrel.Views"
+			 x:Class="Dwarf.Minstrel.Views.ActionFrame"
+			 x:DataType="local:ActionFrame"
+			 x:Name="self">
+	<Border BindingContext="{x:Reference self}"
+			Style="{StaticResource borderCard}">
+		<Grid ColumnDefinitions="auto, *">
+			<Frame Padding="0">
+				<Image Source="{Binding Icon}"
+					   Aspect="AspectFit"
+					   HeightRequest="64"
+					   WidthRequest="64" />
+			</Frame>
+			<Image Source="{Binding SecondaryIcon}"
+ 				   VerticalOptions="End"
+				   HorizontalOptions="End"
+				   Aspect="AspectFit"
+				   HeightRequest="24"
+				   WidthRequest="24" />
+			<VerticalStackLayout Grid.Column="1">
+				<Label Style="{StaticResource SubHeadline}"
+					   Text="{Binding Title}"
+					   Padding="10, 2" />
+				<Label Text="{Binding Description}"
+					   FontSize="12"
+					   Padding="10, 0" />
+			</VerticalStackLayout>
+		</Grid>
+	</Border>
 </ContentView>
