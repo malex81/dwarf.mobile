@@ -32,6 +32,13 @@
 					   FontSize="12"
 					   Padding="10, 0" />
 			</VerticalStackLayout>
+			<Image vh:FAIcons.SolidGlyph="ChevronRight"
+				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource BgIconColor}"
+				   Grid.Column="1"
+				   HorizontalOptions="End"
+				   VerticalOptions="Center"
+				   Margin="6, 0"
+				   HeightRequest="24"/>
 		</Grid>
 	</Border>
 </ContentView>

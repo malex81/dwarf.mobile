@@ -19,6 +19,11 @@ public partial class ActionFrame : ContentView
 	public ActionFrame()
 	{
 		InitializeComponent();
-		Title = "asd";
+	}
+
+	partial void OnIconChanged(ImageSource? value)
+	{
+		if (value is FontImageSource fis)
+			fis.Size = 64;
 	}
 }

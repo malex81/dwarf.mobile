@@ -30,7 +30,15 @@ public enum FASolidGlyphs
 	RotateRight = 0xf2f9,
 	ArrowRotateRight = 0xf01e,
 	Repeat = 0xf363,
-	Database = 0xf1c0
+	Database = 0xf1c0,
+	ChevronUp = 0xf077,
+	ChevronDown = 0xf078,
+	ChevronRight = 0xf054,
+	ChevronLeft = 0xf053,
+	CircleChevronUp = 0xf139,
+	CircleChevronDown = 0xf13a,
+	CircleChevronRight = 0xf138,
+	CircleChevronLeft = 0xf137,
 }
 
 public enum FARegularGlyphs
