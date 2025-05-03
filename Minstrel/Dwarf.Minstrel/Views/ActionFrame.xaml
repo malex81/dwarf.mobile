@@ -9,8 +9,22 @@
 			 x:Class="Dwarf.Minstrel.Views.ActionFrame"
 			 x:DataType="local:ActionFrame"
 			 x:Name="self">
+	<ContentView.Resources>
+		<ResourceDictionary>
+			<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+			<Style TargetType="Image" x:Key="imageIndicator">
+				<Setter Property="HeightRequest" Value="24"/>
+				<Setter Property="Margin" Value="6, 0"/>
+				<Setter Property="VerticalOptions" Value="Center"/>
+				<Setter Property="HorizontalOptions" Value="End"/>
+			</Style>
+		</ResourceDictionary>
+	</ContentView.Resources>
 	<Border BindingContext="{x:Reference self}"
 			Style="{StaticResource borderCard}">
+		<Border.GestureRecognizers>
+			<TapGestureRecognizer Tapped="OnFrameTapped"/>
+		</Border.GestureRecognizers>
 		<Grid ColumnDefinitions="auto, *">
 			<Frame Padding="0">
 				<Image Source="{Binding Icon}"
@@ -19,11 +33,11 @@
 					   WidthRequest="64" />
 			</Frame>
 			<Image Source="{Binding SecondaryIcon}"
- 				   VerticalOptions="End"
-				   HorizontalOptions="End"
 				   Aspect="AspectFit"
 				   HeightRequest="24"
 				   WidthRequest="24" />
+			<!--VerticalOptions="End"
+			HorizontalOptions="End"-->
 			<VerticalStackLayout Grid.Column="1">
 				<Label Style="{StaticResource SubHeadline}"
 					   Text="{Binding Title}"
@@ -34,11 +48,20 @@
 			</VerticalStackLayout>
 			<Image vh:FAIcons.SolidGlyph="ChevronRight"
 				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource BgIconColor}"
+				   IsVisible="{Binding IsExecuted, Converter={StaticResource InvertedBoolConverter}}"
 				   Grid.Column="1"
-				   HorizontalOptions="End"
-				   VerticalOptions="Center"
-				   Margin="6, 0"
-				   HeightRequest="24"/>
+				   Style="{StaticResource imageIndicator}"/>
+			<Image vh:FAIcons.SolidGlyph="Gear"
+				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource ButtonBgColor}"
+				   Grid.Column="1"
+				   IsVisible="{Binding IsExecuted}"
+				   Style="{StaticResource imageIndicator}">
+				<Image.Behaviors>
+					<vh:AnimationBehavior>
+						<vh:RotateAnimation/>
+					</vh:AnimationBehavior>
+				</Image.Behaviors>
+			</Image>
 		</Grid>
 	</Border>
 </ContentView>

@@ -15,24 +15,12 @@ public partial class ServicesPageModel : ObservableObject
 	private readonly IAlertService alertService;
 	private readonly IMessenger messenger;
 
-	[ObservableProperty]
-	public partial ServiceActionModel[]? ServiceActions { get; set; }
-
 	public ServicesPageModel(MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
 	{
 		this.db = db;
 		this.mediaBox = mediaBox;
 		this.alertService = alertService;
 		this.messenger = messenger;
-
-		ServiceActions = [
-			new() {
-				Title = "Очистить базу данных",
-				Icon = new FontIconDescriptor(FASolidGlyphs.Database),
-				SecondaryIcon = new FontIconDescriptor(FASolidGlyphs.Repeat),
-				Command = ClearDbCommand
-			}
-		];
 	}
 
 	[RelayCommand]
@@ -45,6 +33,6 @@ public partial class ServicesPageModel : ObservableObject
 	async Task ClearDb()
 	{
 		if (await alertService.ShowAlert("Пересоздание БД", "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
-			await Task.Delay(200);
+			await Task.Delay(2000);
 	}
 }

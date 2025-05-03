@@ -50,14 +50,17 @@
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
 
 	<toolkit:AppThemeColor x:Key="ButtonTextColor" Light="{StaticResource White}" Dark="{StaticResource PrimaryDarkText}"/>
+	<toolkit:AppThemeColor x:Key="ButtonBgColor" Light="{StaticResource Primary}" Dark="{StaticResource Secondary}"/>
 	<toolkit:AppThemeColor x:Key="NavBarBgColor" Light="{StaticResource Secondary}" Dark="{StaticResource PrimaryDark}"/>
 	<toolkit:AppThemeColor x:Key="NavBarFgColor" Light="{StaticResource Black}" Dark="{StaticResource Gray100}"/>
+	<toolkit:AppThemeColor x:Key="LabelColor" Light="{StaticResource Black}" Dark="{StaticResource Gray100}"/>
 
 	<Color x:Key="Translucent">#a0708090</Color>
 	<Color x:Key="Translucent2">#80708090</Color>
 	<Color x:Key="Green">#009010</Color>
+	<Color x:Key="GreenLight">#20dd50</Color>
 	<Color x:Key="Danger">#da1000</Color>
-	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource Green}" Dark="{StaticResource Green}"/>
+	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource Green}" Dark="{StaticResource GreenLight}"/>
 	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="{StaticResource Primary}" Dark="{StaticResource Primary}"/>
 	<toolkit:AppThemeColor x:Key="ActiveButtonBgColor" Light="{StaticResource Light}" Dark="{StaticResource Dark}"/>
 	<toolkit:AppThemeColor x:Key="BgIconColor" Light="{StaticResource Tertiary}" Dark="{StaticResource TertiaryDark}"/>

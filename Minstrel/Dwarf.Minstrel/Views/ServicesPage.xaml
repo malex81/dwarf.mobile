@@ -21,13 +21,18 @@
 	</ContentPage.Resources>
 	<VerticalStackLayout>
 		<local:ActionFrame Title="Очистить базу данных"
-						   Description="Полное пересоздание базы данных">
-			<local:ActionFrame.Icon>
+						   Description="Полное пересоздание базы данных"
+						   Command="{Binding ClearDbCommand}">
+			<local:ActionFrame.Icons>
 				<FontImageSource vh:FAIcons.SolidGlyph="Database" Color="{toolkit:AppThemeResource BgIconColor}"/>
-			</local:ActionFrame.Icon>
-			<local:ActionFrame.SecondaryIcon>
 				<FontImageSource vh:FAIcons.SolidGlyph="Rotate" Color="{StaticResource Danger}"/>
-			</local:ActionFrame.SecondaryIcon>
+			</local:ActionFrame.Icons>
+		</local:ActionFrame>
+		<local:ActionFrame Title="test">
+			<local:ActionFrame.Icons>
+				<FontImageSource vh:FAIcons.SolidGlyph="Cloud" Color="{toolkit:AppThemeResource BgIconColor}"/>
+				<FontImageSource vh:FAIcons.SolidGlyph="ArrowDown" Color="{toolkit:AppThemeResource SuccessColor}"/>
+			</local:ActionFrame.Icons>
 		</local:ActionFrame>
 	</VerticalStackLayout>
 </ContentPage>

@@ -39,6 +39,17 @@ public enum FASolidGlyphs
 	CircleChevronDown = 0xf13a,
 	CircleChevronRight = 0xf138,
 	CircleChevronLeft = 0xf137,
+	CircleNotch = 0xf1ce,
+	Check = 0xf00c,
+	CheckDouble = 0xf560,
+	SquareCheck = 0xf14a,
+	CircleCheck = 0xf058,
+	ListCheck = 0xf0ae,
+	Cloud = 0xf0c2,
+	CloudArrowUp = 0xf0ee,
+	CloudArrowDown = 0xf0ed,
+	Upload = 0xf093,
+	Download = 0xf019
 }
 
 public enum FARegularGlyphs
@@ -54,6 +65,8 @@ public enum FARegularGlyphs
 	CircleXMark = 0xf057,
 	Lightbulb = 0xf0eb,
 	TrashCan = 0xf2ed,
+	SquareCheck = 0xf14a,
+	CircleCheck = 0xf058,
 }
 
 public static class FAIcons
