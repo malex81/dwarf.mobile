@@ -40,6 +40,7 @@ public partial class ActionFrame : ContentView
 			fis.Size = 64;
 	}
 
+	// https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.visualelement.unloaded?view=net-maui-8.0
 	private readonly DisposableList commandDisp = [];
 	partial void OnCommandChanged(ICommand? value)
 	{
@@ -55,6 +56,8 @@ public partial class ActionFrame : ContentView
 
 	private void AsyncCmd_PropertyChanged(object? sender, PropertyChangedEventArgs e)
 	{
+		if (e.PropertyName == nameof(IAsyncRelayCommand.IsRunning))
+			OnPropertyChanged(nameof(IsExecuted));
 	}
 
 	private async void OnFrameTapped(object sender, TappedEventArgs e)
@@ -64,11 +67,8 @@ public partial class ActionFrame : ContentView
 		if (Command is IAsyncRelayCommand asyncCmd)
 		{
 			await asyncCmd.ExecuteAsync(CommandParameter);
-
-			return;
 		}
-
-		OnPropertyChanged(nameof(IsExecuted));
+		else Command?.Execute(CommandParameter);
 	}
 
 	#region IconsList
