@@ -28,6 +28,7 @@ internal static class InitData
 		yield return new()
 		{
 			Title = "БИМ Радио",
+			Logo = await ResourceHelper.LoadResource("bim_radio.png"),
 			StreamUrl = "https://av.bimradio.ru/bim_mp3_128k"
 		};
 	}

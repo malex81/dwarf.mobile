@@ -33,6 +33,8 @@ public partial class ServicesPageModel : ObservableObject
 	async Task ClearDb()
 	{
 		if (await alertService.ShowAlert("Пересоздание БД", "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
-			await Task.Delay(2000);
+		{
+			await db.RecreateDb();
+		}
 	}
 }

@@ -34,10 +34,14 @@
 			</Frame>
 			<Image Source="{Binding SecondaryIcon}"
 				   Aspect="AspectFit"
+				   VerticalOptions="End"
+				   HorizontalOptions="End"
 				   HeightRequest="24"
 				   WidthRequest="24" />
-			<!--VerticalOptions="End"
-			HorizontalOptions="End"-->
+			<!--
+			VerticalOptions="End"
+			HorizontalOptions="End"
+			-->
 			<VerticalStackLayout Grid.Column="1">
 				<Label Style="{StaticResource SubHeadline}"
 					   Text="{Binding Title}"

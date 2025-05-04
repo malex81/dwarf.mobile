@@ -30,7 +30,6 @@ public partial class RadiocastPageModel : ObservableObject, IRecipient<Radiocast
 	async Task LoadData()
 	{
 		IsRefreshing = true;
-		//await Task.Delay(1000);
 		var radioList = await db.LoadRadioSources();
 		RadioSet.DisposeAll();
 		RadioSet = radioList.Select(itemFactory.Create).ToArray();

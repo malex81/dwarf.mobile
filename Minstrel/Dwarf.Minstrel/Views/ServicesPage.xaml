@@ -30,8 +30,8 @@
 		</local:ActionFrame>
 		<local:ActionFrame Title="test">
 			<local:ActionFrame.Icons>
-				<FontImageSource vh:FAIcons.SolidGlyph="Cloud" Color="{toolkit:AppThemeResource BgIconColor}"/>
-				<FontImageSource vh:FAIcons.SolidGlyph="ArrowDown" Color="{toolkit:AppThemeResource SuccessColor}"/>
+				<FontImageSource vh:FAIcons.SolidGlyph="CloudArrowDown" Color="{toolkit:AppThemeResource BgIconColor}"/>
+				<!--<FontImageSource vh:FAIcons.SolidGlyph="ArrowDown" Color="{toolkit:AppThemeResource SuccessColor}"/>-->
 			</local:ActionFrame.Icons>
 		</local:ActionFrame>
 	</VerticalStackLayout>
