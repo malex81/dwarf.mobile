@@ -29,22 +29,41 @@ public partial class RadiocastPageModel : ObservableObject, IRecipient<Radiocast
 
 	async Task LoadData()
 	{
-		IsRefreshing = true;
 		var radioList = await db.LoadRadioSources();
 		RadioSet.DisposeAll();
 		RadioSet = radioList.Select(itemFactory.Create).ToArray();
-		IsRefreshing = false;
 	}
 
 	[RelayCommand]
 	async Task Refresh()
 	{
-		await LoadData();
+		try { await LoadData(); }
+		finally { IsRefreshing = false; }
+	}
+
+	async Task ShallowRefresh()
+	{
+		var radioList = await db.LoadRadioSources();
+		List<RadioItem> backItems = [.. RadioSet ?? []];
+		List<RadioItem> items = [];
+		foreach (var rs in radioList)
+		{
+			var rItem = backItems.Find(ri => ri.Id == rs.Id);
+			if (rItem != null) backItems.Remove(rItem);
+			else rItem = itemFactory.Create(rs);
+			items.Add(rItem);
+		}
+		backItems.DisposeAll();
+		RadioSet = items.ToArray();
 	}
 
 	public void Receive(RadiocastMessage message)
 	{
-		if (message.Command == RadiocastCommandKind.Refresh)
-			_ = Refresh();
+		_ = message.Command switch
+		{
+			RadiocastCommandKind.Refresh => Refresh(),
+			RadiocastCommandKind.ShallowRefresh => ShallowRefresh(),
+			_ => null
+		};
 	}
 }

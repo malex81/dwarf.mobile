@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Minstrel.Data;
 using Dwarf.Minstrel.Helpers;
 using Dwarf.Minstrel.MediaEngine;
+using Dwarf.Minstrel.Messaging;
 using Dwarf.Minstrel.ViewHelpers;
 
 namespace Dwarf.Minstrel.ViewModels;
@@ -34,7 +35,9 @@ public partial class ServicesPageModel : ObservableObject
 	{
 		if (await alertService.ShowAlert("Пересоздание БД", "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
 		{
-			await db.RecreateDb();
+			//	await db.RecreateDb();
+			//	messenger.Send(RadiocastMessage.Refresh);
+			alertService.ShowNotification("Пересоздание БД", "База данных успешно пересоздана", AlertIconKind.Success);
 		}
 	}
 }

@@ -95,10 +95,7 @@ public partial class RadioItem : ObservableObject, IDisposable
 	async Task Delete()
 	{
 		await db.RemoveRadioSource(radioSource);
-		messenger.Send(RadiocastMessage.Refresh);
-		//await Task.Delay(200);
-		//if (await alertService.ShowAlert("Удаление", "Удалять?", "Да", "Не"))
-		//	await alertService.ShowAlert("Удаление", "Ну все - не слушать тебе больше эту лабуду", "OK");
+		messenger.Send(RadiocastMessage.ShallowRefresh);
 	}
 
 	[RelayCommand]
@@ -109,6 +106,8 @@ public partial class RadioItem : ObservableObject, IDisposable
 
 	public void Dispose()
 	{
+		if (mediaBox.State.URL == StreamUrl)
+			mediaBox.Stop();
 		dispSelf.Dispose();
 		GC.SuppressFinalize(this);
 	}

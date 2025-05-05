@@ -69,6 +69,9 @@
 		<MauiXaml Update="Resources\Styles\LocalStyles.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="ViewBasic\NotificationPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\*.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -76,6 +79,12 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Common\Dwarf.Framework\Dwarf.Framework.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="ViewBasic\NotificationPopup.xaml.cs">
+	    <DependentUpon>NotificationPopup.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
