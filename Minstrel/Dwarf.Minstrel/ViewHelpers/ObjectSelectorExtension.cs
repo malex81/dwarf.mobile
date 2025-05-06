@@ -1,7 +1,4 @@
-﻿
-using System.Runtime.CompilerServices;
-
-namespace Dwarf.Minstrel.ViewHelpers;
+﻿namespace Dwarf.Minstrel.ViewHelpers;
 
 [ContentProperty(nameof(Variants))]
 public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension
@@ -32,6 +29,8 @@ public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension
 
 	public object? ProvideValue(IServiceProvider serviceProvider)
 	{
+		var valueProvider = serviceProvider.GetService<IProvideValueTarget>();
+
 		return Variants.FirstOrDefault(v => GetKey(v) == SelectedKey);
 	}
 
