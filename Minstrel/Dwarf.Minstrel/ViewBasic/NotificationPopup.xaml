@@ -2,11 +2,11 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
 			xmlns:local="using:Dwarf.Minstrel.ViewBasic"
 			x:Class="Dwarf.Minstrel.ViewBasic.NotificationPopup"
 			x:DataType="local:NotificationPopupModel"
-			Color="Transparent"
-			VerticalOptions="End">
+			Color="Transparent">
 	<Border x:Name="notifyBox"
 				BackgroundColor="{toolkit:AppThemeResource ActiveButtonBgColor}"
 				StrokeThickness="0"
@@ -15,7 +15,15 @@
 		<VerticalStackLayout>
 			<Label Style="{StaticResource SubHeadline}"
 				Text="{Binding Title}"/>
-			<HorizontalStackLayout Padding="0,10">
+			<HorizontalStackLayout Padding="0, 10">
+				<Image Margin="0,0,20,0">
+					<Image.Source>
+						<vh:ObjectSelector BindingContext="{Binding Source={x:Reference notifyBox}, Path=.}" SelectedKey="{Binding Icon}">
+							<FontImageSource vh:FAIcons.SolidGlyph="Check" Color="{toolkit:AppThemeResource SuccessColor}"/>
+							<FontImageSource vh:FAIcons.SolidGlyph="XMark" Color="{StaticResource Danger}"/>
+						</vh:ObjectSelector>
+					</Image.Source>
+				</Image>
 				<Label Text="{Binding Message}"/>
 			</HorizontalStackLayout>
 		</VerticalStackLayout>

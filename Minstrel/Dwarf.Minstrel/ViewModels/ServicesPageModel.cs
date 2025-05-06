@@ -33,7 +33,7 @@ public partial class ServicesPageModel : ObservableObject
 	[RelayCommand]
 	async Task ClearDb()
 	{
-		if (await alertService.ShowAlert("Пересоздание БД", "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
+		//if (await alertService.ShowAlert("Пересоздание БД", "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
 		{
 			//	await db.RecreateDb();
 			//	messenger.Send(RadiocastMessage.Refresh);

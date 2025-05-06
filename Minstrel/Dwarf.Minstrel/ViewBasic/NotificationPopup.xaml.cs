@@ -11,9 +11,9 @@ public partial class NotificationPopup : Popup
 		InitializeComponent();
 
 		notifyBox.Opacity = 0;
-		notifyBox.TranslationY = 100;
+		notifyBox.TranslationY = 200;
 		notifyBox.FadeTo(1);
-		notifyBox.TranslateTo(0, 0);
+		notifyBox.TranslateTo(0, 0, easing: Easing.SpringOut);
 	}
 
 	protected override async Task OnClosed(object? result, bool wasDismissedByTappingOutsideOfPopup, CancellationToken token = default)
