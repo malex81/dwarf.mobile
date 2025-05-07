@@ -50,20 +50,13 @@
 				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource BgIconColor}"
 				   IsVisible="{Binding IsExecuted, Converter={StaticResource InvertedBoolConverter}}"
 				   Style="{StaticResource imageIndicator}">
-					<Image.Behaviors>
-						<vh:AnimationBehavior>
-							<vh:RotateAnimation/>
-						</vh:AnimationBehavior>
-					</Image.Behaviors>
 				</Image>
 				<Image vh:FAIcons.SolidGlyph="Gear"
 				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource ButtonBgColor}"
 				   IsVisible="{Binding IsExecuted}"
 				   Style="{StaticResource imageIndicator}">
 					<Image.Behaviors>
-						<vh:AnimationBehavior>
-							<vh:RotateAnimation/>
-						</vh:AnimationBehavior>
+						<vh:AnimationBehavior Mode="{vh:RotateAnimation}"/>
 					</Image.Behaviors>
 				</Image>
 			</Grid>

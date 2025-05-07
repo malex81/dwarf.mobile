@@ -11,25 +11,21 @@ public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension<
 	public static object GetKey(BindableObject view) => view.GetValue(KeyProperty);
 	public static void SetKey(BindableObject view, object value) => view.SetValue(KeyProperty, value);
 
-	public static readonly BindableProperty SelectedKeyProperty
+/*	public static readonly BindableProperty SelectedKeyProperty
 		= BindableProperty.Create(nameof(SelectedKey), typeof(object), typeof(ObjectSelectorExtension), null);
-	public virtual object? SelectedKey
+
+	public object? SelectedKey
 	{
 		get => GetValue(SelectedKeyProperty);
 		set => SetValue(SelectedKeyProperty, value);
 	}
-
+*/
 	public ObjectSelectorExtension()
 	{
 	}
 
 	public string KeyPath { get; set; } = Binding.SelfPath;
 	public List<BindableObject> Variants { get; set; } = [];
-
-	protected override void OnPropertyChanged(string propertyName)
-	{
-		base.OnPropertyChanged(propertyName);
-	}
 
 	public BindingBase ProvideValue(IServiceProvider serviceProvider)
 	{
