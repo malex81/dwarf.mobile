@@ -14,9 +14,8 @@
 			<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
 			<Style TargetType="Image" x:Key="imageIndicator">
 				<Setter Property="HeightRequest" Value="24"/>
-				<Setter Property="Margin" Value="6, 0"/>
 				<Setter Property="VerticalOptions" Value="Center"/>
-				<Setter Property="HorizontalOptions" Value="End"/>
+				<Setter Property="HorizontalOptions" Value="Center"/>
 			</Style>
 		</ResourceDictionary>
 	</ContentView.Resources>
@@ -25,7 +24,7 @@
 		<Border.GestureRecognizers>
 			<TapGestureRecognizer Tapped="OnFrameTapped"/>
 		</Border.GestureRecognizers>
-		<Grid ColumnDefinitions="auto, *">
+		<Grid ColumnDefinitions="auto, *, auto" InputTransparent="True">
 			<Frame Padding="0">
 				<Image Source="{Binding Icon}"
 					   Aspect="AspectFit"
@@ -38,10 +37,6 @@
 				   HorizontalOptions="End"
 				   HeightRequest="24"
 				   WidthRequest="24" />
-			<!--
-			VerticalOptions="End"
-			HorizontalOptions="End"
-			-->
 			<VerticalStackLayout Grid.Column="1">
 				<Label Style="{StaticResource SubHeadline}"
 					   Text="{Binding Title}"
@@ -50,22 +45,28 @@
 					   FontSize="12"
 					   Padding="10, 0" />
 			</VerticalStackLayout>
-			<Image vh:FAIcons.SolidGlyph="ChevronRight"
+			<Grid Grid.Column="2" Padding="4">
+				<Image vh:FAIcons.SolidGlyph="ChevronRight"
 				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource BgIconColor}"
 				   IsVisible="{Binding IsExecuted, Converter={StaticResource InvertedBoolConverter}}"
-				   Grid.Column="1"
-				   Style="{StaticResource imageIndicator}"/>
-			<Image vh:FAIcons.SolidGlyph="Gear"
+				   Style="{StaticResource imageIndicator}">
+					<Image.Behaviors>
+						<vh:AnimationBehavior>
+							<vh:RotateAnimation/>
+						</vh:AnimationBehavior>
+					</Image.Behaviors>
+				</Image>
+				<Image vh:FAIcons.SolidGlyph="Gear"
 				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource ButtonBgColor}"
-				   Grid.Column="1"
 				   IsVisible="{Binding IsExecuted}"
 				   Style="{StaticResource imageIndicator}">
-				<Image.Behaviors>
-					<vh:AnimationBehavior>
-						<vh:RotateAnimation/>
-					</vh:AnimationBehavior>
-				</Image.Behaviors>
-			</Image>
+					<Image.Behaviors>
+						<vh:AnimationBehavior>
+							<vh:RotateAnimation/>
+						</vh:AnimationBehavior>
+					</Image.Behaviors>
+				</Image>
+			</Grid>
 		</Grid>
 	</Border>
 </ContentView>

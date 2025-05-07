@@ -11,14 +11,16 @@ public partial class NotificationPopup : Popup
 		InitializeComponent();
 
 		notifyBox.Opacity = 0;
-		notifyBox.TranslationY = 200;
-		notifyBox.FadeTo(1);
-		notifyBox.TranslateTo(0, 0, easing: Easing.SpringOut);
+		notifyBox.TranslationY = 300;
+		notifyBox.FadeTo(1, 400);
+		notifyBox.TranslateTo(0, 0, length: 600, easing: Easing.SpringOut);
 	}
 
-	protected override async Task OnClosed(object? result, bool wasDismissedByTappingOutsideOfPopup, CancellationToken token = default)
+	private async void OnOuterFrameTapped(object sender, TappedEventArgs e)
 	{
-		await base.OnClosed(result, wasDismissedByTappingOutsideOfPopup, token);
+		_ = notifyBox.TranslateTo(0, -200);
+		await notifyBox.FadeTo(0);
+		Close();
 	}
 }
 

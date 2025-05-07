@@ -1,9 +1,6 @@
-﻿
-using Dwarf.Minstrel.ViewBasic;
+﻿namespace Dwarf.Minstrel.ViewHelpers;
 
-namespace Dwarf.Minstrel.ViewHelpers;
-
-public enum AlertIconKind { None, Success, Error }
+public enum AlertIconKind { None, Success, Danger }
 
 public interface IAlertService
 {

@@ -11,6 +11,8 @@ namespace Dwarf.Minstrel.ViewModels;
 
 public partial class ServicesPageModel : ObservableObject
 {
+	const string ClearDbTitle = "Пересоздание БД";
+
 	private readonly MinstrelDatabase db;
 	private readonly MediaBox mediaBox;
 	private readonly IAlertService alertService;
@@ -33,11 +35,18 @@ public partial class ServicesPageModel : ObservableObject
 	[RelayCommand]
 	async Task ClearDb()
 	{
-		//if (await alertService.ShowAlert("Пересоздание БД", "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
+		if (await alertService.ShowAlert(ClearDbTitle, "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
 		{
-			//	await db.RecreateDb();
-			//	messenger.Send(RadiocastMessage.Refresh);
-			alertService.ShowNotification("Пересоздание БД", "База данных успешно пересоздана", AlertIconKind.Success);
+			try
+			{
+				await db.RecreateDb();
+				messenger.Send(RadiocastMessage.Refresh);
+				alertService.ShowNotification(ClearDbTitle, "База данных успешно пересоздана", AlertIconKind.Success);
+			}
+			catch (Exception ex)
+			{
+				alertService.ShowNotification("Ошибка!", ex.Message, AlertIconKind.Danger);
+			}
 		}
 	}
 }

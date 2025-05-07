@@ -46,7 +46,7 @@ public partial class AnimationBehavior : Behavior<View>
 	{
 		currentRun?.Dispose();
 		currentRun = null;
-		if (view != null && view.IsVisible)
+		if (view != null && view.IsVisible && view.Width > 0)
 		{
 			var mode = GetMode(this);
 			if (mode != null)

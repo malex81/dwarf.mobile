@@ -21,7 +21,7 @@
 	</ContentPage.Resources>
 	<VerticalStackLayout>
 		<local:ActionFrame Title="Очистить базу данных"
-						   Description="Полное пересоздание базы данных"
+						   Description="База данных будет полностью удалена и проинициализирована заново"
 						   Command="{Binding ClearDbCommand}">
 			<local:ActionFrame.Icons>
 				<FontImageSource vh:FAIcons.SolidGlyph="Database" Color="{toolkit:AppThemeResource BgIconColor}"/>

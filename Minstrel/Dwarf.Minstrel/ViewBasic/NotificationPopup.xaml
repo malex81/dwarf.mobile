@@ -7,25 +7,33 @@
 			x:Class="Dwarf.Minstrel.ViewBasic.NotificationPopup"
 			x:DataType="local:NotificationPopupModel"
 			Color="Transparent">
-	<Border x:Name="notifyBox"
+	<Frame Padding="10, 200">
+		<Frame.GestureRecognizers>
+			<TapGestureRecognizer Tapped="OnOuterFrameTapped"/>
+		</Frame.GestureRecognizers>
+		<Border x:Name="notifyBox"
 				BackgroundColor="{toolkit:AppThemeResource ActiveButtonBgColor}"
 				StrokeThickness="0"
 				Padding="20, 10"
 				StrokeShape="{RoundRectangle CornerRadius=8}">
-		<VerticalStackLayout>
-			<Label Style="{StaticResource SubHeadline}"
+			<VerticalStackLayout>
+				<Label Style="{StaticResource SubHeadline}"
 				Text="{Binding Title}"/>
-			<HorizontalStackLayout Padding="0, 10">
-				<Image Margin="0,0,20,0">
-					<Image.Source>
-						<vh:ObjectSelector BindingContext="{Binding Source={x:Reference notifyBox}, Path=.}" SelectedKey="{Binding Icon}">
-							<FontImageSource vh:FAIcons.SolidGlyph="Check" Color="{toolkit:AppThemeResource SuccessColor}"/>
-							<FontImageSource vh:FAIcons.SolidGlyph="XMark" Color="{StaticResource Danger}"/>
-						</vh:ObjectSelector>
-					</Image.Source>
-				</Image>
-				<Label Text="{Binding Message}"/>
-			</HorizontalStackLayout>
-		</VerticalStackLayout>
-	</Border>
+				<Grid Padding="0, 10" ColumnDefinitions="auto,*">
+					<Image VerticalOptions="Start" Margin="0,0,12,0"
+						   IsVisible="{Binding Source={RelativeSource Self}, Path=Source, Converter={toolkit:IsNotNullConverter}}">
+						<Image.Source>
+							<vh:ObjectSelector KeyPath="Icon">
+								<FontImageSource vh:ObjectSelector.Key="{x:Static vh:AlertIconKind.Success}"
+												 vh:FAIcons.SolidGlyph="Check" Color="{toolkit:AppThemeResource SuccessColor}"/>
+								<FontImageSource vh:ObjectSelector.Key="{x:Static vh:AlertIconKind.Danger}"
+												 vh:FAIcons.SolidGlyph="XMark" Color="{StaticResource Danger}"/>
+							</vh:ObjectSelector>
+						</Image.Source>
+					</Image>
+					<Label Text="{Binding Message}" Grid.Column="1" />
+				</Grid>
+			</VerticalStackLayout>
+		</Border>
+	</Frame>
 </toolkit:Popup>
