@@ -11,15 +11,6 @@ public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension<
 	public static object GetKey(BindableObject view) => view.GetValue(KeyProperty);
 	public static void SetKey(BindableObject view, object value) => view.SetValue(KeyProperty, value);
 
-/*	public static readonly BindableProperty SelectedKeyProperty
-		= BindableProperty.Create(nameof(SelectedKey), typeof(object), typeof(ObjectSelectorExtension), null);
-
-	public object? SelectedKey
-	{
-		get => GetValue(SelectedKeyProperty);
-		set => SetValue(SelectedKeyProperty, value);
-	}
-*/
 	public ObjectSelectorExtension()
 	{
 	}

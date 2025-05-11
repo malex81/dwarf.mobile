@@ -20,3 +20,5 @@ dotnet_diagnostic.IDE0001.severity = none
 dotnet_diagnostic.IDE0130.severity = silent
 # CA1822: Mark members as static
 dotnet_diagnostic.CA1822.severity = silent	
+# Ошибки генерации кода
+dotnet_diagnostic.CS8785.severity = error   
