@@ -2,13 +2,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Dwarf.Framework.SystemExtension;
 using Dwarf.Minstrel.Data;
 using Dwarf.Minstrel.Data.Tables;
 using Dwarf.Minstrel.Helpers;
 using Dwarf.Minstrel.MediaEngine;
 using Dwarf.Minstrel.Messaging;
 using Dwarf.Minstrel.ViewHelpers;
+using Dwarf.Toolkit.Base.SystemExtension;
 using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;

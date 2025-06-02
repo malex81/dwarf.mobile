@@ -63,6 +63,7 @@
 		<PackageReference Include="M.BindableProperty.Generator" Version="0.11.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Dwarf.Toolkit.Maui" Version="0.0.*" />
 	</ItemGroup>
 
 	<ItemGroup>

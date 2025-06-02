@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
-using Dwarf.Framework.SystemExtension;
 using Dwarf.Minstrel.ViewBasic;
+using Dwarf.Toolkit.Base.SystemExtension;
 
 namespace Dwarf.Minstrel.ViewHelpers.Inner;
 

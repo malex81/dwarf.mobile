@@ -10,6 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Castle.Core" Version="5.1.1" />
+		<PackageReference Include="Dwarf.Toolkit.Maui" Version="0.0.*" />
 	</ItemGroup>
 
 	<ItemGroup>
