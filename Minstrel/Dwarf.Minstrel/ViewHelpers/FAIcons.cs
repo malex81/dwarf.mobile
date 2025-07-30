@@ -109,8 +109,7 @@ public static class FAIcons
 			MenuItem tabItem => tabItem.IconImageSource as FontImageSource,
 			_ => null
 		};
-		if (fis != null)
-			fis.Color = (Color)newValue;
+		fis?.Color = (Color)newValue;
 	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
