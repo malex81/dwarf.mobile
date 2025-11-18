@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Dwarf.Toolkit.Base.SystemExtension;
-using Maui.BindableProperty.Generator.Core;
+using Dwarf.Toolkit.Maui;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -9,21 +9,18 @@ namespace Dwarf.Minstrel.Views;
 
 public partial class ActionFrame : ContentView
 {
-#pragma warning disable CS0169
-	//https://github.com/rrmanzano/maui-bindableproperty-generator
-	[AutoBindable]
-	private readonly string? _title;
-	[AutoBindable]
-	private readonly string? _description;
-	[AutoBindable]
-	private readonly ImageSource? _icon;
-	[AutoBindable]
-	private readonly ImageSource? _secondaryIcon;
-	[AutoBindable]
-	private readonly ICommand? _command;
-	[AutoBindable]
-	private readonly ICommand? _commandParameter;
-#pragma warning restore CS0169
+	[BindableProperty]
+	public partial string? Title { get; set; }
+	[BindableProperty]
+	public partial string? Description { get; set; }
+	[BindableProperty]
+	public partial ImageSource? Icon { get; set; }
+	[BindableProperty]
+	public partial ImageSource? SecondaryIcon { get; set; }
+	[BindableProperty]
+	public partial ICommand? Command { get; set; }
+	[BindableProperty]
+	public partial ICommand? CommandParameter { get; set; }
 
 	public ActionFrame()
 	{
