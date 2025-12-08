@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Dwarf.Toolkit.Maui;
+using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewHelpers;
 
@@ -6,22 +7,20 @@ namespace Dwarf.Minstrel.ViewHelpers;
 public partial class AnimationBehavior : Behavior<View>
 {
 	//public static readonly BindableProperty ModeProperty =
-	//   BindableProperty.CreateAttached("Mode", typeof(IAnimationMode), typeof(AnimationBehavior), default(IAnimationMode), propertyChanged: OnModeChanged);
-
-	//public static IAnimationMode GetMode(AnimationBehavior bh) => (IAnimationMode)bh.GetValue(ModeProperty);
-	//public static void SetMode(AnimationBehavior bh, IAnimationMode value) => bh.SetValue(ModeProperty, value);
-	public static readonly BindableProperty ModeProperty =
-		BindableProperty.Create(nameof(Mode), typeof(IAnimationMode), typeof(AnimationBehavior), propertyChanged: OnModeChanged);
-	public IAnimationMode? Mode
-	{
-		get => (IAnimationMode)GetValue(ModeProperty);
-		set => SetValue(ModeProperty, value);
-	}
-	static void OnModeChanged(BindableObject bh, object oldValue, object newValue)
-	{
-		if (bh is not AnimationBehavior ab) return;
-		ab.UpdateAnimation();
-	}
+	//	BindableProperty.Create(nameof(Mode), typeof(IAnimationMode), typeof(AnimationBehavior), propertyChanged: OnModeChanged);
+	//public IAnimationMode? Mode
+	//{
+	//	get => (IAnimationMode)GetValue(ModeProperty);
+	//	set => SetValue(ModeProperty, value);
+	//}
+	//static void OnModeChanged(BindableObject bh, object oldValue, object newValue)
+	//{
+	//	if (bh is not AnimationBehavior ab) return;
+	//	ab.UpdateAnimation();
+	//}
+	[BindableProperty]
+	public partial IAnimationMode? Mode { get; set; }
+	partial void OnModeChanged(IAnimationMode? value) => UpdateAnimation();
 
 	private View? view;
 	private IDisposable? currentRun;

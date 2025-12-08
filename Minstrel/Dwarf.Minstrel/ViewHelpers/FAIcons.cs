@@ -1,6 +1,6 @@
 ﻿namespace Dwarf.Minstrel.ViewHelpers;
 /*
- * https://fontawesome.com/search?ic=free
+ * https://fontawesome.com/v6/search?ic=free-collection
  */
 public enum FASolidGlyphs
 {
