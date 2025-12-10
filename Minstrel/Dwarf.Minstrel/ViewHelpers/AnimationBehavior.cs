@@ -6,18 +6,6 @@ namespace Dwarf.Minstrel.ViewHelpers;
 [ContentProperty("Mode")]
 public partial class AnimationBehavior : Behavior<View>
 {
-	//public static readonly BindableProperty ModeProperty =
-	//	BindableProperty.Create(nameof(Mode), typeof(IAnimationMode), typeof(AnimationBehavior), propertyChanged: OnModeChanged);
-	//public IAnimationMode? Mode
-	//{
-	//	get => (IAnimationMode)GetValue(ModeProperty);
-	//	set => SetValue(ModeProperty, value);
-	//}
-	//static void OnModeChanged(BindableObject bh, object oldValue, object newValue)
-	//{
-	//	if (bh is not AnimationBehavior ab) return;
-	//	ab.UpdateAnimation();
-	//}
 	[BindableProperty]
 	public partial IAnimationMode? Mode { get; set; }
 	partial void OnModeChanged(IAnimationMode? value) => UpdateAnimation();
