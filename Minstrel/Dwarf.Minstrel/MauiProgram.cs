@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using CommunityToolkit.Mvvm.Messaging;
-using Dwarf.Framework.DIHelpers;
 using Dwarf.Minstrel.Views;
 using Microsoft.Extensions.Logging;
 

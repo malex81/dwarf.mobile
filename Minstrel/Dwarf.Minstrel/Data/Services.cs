@@ -1,4 +1,4 @@
-﻿using Dwarf.Framework.DIHelpers;
+﻿using Dwarf.Toolkit.Base.DiHelpers;
 
 namespace Dwarf.Minstrel.Data;
 

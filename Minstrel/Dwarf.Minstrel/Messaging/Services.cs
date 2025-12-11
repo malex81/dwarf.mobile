@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Dwarf.Framework.DIHelpers;
+using Dwarf.Toolkit.Base.DiHelpers;
 
 namespace Dwarf.Minstrel.Messaging;
 

@@ -14,22 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="DIHelpers\ServiceCollectionExtensions.Gen.tt">
-	    <Generator>TextTemplatingFileGenerator</Generator>
-	    <LastGenOutput>ServiceCollectionExtensions.Gen.cs</LastGenOutput>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="DIHelpers\ServiceCollectionExtensions.Gen.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ServiceCollectionExtensions.Gen.tt</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 </Project>
