@@ -1,5 +1,4 @@
-﻿using Dwarf.Framework.SystemExtension;
-using Dwarf.Toolkit.Base.SystemExtension;
+﻿using Dwarf.Toolkit.Base.SystemExtension;
 
 namespace Dwarf.Framework.LinqBinder;
 
