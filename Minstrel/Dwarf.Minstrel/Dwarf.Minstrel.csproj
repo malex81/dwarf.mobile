@@ -62,6 +62,7 @@
 		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="4.1.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Castle.Core" Version="5.2.1" />
 		<PackageReference Include="Dwarf.Toolkit.Maui" Version="0.1.*" />
 	</ItemGroup>
 
@@ -75,10 +76,6 @@
 		<MauiXaml Update="Views\*.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\Common\Dwarf.Framework\Dwarf.Framework.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

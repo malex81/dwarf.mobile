@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Dwarf.Framework.SystemExtension;
 using Dwarf.Minstrel.Data;
 using Dwarf.Minstrel.Messaging;
 using Dwarf.Toolkit.Base.SystemExtension;
