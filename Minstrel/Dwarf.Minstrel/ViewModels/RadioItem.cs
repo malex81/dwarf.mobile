@@ -8,7 +8,7 @@ using Dwarf.Minstrel.Helpers;
 using Dwarf.Minstrel.MediaEngine;
 using Dwarf.Minstrel.Messaging;
 using Dwarf.Minstrel.ViewHelpers;
-using Dwarf.Toolkit.Base.SystemExtension;
+using Dwarf.Toolkit.Basic.SystemExtension;
 using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;

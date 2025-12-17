@@ -58,6 +58,7 @@
 	<Import Project="..\..\build\ReactiveKit.targets" />
 
 	<ItemGroup>
+		<PackageReference Include="Dwarf.Toolkit.Basic" Version="0.1.*" />
 		<PackageReference Include="Dwarf.Toolkit.Maui" Version="0.1.*" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="4.1.2" />

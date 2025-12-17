@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Dwarf.Toolkit.Base.SystemExtension;
+using Dwarf.Toolkit.Basic.SystemExtension;
 
 namespace Dwarf.Minstrel.MediaEngine;
 

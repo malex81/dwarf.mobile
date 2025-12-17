@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Minstrel.Data;
 using Dwarf.Minstrel.Messaging;
-using Dwarf.Toolkit.Base.SystemExtension;
+using Dwarf.Toolkit.Basic.SystemExtension;
 
 namespace Dwarf.Minstrel.ViewModels;
 
