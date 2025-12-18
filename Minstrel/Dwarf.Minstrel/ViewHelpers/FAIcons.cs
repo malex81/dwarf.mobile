@@ -1,4 +1,6 @@
-﻿namespace Dwarf.Minstrel.ViewHelpers;
+﻿using Dwarf.Toolkit.Maui;
+
+namespace Dwarf.Minstrel.ViewHelpers;
 /*
  * https://fontawesome.com/v6/search?ic=free-collection
  */
@@ -69,8 +71,9 @@ public enum FARegularGlyphs
 	CircleCheck = 0xf058,
 }
 
-public static class FAIcons
+public static partial class FAIcons
 {
+	/*
 	public static readonly BindableProperty SolidGlyphProperty =
 	   BindableProperty.CreateAttached("SolidGlyph", typeof(FASolidGlyphs), typeof(FAIcons), FASolidGlyphs.None, propertyChanged: OnSolidGlyphChanged);
 
@@ -110,6 +113,37 @@ public static class FAIcons
 			_ => null
 		};
 		fis?.Color = (Color)newValue;
+	}
+	*/
+
+	[AttachedProperty(DefaultValue = FASolidGlyphs.None)]
+	public static partial FASolidGlyphs GetSolidGlyph(BindableObject view);
+	[AttachedProperty(DefaultValue = FARegularGlyphs.None)]
+	public static partial FARegularGlyphs GetRegularGlyph(BindableObject view);
+	[AttachedProperty]
+	public static partial Color? GetGlyphColor(BindableObject view);
+
+	static void OnSolidGlyphChanged(BindableObject view, FASolidGlyphs glyph)
+	{
+		if (glyph == FASolidGlyphs.None) return;
+		SetGlyph(view, "FASolid", (uint)glyph);
+	}
+
+	static void OnRegularGlyphChanged(BindableObject view, FARegularGlyphs glyph)
+	{
+		if (glyph == FARegularGlyphs.None) return;
+		SetGlyph(view, "FARegular", (uint)glyph);
+	}
+
+	static void OnGlyphColorChanged(BindableObject view, Color? color)
+	{
+		var fis = view switch
+		{
+			Image img => img.Source as FontImageSource,
+			MenuItem tabItem => tabItem.IconImageSource as FontImageSource,
+			_ => null
+		};
+		fis?.Color = color;
 	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
