@@ -73,49 +73,6 @@ public enum FARegularGlyphs
 
 public static partial class FAIcons
 {
-	/*
-	public static readonly BindableProperty SolidGlyphProperty =
-	   BindableProperty.CreateAttached("SolidGlyph", typeof(FASolidGlyphs), typeof(FAIcons), FASolidGlyphs.None, propertyChanged: OnSolidGlyphChanged);
-
-	public static FASolidGlyphs GetSolidGlyph(BindableObject view) => (FASolidGlyphs)view.GetValue(SolidGlyphProperty);
-	public static void SetSolidGlyph(BindableObject view, FASolidGlyphs value) => view.SetValue(SolidGlyphProperty, value);
-
-	static void OnSolidGlyphChanged(BindableObject view, object oldValue, object newValue)
-	{
-		if (newValue is not FASolidGlyphs glyph || glyph == FASolidGlyphs.None) return;
-		SetGlyph(view, "FASolid", (uint)glyph);
-	}
-
-	public static readonly BindableProperty RegularGlyphProperty =
-	   BindableProperty.CreateAttached("RegularGlyph", typeof(FARegularGlyphs), typeof(FAIcons), FARegularGlyphs.None, propertyChanged: OnRegularGlyphChanged);
-
-	public static FARegularGlyphs GetRegularGlyph(BindableObject view) => (FARegularGlyphs)view.GetValue(RegularGlyphProperty);
-	public static void SetRegularGlyph(BindableObject view, FARegularGlyphs value) => view.SetValue(RegularGlyphProperty, value);
-
-	static void OnRegularGlyphChanged(BindableObject view, object oldValue, object newValue)
-	{
-		if (newValue is not FARegularGlyphs glyph || glyph == FARegularGlyphs.None) return;
-		SetGlyph(view, "FARegular", (uint)glyph);
-	}
-
-	public static readonly BindableProperty GlyphColorProperty =
-	   BindableProperty.CreateAttached("GlyphColor", typeof(Color), typeof(FAIcons), default(Color), propertyChanged: OnGlyphColorChanged);
-
-	public static Color GetGlyphColor(BindableObject view) => (Color)view.GetValue(GlyphColorProperty);
-	public static void SetGlyphColor(BindableObject view, Color value) => view.SetValue(GlyphColorProperty, value);
-
-	static void OnGlyphColorChanged(BindableObject view, object oldValue, object newValue)
-	{
-		var fis = view switch
-		{
-			Image img => img.Source as FontImageSource,
-			MenuItem tabItem => tabItem.IconImageSource as FontImageSource,
-			_ => null
-		};
-		fis?.Color = (Color)newValue;
-	}
-	*/
-
 	[AttachedProperty(DefaultValue = FASolidGlyphs.None)]
 	public static partial FASolidGlyphs GetSolidGlyph(BindableObject view);
 	[AttachedProperty(DefaultValue = FARegularGlyphs.None)]

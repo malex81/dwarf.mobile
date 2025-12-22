@@ -6,7 +6,9 @@ using Dwarf.Toolkit.Basic.SystemExtension;
 namespace Dwarf.Minstrel.MediaEngine;
 
 public record MediaBaxState(string URL, MediaElementState CurrentSate, string? ErrorMessage = null);
-
+/*
+ * https://learn.microsoft.com/ru-ru/dotnet/communitytoolkit/maui/views/mediaelement
+ */
 public partial class MediaBox : ObservableObject, IDisposable
 {
 	private readonly IApplication app;

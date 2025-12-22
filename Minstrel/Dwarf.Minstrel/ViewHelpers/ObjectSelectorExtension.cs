@@ -6,12 +6,6 @@ namespace Dwarf.Minstrel.ViewHelpers;
 [ContentProperty(nameof(Variants))]
 public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension<BindingBase>
 {
-	/*	public static readonly BindableProperty KeyProperty
-			= BindableProperty.CreateAttached("Key", typeof(object), typeof(ObjectSelectorExtension), null);
-
-		public static object GetKey(BindableObject view) => view.GetValue(KeyProperty);
-		public static void SetKey(BindableObject view, object value) => view.SetValue(KeyProperty, value);
-	*/
 	[AttachedProperty]
 	public static partial object? GetKey(BindableObject view);
 
