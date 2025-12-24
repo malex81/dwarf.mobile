@@ -12,6 +12,13 @@
 		<Setter Property="BorderWidth" Value="1"/>
 		<Setter Property="BorderColor" Value="{StaticResource Translucent2}"/>
 	</Style>
+	
+	<Style TargetType="Button" x:Key="iconRoundButton" BasedOn="{StaticResource iconButton}">
+		<Setter Property="WidthRequest" Value="40"/>
+		<Setter Property="HeightRequest" Value="40"/>
+		<Setter Property="CornerRadius" Value="20"/>
+		<Setter Property="FontSize" Value="24"/>
+	</Style>
 
 	<Style TargetType="Image" x:Key="iconImage">
 		<Setter Property="WidthRequest" Value="32"/>

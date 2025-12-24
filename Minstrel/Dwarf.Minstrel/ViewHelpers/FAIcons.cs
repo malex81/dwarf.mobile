@@ -51,7 +51,11 @@ public enum FASolidGlyphs
 	CloudArrowUp = 0xf0ee,
 	CloudArrowDown = 0xf0ed,
 	Upload = 0xf093,
-	Download = 0xf019
+	Download = 0xf019,
+	VolumnOff = 0xf026,
+	VolumnLow = 0xf027,
+	VolumnHigh = 0xf028,
+	VolumnXMark = 0xf6a9
 }
 
 public enum FARegularGlyphs

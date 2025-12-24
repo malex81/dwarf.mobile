@@ -13,8 +13,27 @@
 			<toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
 		</ResourceDictionary>
 	</ContentPage.Resources>
-	<Grid>
-		<RefreshView
+	<Grid RowDefinitions="auto, *">
+		<toolkit:DockLayout Grid.Row="0">
+			<Slider toolkit:DockLayout.DockPosition="Right" VerticalOptions="Center" WidthRequest="100" Maximum="1.0"/>
+			<Button toolkit:DockLayout.DockPosition="Right"
+					HorizontalOptions="End"
+					VerticalOptions="End"
+					Style="{StaticResource iconRoundButton}"
+					vh:FAIcons.SolidGlyph="VolumnLow">
+				<!--Command="{Binding ToggleFavoritesCommand}"-->
+				<Button.Triggers>
+					<!--<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
+						<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
+						<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
+						<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
+						<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
+					</DataTrigger>-->
+				</Button.Triggers>
+			</Button>
+			<Entry Placeholder="Поиск" />
+		</toolkit:DockLayout>
+		<RefreshView Grid.Row="1"
 				windows:RefreshView.RefreshPullDirection="TopToBottom"
 				IsRefreshing="{Binding IsRefreshing}"
 				Command="{Binding RefreshCommand}">
@@ -56,7 +75,7 @@
 										<Label Style="{StaticResource SubHeadline}"
 												Text="{Binding Title}"
 												Padding="10, 2" />
-												<Label
+										<Label
 												Text="{Binding ErrorMessage}"
 												TextColor="{StaticResource Danger}"
 												FontSize="12"
