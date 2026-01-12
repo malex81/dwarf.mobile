@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Dwarf.Toolkit.Basic.SystemExtension;
+using System.ComponentModel;
 
 namespace Dwarf.Minstrel.MediaEngine;
 
@@ -17,6 +18,8 @@ public partial class MediaBox : ObservableObject, IDisposable
 
 	[ObservableProperty]
 	public partial MediaBaxState State { get; set; } = new("", MediaElementState.None);
+	[ObservableProperty]
+	public partial double Volume { get; set; }
 
 	public MediaBox(IApplication app)
 	{
@@ -33,14 +36,30 @@ public partial class MediaBox : ObservableObject, IDisposable
 			{
 				mediaPlayer.MediaFailed += MediaPlayer_MediaFailed;
 				mediaPlayer.StateChanged += MediaPlayer_StateChanged;
+				mediaPlayer.PropertyChanged += MediaPlayer_PropertyChanged;
 				mediaHandlers.AddAction(() =>
 				{
 					mediaPlayer.MediaFailed -= MediaPlayer_MediaFailed;
 					mediaPlayer.StateChanged -= MediaPlayer_StateChanged;
+					mediaPlayer.PropertyChanged -= MediaPlayer_PropertyChanged;
 				});
+				mediaPlayer.Volume = Volume;
 			}
 		}
 		return mediaPlayer;
+	}
+
+	private void MediaPlayer_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+	{
+		if (mediaPlayer == null)
+			return;
+		if (e.PropertyName == "Volume")
+			Volume = mediaPlayer.Volume;
+	}
+
+	partial void OnVolumeChanged(double value)
+	{
+		mediaPlayer?.Volume = value;
 	}
 
 	private void MediaPlayer_StateChanged(object? sender, MediaStateChangedEventArgs e)

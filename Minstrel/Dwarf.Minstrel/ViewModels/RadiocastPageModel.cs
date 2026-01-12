@@ -2,29 +2,59 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Minstrel.Data;
+using Dwarf.Minstrel.MediaEngine;
 using Dwarf.Minstrel.Messaging;
+using Dwarf.Toolkit.Basic.AsyncHelpers;
 using Dwarf.Toolkit.Basic.SystemExtension;
+using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;
 
-public partial class RadiocastPageModel : ObservableObject, IRecipient<RadiocastMessage>
+public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<RadiocastMessage>
 {
 	private readonly MinstrelDatabase db;
 	private readonly IRadioItemFactory itemFactory;
 	private readonly IMessenger messenger; // https://learn.microsoft.com/ru-ru/dotnet/communitytoolkit/mvvm/messenger
+	private readonly Func<Task> invalidateViewList; // = ActionFlow.Debounce(TimeSpan.FromSeconds(0.5));
+
 
 	[ObservableProperty]
+	//[NotifyPropertyChangedFor(nameof(ViewRadioSet))]
 	public partial RadioItem[]? RadioSet { get; set; }
 	[ObservableProperty]
 	public partial bool IsRefreshing { get; set; }
+	[ObservableProperty]
+	//[NotifyPropertyChangedFor(nameof(ViewRadioSet))]
+	public partial string? FilterText { get; set; }
+	[ObservableProperty]
+	public partial RadioItem[] ViewRadioSet { get; set; } = [];
 
-	public RadiocastPageModel(MinstrelDatabase db, IRadioItemFactory itemFactory, IMessenger messenger)
+	public VolumeModel VolumeModel { get; }
+
+	public RadiocastPageModel(MinstrelDatabase db, VolumeModel volumeModel, IRadioItemFactory itemFactory, IMessenger messenger)
 	{
 		this.db = db;
+		VolumeModel = volumeModel;
 		this.itemFactory = itemFactory;
 		this.messenger = messenger;
 		messenger.RegisterAll(this);
+		invalidateViewList = ActionFlow.CreateInvalidator(() => { ViewRadioSet = GetRadioViewSet(); }, TimeSpan.FromMilliseconds(500));
 		_ = LoadData();
+	}
+
+	protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+	{
+		base.OnPropertyChanged(e);
+		if (e.PropertyName == nameof(RadioSet) || e.PropertyName == nameof(FilterText))
+			invalidateViewList();
+	}
+
+	public RadioItem[] GetRadioViewSet()
+	{
+		if (RadioSet == null) return [];
+		var source = string.IsNullOrWhiteSpace(FilterText) ? RadioSet
+			: RadioSet.Where(r => r.Title.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase));
+		return source.OrderByDescending(r => r.InFavorites).ToArray();
 	}
 
 	async Task LoadData()

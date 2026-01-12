@@ -24,6 +24,20 @@ public partial class RadioItem : ObservableObject, IDisposable
 	private readonly IAlertService alertService;
 	private readonly IMessenger messenger;
 
+	[ObservableProperty]
+	public partial bool InFavorites { get; set; }
+	[ObservableProperty]
+	public partial bool IsPlaying { get; set; }
+	[ObservableProperty]
+	public partial bool ShowLoading { get; set; } = true;
+	[ObservableProperty]
+	public partial string? ErrorMessage { get; set; }
+
+	public int Id => radioSource.Id;
+	public string Title => radioSource.Title ?? $"Неизвестное #{Id}";
+	public byte[]? Icon => radioSource.Logo ?? DefaultIcon;
+	public string? StreamUrl => radioSource.StreamUrl;
+
 	public RadioItem(RadioSource radioSource, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
 	{
 		this.radioSource = radioSource;
@@ -61,20 +75,6 @@ public partial class RadioItem : ObservableObject, IDisposable
 		ShowLoading = curState == MediaElementState.Opening || curState == MediaElementState.Buffering;
 		ErrorMessage = mediaBox.State.ErrorMessage;
 	}
-
-	public int Id => radioSource.Id;
-	public string Title => radioSource.Title ?? $"Неизвестное #{Id}";
-	public byte[]? Icon => radioSource.Logo ?? DefaultIcon;
-	public string? StreamUrl => radioSource.StreamUrl;
-
-	[ObservableProperty]
-	public partial bool InFavorites { get; set; }
-	[ObservableProperty]
-	public partial bool IsPlaying { get; set; }
-	[ObservableProperty]
-	public partial bool ShowLoading { get; set; } = true;
-	[ObservableProperty]
-	public partial string? ErrorMessage { get; set; }
 
 	[RelayCommand]
 	void ToggleFavorites()

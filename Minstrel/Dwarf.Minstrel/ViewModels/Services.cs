@@ -11,5 +11,6 @@ class Services : IServicesBatch
 		services.AddSingleton<AppInfoPageModel>();
 
 		services.RegisterFactory<IRadioItemFactory>();
+		services.AddSingleton<VolumeModel>();
 	}
 }

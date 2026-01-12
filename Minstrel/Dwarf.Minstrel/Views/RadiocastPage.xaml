@@ -5,7 +5,8 @@
 			 xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
 			 xmlns:vm="clr-namespace:Dwarf.Minstrel.ViewModels"
 			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
-             x:Class="Dwarf.Minstrel.Views.RadiocastPage"
+             xmlns:local="using:Dwarf.Minstrel.Views"
+			 x:Class="Dwarf.Minstrel.Views.RadiocastPage"
 			 x:DataType="vm:RadiocastPageModel"
              Title="Интернет радио">
 	<ContentPage.Resources>
@@ -14,30 +15,17 @@
 		</ResourceDictionary>
 	</ContentPage.Resources>
 	<Grid RowDefinitions="auto, *">
-		<toolkit:DockLayout Grid.Row="0">
-			<Slider toolkit:DockLayout.DockPosition="Right" VerticalOptions="Center" WidthRequest="100" Maximum="1.0"/>
-			<Button toolkit:DockLayout.DockPosition="Right"
-					HorizontalOptions="End"
-					VerticalOptions="End"
-					Style="{StaticResource iconRoundButton}"
-					vh:FAIcons.SolidGlyph="VolumnLow">
-				<!--Command="{Binding ToggleFavoritesCommand}"-->
-				<Button.Triggers>
-					<!--<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
-						<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
-						<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
-						<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
-						<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
-					</DataTrigger>-->
-				</Button.Triggers>
-			</Button>
-			<Entry Placeholder="Поиск" />
+		<toolkit:DockLayout Grid.Row="0" Margin="4,2">
+			<local:VolumeControl toolkit:DockLayout.DockPosition="Right" BindingContext="{Binding VolumeModel}"/>
+			<Entry Placeholder="Поиск"
+				   Text="{Binding FilterText}"
+				   Margin="{OnIdiom Default='0,0,40,0', Desktop='0,0,10,0'}"/>
 		</toolkit:DockLayout>
 		<RefreshView Grid.Row="1"
 				windows:RefreshView.RefreshPullDirection="TopToBottom"
 				IsRefreshing="{Binding IsRefreshing}"
 				Command="{Binding RefreshCommand}">
-			<CollectionView ItemsSource="{Binding RadioSet}">
+			<CollectionView ItemsSource="{Binding ViewRadioSet}">
 				<CollectionView.ItemsLayout>
 					<LinearItemsLayout Orientation="Vertical"
 								   ItemSpacing="2" />

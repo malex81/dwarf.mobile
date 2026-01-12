@@ -1,4 +1,5 @@
-﻿using Dwarf.Toolkit.Maui;
+﻿using Dwarf.Minstrel.Base;
+using Dwarf.Toolkit.Maui;
 
 namespace Dwarf.Minstrel.ViewHelpers;
 /*
@@ -75,37 +76,54 @@ public enum FARegularGlyphs
 	CircleCheck = 0xf058,
 }
 
+public record FontIconDescriptor(object GlyphKind);
+
 public static partial class FAIcons
 {
 	[AttachedProperty(DefaultValue = FASolidGlyphs.None)]
 	public static partial FASolidGlyphs GetSolidGlyph(BindableObject view);
 	[AttachedProperty(DefaultValue = FARegularGlyphs.None)]
 	public static partial FARegularGlyphs GetRegularGlyph(BindableObject view);
+	[AttachedProperty()]
+	public static partial FontIconDescriptor GetGlyphDescriptor(BindableObject view);
 	[AttachedProperty]
 	public static partial Color? GetGlyphColor(BindableObject view);
+	[AttachedProperty(DefaultValue = 30d)]
+	public static partial double GetGlyphSize(BindableObject view);
 
 	static void OnSolidGlyphChanged(BindableObject view, FASolidGlyphs glyph)
 	{
 		if (glyph == FASolidGlyphs.None) return;
-		SetGlyph(view, "FASolid", (uint)glyph);
+		SetGlyph(view, FontNames.FASolid, (uint)glyph);
 	}
 
 	static void OnRegularGlyphChanged(BindableObject view, FARegularGlyphs glyph)
 	{
 		if (glyph == FARegularGlyphs.None) return;
-		SetGlyph(view, "FARegular", (uint)glyph);
+		SetGlyph(view, FontNames.FARegular, (uint)glyph);
 	}
 
-	static void OnGlyphColorChanged(BindableObject view, Color? color)
+	static void OnGlyphDescriptorChanged(BindableObject view, FontIconDescriptor desc)
 	{
-		var fis = view switch
+		if (desc == null) return;
+		var (font, glyph) = desc.GlyphKind switch
 		{
-			Image img => img.Source as FontImageSource,
-			MenuItem tabItem => tabItem.IconImageSource as FontImageSource,
-			_ => null
+			FASolidGlyphs faSolidGlyph => (FontNames.FASolid, (uint)faSolidGlyph),
+			FARegularGlyphs faRegularGlyph => (FontNames.FARegular, (uint)faRegularGlyph),
+			_ => throw new InvalidOperationException($"Unknown glyph kind {desc.GlyphKind}")
 		};
-		fis?.Color = color;
+		SetGlyph(view, font, glyph);
 	}
+
+	static void OnGlyphColorChanged(BindableObject view, Color? color) => view.GetImageSource()?.Color = color;
+	static void OnGlyphSizeChanged(BindableObject view, double size) => view.GetImageSource()?.Size = size;
+
+	static FontImageSource? GetImageSource(this BindableObject view) => view switch
+	{
+		Image img => img.Source as FontImageSource,
+		MenuItem tabItem => tabItem.IconImageSource as FontImageSource,
+		_ => null
+	};
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
 	{
@@ -114,7 +132,8 @@ public static partial class FAIcons
 		{
 			FontFamily = font,
 			Glyph = glyphText,
-			Color = GetGlyphColor(view)
+			Color = GetGlyphColor(view),
+			Size = GetGlyphSize(view)
 		};
 		if (view is FontImageSource fis)
 		{

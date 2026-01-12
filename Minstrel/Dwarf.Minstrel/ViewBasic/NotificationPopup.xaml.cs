@@ -9,8 +9,8 @@ public partial class NotificationPopup : Popup
 {
 	public NotificationPopup(NotificationPopupModel popupModel)
 	{
-		BindingContext = popupModel;
 		InitializeComponent();
+		BindingContext = popupModel;
 
 		notifyBox.Opacity = 0;
 		notifyBox.TranslationY = 300;

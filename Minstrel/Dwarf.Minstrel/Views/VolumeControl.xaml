@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+			 xmlns:vm="using:Dwarf.Minstrel.ViewModels"
+			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
+			 xmlns:local="using:Dwarf.Minstrel.Views"
+			 x:Class="Dwarf.Minstrel.Views.VolumeControl"
+			 x:DataType="vm:VolumeModel">
+	<ContentView.Resources>
+		<ResourceDictionary>
+			<!--<vh:ImageSourceConverter x:Key="iconConverter" GlyphColor="{StaticResource Danger}"/>-->
+			<!--<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+			<Style TargetType="Image" x:Key="imageIndicator">
+				<Setter Property="HeightRequest" Value="24"/>
+				<Setter Property="VerticalOptions" Value="Center"/>
+				<Setter Property="HorizontalOptions" Value="Center"/>
+			</Style>-->
+		</ResourceDictionary>
+	</ContentView.Resources>
+	<!--<Border.GestureRecognizers>
+			<TapGestureRecognizer Tapped="OnFrameTapped"/>
+		</Border.GestureRecognizers>-->
+	<Grid ColumnDefinitions="auto, *"
+		  ColumnSpacing="6">
+		<Button Grid.Column="0"
+				HorizontalOptions="End"
+				VerticalOptions="End"
+				Style="{StaticResource iconRoundButton}"
+				vh:FAIcons.GlyphDescriptor="{Binding VolumeButtonIcon}"
+				Command="{Binding ToggleMuteCommand}">
+		</Button>
+		<Slider Grid.Column="1"
+				VerticalOptions="Center"
+				WidthRequest="100"
+				Maximum="1.0"
+				Value="{Binding Volume}"
+				IsVisible="{OnIdiom Default=false, Desktop=true}"/>
+	</Grid>
+</ContentView>

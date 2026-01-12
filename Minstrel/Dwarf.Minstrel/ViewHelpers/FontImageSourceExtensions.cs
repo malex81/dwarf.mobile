@@ -1,4 +1,6 @@
-﻿namespace Dwarf.Minstrel.ViewHelpers;
+﻿using Dwarf.Minstrel.Base;
+
+namespace Dwarf.Minstrel.ViewHelpers;
 
 public static class FontImageSourceExtensions
 {
@@ -11,8 +13,8 @@ public static class FontImageSourceExtensions
 	{
 		var (font, glyph) = glyphKind switch
 		{
-			FASolidGlyphs faSolidGlyph => ("FASolid", (uint)faSolidGlyph),
-			FARegularGlyphs faRegularGlyph => ("FASolid", (uint)faRegularGlyph),
+			FASolidGlyphs faSolidGlyph => (FontNames.FASolid, (uint)faSolidGlyph),
+			FARegularGlyphs faRegularGlyph => (FontNames.FARegular, (uint)faRegularGlyph),
 			_ => throw new InvalidOperationException($"Unknown glyph kind {glyphKind}")
 		};
 		fi.FontFamily = font;

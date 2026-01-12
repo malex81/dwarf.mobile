@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Dwarf.Minstrel.Base;
 using Dwarf.Minstrel.Views;
 using Microsoft.Extensions.Logging;
 
@@ -15,11 +16,11 @@ public static class MauiProgram
 			.UseMauiCommunityToolkitMediaElement()
 			.ConfigureFonts(fonts =>
 			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-				fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "FARegular");
-				fonts.AddFont("Font Awesome 6 Brands-Regular-400.otf", "FABrands");
-				fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FASolid");
+				fonts.AddFont("OpenSans-Regular.ttf", FontNames.OpenSansRegular);
+				fonts.AddFont("OpenSans-Semibold.ttf", FontNames.OpenSansSemibold);
+				fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", FontNames.FARegular);
+				fonts.AddFont("Font Awesome 6 Brands-Regular-400.otf", FontNames.FABrands);
+				fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", FontNames.FASolid);
 			}).ConfigureMauiHandlers(handlers =>
 			{
 			});
