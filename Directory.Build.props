@@ -1,4 +1,8 @@
 <Project>
+	<PropertyGroup>
+		<LangVersion>preview</LangVersion>
+	</PropertyGroup>
+	
 	<PropertyGroup Condition="'$(Configuration)' == 'Tests'">
 		<TargetFramework>net8.0</TargetFramework>
 		<!--<NuGetAuditMode>direct</NuGetAuditMode>-->

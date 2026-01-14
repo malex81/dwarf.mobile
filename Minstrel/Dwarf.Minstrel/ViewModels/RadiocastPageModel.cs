@@ -15,8 +15,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 	private readonly MinstrelDatabase db;
 	private readonly IRadioItemFactory itemFactory;
 	private readonly IMessenger messenger; // https://learn.microsoft.com/ru-ru/dotnet/communitytoolkit/mvvm/messenger
-	private readonly Func<Task> invalidateViewList; // = ActionFlow.Debounce(TimeSpan.FromSeconds(0.5));
-
+	private readonly InvalidatorBase vlInvalidator;
 
 	[ObservableProperty]
 	//[NotifyPropertyChangedFor(nameof(ViewRadioSet))]
@@ -27,7 +26,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 	//[NotifyPropertyChangedFor(nameof(ViewRadioSet))]
 	public partial string? FilterText { get; set; }
 	[ObservableProperty]
-	public partial RadioItem[] ViewRadioSet { get; set; } = [];
+	public partial RadioItem[] ViewRadioList { get; set; } = [];
 
 	public VolumeModel VolumeModel { get; }
 
@@ -38,18 +37,18 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		this.itemFactory = itemFactory;
 		this.messenger = messenger;
 		messenger.RegisterAll(this);
-		invalidateViewList = ActionFlow.CreateInvalidator(() => { ViewRadioSet = GetRadioViewSet(); }, TimeSpan.FromMilliseconds(500));
 		_ = LoadData();
+		vlInvalidator = ActionFlow.CreateInvalidator(() => ViewRadioList = GetRadioViewSet(), TimeSpan.FromMilliseconds(1000));
 	}
 
 	protected override void OnPropertyChanged(PropertyChangedEventArgs e)
 	{
 		base.OnPropertyChanged(e);
 		if (e.PropertyName == nameof(RadioSet) || e.PropertyName == nameof(FilterText))
-			invalidateViewList();
+			vlInvalidator.Invalidate();
 	}
 
-	public RadioItem[] GetRadioViewSet()
+	RadioItem[] GetRadioViewSet()
 	{
 		if (RadioSet == null) return [];
 		var source = string.IsNullOrWhiteSpace(FilterText) ? RadioSet
@@ -62,7 +61,11 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		var radioList = await db.LoadRadioSources();
 		RadioSet.DisposeAll();
 		RadioSet = radioList.Select(itemFactory.Create).ToArray();
+		ForceUpdateViewList();
 	}
+
+	[RelayCommand]
+	void ForceUpdateViewList() => vlInvalidator.ForceCall();
 
 	[RelayCommand]
 	async Task Refresh()

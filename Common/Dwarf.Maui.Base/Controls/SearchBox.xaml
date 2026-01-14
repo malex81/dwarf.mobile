@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Dwarf.Maui.Base.Controls.SearchBox">
+	<Grid ColumnDefinitions="*, Auto">
+		<Entry x:Name="EntryField"
+               Grid.Column="0"
+               Placeholder="{Binding Placeholder, Source={x:Reference Root}}"
+               Text="{Binding Text, Source={x:Reference Root}, Mode=TwoWay}" />
+
+		<ImageButton x:Name="ClearButton"
+                     Grid.Column="1"
+                     Source="close.png"
+                     BackgroundColor="Transparent"
+                     HeightRequest="20"
+                     WidthRequest="20"
+                     Margin="0,0,10,0"
+                     IsVisible="False"
+                     Clicked="OnClearClicked" />
+	</Grid>
+</ContentView>

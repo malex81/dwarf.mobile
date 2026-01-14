@@ -19,4 +19,9 @@
 		</Otherwise>
 	</Choose>
 	
+	<ItemGroup>
+		<PackageReference Include="Dwarf.Toolkit.Basic" Version="0.1.*-*" />
+		<PackageReference Include="Dwarf.Toolkit.Maui" Version="0.1.*-*" />
+	</ItemGroup>
+
 </Project>

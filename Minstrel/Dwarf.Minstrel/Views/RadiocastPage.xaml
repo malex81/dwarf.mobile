@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 			 xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+			 xmlns:base="http://dwarf.maui.ru/base"
 			 xmlns:vm="clr-namespace:Dwarf.Minstrel.ViewModels"
 			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
              xmlns:local="using:Dwarf.Minstrel.Views"
@@ -17,15 +18,16 @@
 	<Grid RowDefinitions="auto, *">
 		<toolkit:DockLayout Grid.Row="0" Margin="4,2">
 			<local:VolumeControl toolkit:DockLayout.DockPosition="Right" BindingContext="{Binding VolumeModel}"/>
-			<Entry Placeholder="Поиск"
-				   Text="{Binding FilterText}"
-				   Margin="{OnIdiom Default='0,0,40,0', Desktop='0,0,10,0'}"/>
+			<SearchBar Placeholder="Поиск"
+					   Text="{Binding FilterText}"
+					   SearchCommand="{Binding ForceUpdateViewListCommand}"
+					   Margin="{OnIdiom Default='0,0,40,0', Desktop='0,0,10,0'}"/>
 		</toolkit:DockLayout>
 		<RefreshView Grid.Row="1"
 				windows:RefreshView.RefreshPullDirection="TopToBottom"
 				IsRefreshing="{Binding IsRefreshing}"
 				Command="{Binding RefreshCommand}">
-			<CollectionView ItemsSource="{Binding ViewRadioSet}">
+			<CollectionView ItemsSource="{Binding ViewRadioList}">
 				<CollectionView.ItemsLayout>
 					<LinearItemsLayout Orientation="Vertical"
 								   ItemSpacing="2" />
