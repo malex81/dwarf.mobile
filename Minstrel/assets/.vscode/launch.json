@@ -9,7 +9,7 @@
 			"stopOnEntry": true,
 			"args": [
 				// "build-icons"
-				"parse-muzofon"
+				"parse-radio"
 			],
 			"cwd": "${workspaceRoot}/",
 			"outFiles": [],
