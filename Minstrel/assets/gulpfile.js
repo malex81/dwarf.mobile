@@ -4,4 +4,4 @@ const { buildIcons } = require('./gulp.tasks/arrange-icons');
 const parseStations = require('./gulp.tasks/parse-stations');
 
 exports['build-icons'] = buildIcons;
-exports['parse-radio'] = parseStations.parseMuzofon;
+exports['parse-radio'] = parseStations.parseMuzofond;

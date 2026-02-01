@@ -6,11 +6,15 @@ const through = require('through2');
 const buffer = require('vinyl-buffer');
 const axios = require('axios');							//https://www.npmjs.com/package/axios
 const Vinyl = require('vinyl');
+const path = require('path');
 
-function parseMuzofon() {
+const muzofondUrl = 'https://muzofond.fm';
+const muzofondRadioUrl = `${muzofondUrl}/radio-online`;
+
+function parseMuzofond() {
 	return download({
 		file: "radio_stations.json",
-		url: "https://muzofond.fm/radio-online/"
+		url: muzofondUrl
 	})
 		.pipe(buffer())
 		.pipe(through.obj(function (file, enc, cb) {
@@ -36,19 +40,21 @@ function parseMuzofon() {
 		.pipe(gulp.dest("./temp/"));
 }
 
-async function parseMuzofon2() {
+async function parseMuzofond2() {
 	let resTracks = [];
 	let page = 1;
 	let hasData = true;
 
 	console.log('Начинаю сбор данных...');
+	// Создаем поток Gulp из собранных данных
+	const stream = through.obj();
 
 	while (hasData) {
 		try {
-			const url = `https://muzofond.fm/radio-online/${page}`;
-			console.log(`Загружаю страницу ${page}: ${url}`);
+			const pageUrl = `${muzofondRadioUrl}/${page}`;
+			console.log(`Загружаю страницу ${page}: ${pageUrl}`);
 
-			const { data: html } = await axios.get(url, {
+			const { data: html } = await axios.get(pageUrl, {
 				timeout: 10000,
 				headers: { 'User-Agent': 'Mozilla/5.0' }
 			});
@@ -62,12 +68,36 @@ async function parseMuzofon2() {
 				break;
 			}
 
-			items.each((i, el) => {
-				resTracks.push({
-					page: page,
-					title: $(el).find('.title').text().trim()
-				});
+			const itemPromises = items.toArray().map(async (el) => {
+				const $el = $(el);
+
+				const imgUrl = $el.find('img').attr('data-src');
+				const absImageUrl = `${muzofondUrl}${imgUrl}`;
+				let imgName = null;
+				if (imgUrl) {
+					try {
+						const imgResponse = await axios.get(absImageUrl, { responseType: 'arraybuffer' });
+						imgName = `img_${Date.now()}_${Math.random().toString(36).slice(-5)}${path.extname(imgUrl)}`;
+
+						stream.push(new Vinyl({
+							path: `images/${imgName}`,
+							contents: Buffer.from(imgResponse.data)
+						}));
+					} catch (err) {
+						console.log(`Не удалось загрузить изображение, по адресу ${absImageUrl}`);
+					}
+				}
+
+				return {
+					title: $el.find('.title').text().trim(),
+					streamUrl: $el.attr('data-href'),
+					image: imgName
+				};
 			});
+
+			// Ждем, пока все картинки на ТЕКУЩЕЙ странице скачаются
+			const pageTracks = await Promise.all(itemPromises);
+			resTracks.push(...pageTracks);
 
 			page++;
 		} catch (error) {
@@ -75,11 +105,8 @@ async function parseMuzofon2() {
 			hasData = false;
 		}
 	}
-	
+
 	console.log(`Всего нашли ${resTracks.length} радиостанций`);
-	
-	// Создаем поток Gulp из собранных данных
-	const stream = through.obj();
 
 	// Генерируем виртуальный файл из нашего массива
 	const resultFile = new Vinyl({
@@ -93,4 +120,4 @@ async function parseMuzofon2() {
 	return stream.pipe(gulp.dest('./temp/'));
 }
 
-module.exports = parseMuzofon2
+module.exports = parseMuzofond2

@@ -1,3 +1,3 @@
 module.exports = {
-	parseMuzofon: require('./parse-muzofond')
+	parseMuzofond: require('./parse-muzofond')
 }
