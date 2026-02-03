@@ -7,9 +7,14 @@ const buffer = require('vinyl-buffer');
 const axios = require('axios');							//https://www.npmjs.com/package/axios
 const Vinyl = require('vinyl');
 const path = require('path');
+const del = require('del');
 
 const muzofondUrl = 'https://muzofond.fm';
 const muzofondRadioUrl = `${muzofondUrl}/radio-online`;
+
+function cleanImages() {
+  return del(['./temp/images/*']);
+}
 
 function parseMuzofond() {
 	return download({
@@ -71,13 +76,17 @@ async function parseMuzofond2() {
 			const itemPromises = items.toArray().map(async (el) => {
 				const $el = $(el);
 
+				const id = $el.attr('data-this-radio_id');
 				const imgUrl = $el.find('img').attr('data-src');
 				const absImageUrl = `${muzofondUrl}${imgUrl}`;
+				const dataUrl = $el.attr('data-href');
+				
 				let imgName = null;
 				if (imgUrl) {
 					try {
 						const imgResponse = await axios.get(absImageUrl, { responseType: 'arraybuffer' });
-						imgName = `img_${Date.now()}_${Math.random().toString(36).slice(-5)}${path.extname(imgUrl)}`;
+						// imgName = `img_${Date.now()}_${Math.random().toString(36).slice(-5)}${path.extname(imgUrl)}`;
+						imgName = `img_${id}${path.extname(imgUrl)}`;
 
 						stream.push(new Vinyl({
 							path: `images/${imgName}`,
@@ -89,8 +98,9 @@ async function parseMuzofond2() {
 				}
 
 				return {
+					id,
 					title: $el.find('.title').text().trim(),
-					streamUrl: $el.attr('data-href'),
+					streamUrl: dataUrl,
 					image: imgName
 				};
 			});
@@ -120,4 +130,4 @@ async function parseMuzofond2() {
 	return stream.pipe(gulp.dest('./temp/'));
 }
 
-module.exports = parseMuzofond2
+module.exports = gulp.series(cleanImages, parseMuzofond2);
