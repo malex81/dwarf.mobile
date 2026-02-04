@@ -5,6 +5,7 @@ namespace Dwarf.Minstrel.Data;
 
 internal static class InitData
 {
+	/*
 	public static async IAsyncEnumerable<RadioSource> InitialRadioSources()
 	{
 		yield return new()
@@ -32,4 +33,5 @@ internal static class InitData
 			StreamUrl = "https://av.bimradio.ru/bim_mp3_128k"
 		};
 	}
+	*/
 }

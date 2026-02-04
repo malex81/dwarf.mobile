@@ -12,7 +12,7 @@
              Title="Интернет радио">
 	<ContentPage.Resources>
 		<ResourceDictionary>
-			<toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+			<!--<toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />-->
 		</ResourceDictionary>
 	</ContentPage.Resources>
 	<Grid RowDefinitions="auto, *">
@@ -56,7 +56,11 @@
 								</FlyoutBase.ContextFlyout>
 								<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
 									<Frame Grid.RowSpan="2" Padding="0">
-										<Image Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+										<!--<Image Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+												Aspect="AspectFit"
+												HeightRequest="128"
+												WidthRequest="128" />-->
+										<Image Source="{Binding Icon}"
 												Aspect="AspectFit"
 												HeightRequest="128"
 												WidthRequest="128" />

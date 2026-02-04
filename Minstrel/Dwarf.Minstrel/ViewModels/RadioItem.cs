@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Minstrel.Data;
+using Dwarf.Minstrel.Data.Models;
 using Dwarf.Minstrel.Data.Tables;
 using Dwarf.Minstrel.Helpers;
 using Dwarf.Minstrel.MediaEngine;
@@ -15,10 +16,11 @@ namespace Dwarf.Minstrel.ViewModels;
 
 public partial class RadioItem : ObservableObject, IDisposable
 {
-	static readonly byte[] DefaultIcon = ResourceHelper.LoadResource("logo.png").GetAwaiter().GetResult();
+	//static readonly byte[] DefaultIcon = ResourceHelper.LoadResource("logo.png").GetAwaiter().GetResult();
+	static readonly ImageSource DefaultIcon = ImageSource.FromFile("logo.png");
 
 	private readonly DisposableList dispSelf = [];
-	private readonly RadioSource radioSource;
+	private readonly RadioStation radioStation;
 	private readonly MinstrelDatabase db;
 	private readonly MediaBox mediaBox;
 	private readonly IAlertService alertService;
@@ -33,14 +35,14 @@ public partial class RadioItem : ObservableObject, IDisposable
 	[ObservableProperty]
 	public partial string? ErrorMessage { get; set; }
 
-	public int Id => radioSource.Id;
-	public string Title => radioSource.Title ?? $"Неизвестное #{Id}";
-	public byte[]? Icon => radioSource.Logo ?? DefaultIcon;
-	public string? StreamUrl => radioSource.StreamUrl;
+	public string Id => radioStation.Id ?? "-";
+	public string Title => radioStation.Title ?? $"Неизвестное #{Id}";
+	public ImageSource Icon => radioStation.Image ?? DefaultIcon;
+	public string? StreamUrl => radioStation.StreamUrl;
 
-	public RadioItem(RadioSource radioSource, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
+	public RadioItem(RadioStation radioStation, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
 	{
-		this.radioSource = radioSource;
+		this.radioStation = radioStation;
 		this.db = db;
 		this.mediaBox = mediaBox;
 		this.alertService = alertService;
@@ -94,8 +96,9 @@ public partial class RadioItem : ObservableObject, IDisposable
 	[RelayCommand]
 	async Task Delete()
 	{
-		await db.RemoveRadioSource(radioSource);
-		messenger.Send(RadiocastMessage.ShallowRefresh);
+		/*		await db.RemoveRadioSource(radioSource);
+				messenger.Send(RadiocastMessage.ShallowRefresh);
+		*/
 	}
 
 	[RelayCommand]
@@ -115,5 +118,5 @@ public partial class RadioItem : ObservableObject, IDisposable
 
 public interface IRadioItemFactory
 {
-	RadioItem Create(RadioSource radioSource);
+	RadioItem Create(RadioStation radioStation);
 }

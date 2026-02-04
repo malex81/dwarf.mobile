@@ -58,7 +58,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 
 	async Task LoadData()
 	{
-		var radioList = await db.LoadRadioSources();
+		var radioList = await db.LoadStations();
 		RadioSet.DisposeAll();
 		RadioSet = radioList.Select(itemFactory.Create).ToArray();
 		ForceUpdateViewList();
@@ -76,18 +76,19 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 
 	async Task ShallowRefresh()
 	{
-		var radioList = await db.LoadRadioSources();
-		List<RadioItem> backItems = [.. RadioSet ?? []];
-		List<RadioItem> items = [];
-		foreach (var rs in radioList)
-		{
-			var rItem = backItems.Find(ri => ri.Id == rs.Id);
-			if (rItem != null) backItems.Remove(rItem);
-			else rItem = itemFactory.Create(rs);
-			items.Add(rItem);
-		}
-		backItems.DisposeAll();
-		RadioSet = items.ToArray();
+		/*		var radioList = await db.LoadRadioSources();
+				List<RadioItem> backItems = [.. RadioSet ?? []];
+				List<RadioItem> items = [];
+				foreach (var rs in radioList)
+				{
+					var rItem = backItems.Find(ri => ri.Id == rs.Id);
+					if (rItem != null) backItems.Remove(rItem);
+					else rItem = itemFactory.Create(rs);
+					items.Add(rItem);
+				}
+				backItems.DisposeAll();
+				RadioSet = items.ToArray();
+		*/
 	}
 
 	public void Receive(RadiocastMessage message)
