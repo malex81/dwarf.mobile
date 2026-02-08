@@ -33,12 +33,13 @@
 								   ItemSpacing="2" />
 				</CollectionView.ItemsLayout>
 				<CollectionView.ItemTemplate>
-					<DataTemplate x:DataType="vm:RadioItem">
+					<DataTemplate x:DataType="vm:RadioItemModel">
 						<SwipeView>
 							<SwipeView.RightItems>
 								<SwipeItem Text="Удалить"
 									   vh:FAIcons.SolidGlyph="TrashCan"
-									   Command="{Binding DeleteCommand}"
+									   Command="{Binding ToggleRemovedCommand}"
+									   CommandParameter="{x:Boolean True}"
 									   BackgroundColor="{StaticResource Danger}">
 								</SwipeItem>
 							</SwipeView.RightItems>
@@ -51,7 +52,8 @@
 										<MenuFlyoutItem Text="Удалить"
 													vh:FAIcons.SolidGlyph="TrashCan"
 													vh:FAIcons.GlyphColor="{StaticResource Danger}"
-													Command="{Binding DeleteCommand}" />
+													Command="{Binding ToggleRemovedCommand}"
+													CommandParameter="{x:Boolean True}" />
 									</MenuFlyout>
 								</FlyoutBase.ContextFlyout>
 								<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">

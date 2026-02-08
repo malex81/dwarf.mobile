@@ -12,7 +12,7 @@
 		"gulp-through2": "^1.1.0",
 		"lodash": "^4.17.21",
 		"mocha": "^11.1.0",
-		"mocha-logger": "^1.0.8",
+		"mocha-logger": "^1.0.7",
 		"vinyl-buffer": "^1.0.1"
 	}
 }

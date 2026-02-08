@@ -14,13 +14,13 @@ using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;
 
-public partial class RadioItem : ObservableObject, IDisposable
+public partial class RadioItemModel : ObservableObject, IDisposable
 {
 	//static readonly byte[] DefaultIcon = ResourceHelper.LoadResource("logo.png").GetAwaiter().GetResult();
 	static readonly ImageSource DefaultIcon = ImageSource.FromFile("logo.png");
 
 	private readonly DisposableList dispSelf = [];
-	private readonly RadioStation radioStation;
+	private readonly RadioItemFacade radioStation;
 	private readonly MinstrelDatabase db;
 	private readonly MediaBox mediaBox;
 	private readonly IAlertService alertService;
@@ -28,6 +28,8 @@ public partial class RadioItem : ObservableObject, IDisposable
 
 	[ObservableProperty]
 	public partial bool InFavorites { get; set; }
+	[ObservableProperty]
+	public partial bool Removed { get; set; }
 	[ObservableProperty]
 	public partial bool IsPlaying { get; set; }
 	[ObservableProperty]
@@ -40,13 +42,16 @@ public partial class RadioItem : ObservableObject, IDisposable
 	public ImageSource Icon => radioStation.Image ?? DefaultIcon;
 	public string? StreamUrl => radioStation.StreamUrl;
 
-	public RadioItem(RadioStation radioStation, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
+	public RadioItemModel(RadioItemFacade radioStation, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
 	{
 		this.radioStation = radioStation;
 		this.db = db;
 		this.mediaBox = mediaBox;
 		this.alertService = alertService;
 		this.messenger = messenger;
+
+		InFavorites = radioStation.State.InFavorites;
+		Removed = radioStation.State.Removed;
 
 		//UpdateState();
 		Dispatcher.GetForCurrentThread()!.DispatchDelayed(TimeSpan.FromMilliseconds(100), UpdateState);
@@ -79,9 +84,11 @@ public partial class RadioItem : ObservableObject, IDisposable
 	}
 
 	[RelayCommand]
-	void ToggleFavorites()
+	async Task ToggleFavorites()
 	{
-		InFavorites = !InFavorites;
+		radioStation.State.InFavorites = !radioStation.State.InFavorites;
+		InFavorites = radioStation.State.InFavorites;
+		await radioStation.SaveState();
 	}
 
 	[RelayCommand]
@@ -94,8 +101,11 @@ public partial class RadioItem : ObservableObject, IDisposable
 	}
 
 	[RelayCommand]
-	async Task Delete()
+	async Task ToggleRemoved(bool value)
 	{
+		radioStation.State.Removed = value;
+		Removed = radioStation.State.Removed;
+		await radioStation.SaveState();
 		/*		await db.RemoveRadioSource(radioSource);
 				messenger.Send(RadiocastMessage.ShallowRefresh);
 		*/
@@ -118,5 +128,5 @@ public partial class RadioItem : ObservableObject, IDisposable
 
 public interface IRadioItemFactory
 {
-	RadioItem Create(RadioStation radioStation);
+	RadioItemModel Create(RadioItemFacade radioStation);
 }

@@ -8,6 +8,9 @@
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
+		<!-- Turn off create windows package -->
+		<!--<WindowsPackageType>None</WindowsPackageType>-->
+
 		<!-- Display name -->
 		<ApplicationTitle>Minstrel</ApplicationTitle>
 
@@ -64,12 +67,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Common\Dwarf.Maui.Base\Dwarf.Maui.Base.csproj" />
+		<ProjectReference Include="..\..\Common\Dwarf.Maui.Base\Dwarf.Maui.Base.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<MauiXaml Update="ViewBasic\*.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\*.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -77,9 +80,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="ViewBasic\NotificationPopup.xaml.cs">
-	    <DependentUpon>NotificationPopup.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="ViewBasic\NotificationPopup.xaml.cs">
+			<DependentUpon>NotificationPopup.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 </Project>

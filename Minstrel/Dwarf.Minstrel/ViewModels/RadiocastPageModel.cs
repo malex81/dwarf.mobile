@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dwarf.Minstrel.Data;
+using Dwarf.Minstrel.Data.Models;
 using Dwarf.Minstrel.MediaEngine;
 using Dwarf.Minstrel.Messaging;
 using Dwarf.Toolkit.Basic.AsyncHelpers;
@@ -19,14 +20,14 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 
 	[ObservableProperty]
 	//[NotifyPropertyChangedFor(nameof(ViewRadioSet))]
-	public partial RadioItem[]? RadioSet { get; set; }
+	public partial RadioItemModel[]? RadioSet { get; set; }
 	[ObservableProperty]
 	public partial bool IsRefreshing { get; set; }
 	[ObservableProperty]
 	//[NotifyPropertyChangedFor(nameof(ViewRadioSet))]
 	public partial string? FilterText { get; set; }
 	[ObservableProperty]
-	public partial RadioItem[] ViewRadioList { get; set; } = [];
+	public partial RadioItemModel[] ViewRadioList { get; set; } = [];
 
 	public VolumeModel VolumeModel { get; }
 
@@ -48,7 +49,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 			vlInvalidator.Invalidate();
 	}
 
-	RadioItem[] GetRadioViewSet()
+	RadioItemModel[] GetRadioViewSet()
 	{
 		if (RadioSet == null) return [];
 		var source = string.IsNullOrWhiteSpace(FilterText) ? RadioSet
@@ -56,9 +57,11 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		return source.OrderByDescending(r => r.InFavorites).ToArray();
 	}
 
+	async Task<RadioItemFacade[]> FetchData() => await db.LoadStations();
+
 	async Task LoadData()
 	{
-		var radioList = await db.LoadStations();
+		var radioList = await FetchData();
 		RadioSet.DisposeAll();
 		RadioSet = radioList.Select(itemFactory.Create).ToArray();
 		ForceUpdateViewList();
@@ -76,19 +79,18 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 
 	async Task ShallowRefresh()
 	{
-		/*		var radioList = await db.LoadRadioSources();
-				List<RadioItem> backItems = [.. RadioSet ?? []];
-				List<RadioItem> items = [];
-				foreach (var rs in radioList)
-				{
-					var rItem = backItems.Find(ri => ri.Id == rs.Id);
-					if (rItem != null) backItems.Remove(rItem);
-					else rItem = itemFactory.Create(rs);
-					items.Add(rItem);
-				}
-				backItems.DisposeAll();
-				RadioSet = items.ToArray();
-		*/
+		var radioList = await FetchData();
+		List<RadioItemModel> backItems = [.. RadioSet ?? []];
+		List<RadioItemModel> items = [];
+		foreach (var rs in radioList)
+		{
+			var rItem = backItems.Find(ri => ri.Id == rs.Id);
+			if (rItem != null) backItems.Remove(rItem);
+			else rItem = itemFactory.Create(rs);
+			items.Add(rItem);
+		}
+		backItems.DisposeAll();
+		RadioSet = items.ToArray();
 	}
 
 	public void Receive(RadiocastMessage message)

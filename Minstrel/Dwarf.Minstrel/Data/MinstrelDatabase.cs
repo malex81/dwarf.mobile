@@ -29,11 +29,17 @@ public class MinstrelDatabase
 			return;
 
 		db = new SQLiteAsyncConnection(DBConfig.DatabasePath, DBConfig.Flags);
-		if (await db.CreateTableAsync<RadioSource>() == CreateTableResult.Created)
+		if (await db.CreateTableAsync<RadioItemState>() == CreateTableResult.Created)
 		{
 			//await foreach (var radio in InitData.InitialRadioSources())
 			//	await db.InsertAsync(radio);
 		}
+	}
+
+	public async Task<SQLiteAsyncConnection> GetConnection()
+	{
+		await Init();
+		return db;
 	}
 
 	async Task Disconnect()
@@ -49,6 +55,13 @@ public class MinstrelDatabase
 		File.Delete(DBConfig.DatabasePath);
 	}
 
+	public async Task SaveAsync(DbObjectBase obj)
+	{
+		await Init();
+		if (obj.Id == 0) await db.InsertAsync(obj);
+		else await db.UpdateAsync(obj);
+	}
+
 	/*	public async Task<RadioSource[]> LoadRadioSources()
 		{
 			await Init();
@@ -61,13 +74,20 @@ public class MinstrelDatabase
 			await db.DeleteAsync(radioSource);
 		}
 	*/
-	public async Task<RadioStation[]> LoadStations()
+	public async Task<RadioItemFacade[]> LoadStations()
 	{
+		await Init();
+
+		var stateList = await db.Table<RadioItemState>().ToArrayAsync();
+
 		using var stream = await FileSystem.OpenAppPackageFileAsync("radio_stations.json");
 		using var reader = new StreamReader(stream);
 
 		var jsonContents = await reader.ReadToEndAsync();
 
-		return JsonSerializer.Deserialize<RadioStation[]>(jsonContents, JsonCaseInsensitive) ?? [];
+		return (JsonSerializer.Deserialize<RadioStation[]>(jsonContents, JsonCaseInsensitive) ?? [])
+			.Where(r => !string.IsNullOrWhiteSpace(r.Id) && !string.IsNullOrWhiteSpace(r.StreamUrl))
+			.Select(r => new RadioItemFacade(this, r, stateList.FirstOrDefault(s => s.SourceId == r.Id) ?? new() { SourceId = r.Id }))
+			.ToArray();
 	}
 }
