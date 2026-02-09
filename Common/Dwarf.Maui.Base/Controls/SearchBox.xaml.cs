@@ -17,7 +17,7 @@ public partial class SearchBox : ContentView
 
 	partial void OnTextChanged(string oldValue, string newValue)
 	{
-		ClearButton.IsVisible = !string.IsNullOrEmpty(Text);
+		clearButton.IsVisible = !string.IsNullOrEmpty(Text);
 	}
 
 	private void OnClearClicked(object sender, EventArgs e)

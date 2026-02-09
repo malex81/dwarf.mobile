@@ -20,7 +20,7 @@
 		</ResourceDictionary>
 	</ContentView.Resources>
 	<Border BindingContext="{x:Reference self}"
-			Style="{StaticResource borderCard}">
+			Style="{StaticResource BorderCard}">
 		<Border.GestureRecognizers>
 			<TapGestureRecognizer Tapped="OnFrameTapped"/>
 		</Border.GestureRecognizers>

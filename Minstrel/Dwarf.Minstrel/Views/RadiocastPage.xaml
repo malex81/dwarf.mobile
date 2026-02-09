@@ -43,7 +43,12 @@
 									   BackgroundColor="{StaticResource Danger}">
 								</SwipeItem>
 							</SwipeView.RightItems>
-							<Border Style="{StaticResource borderCard}">
+							<Border Style="{StaticResource BorderCard}">
+								<Border.Triggers>
+									<DataTrigger TargetType="Border" Binding="{Binding Removed}" Value="true">
+										<Setter Property="Background" Value="{StaticResource Translucent}" />
+									</DataTrigger>
+								</Border.Triggers>
 								<FlyoutBase.ContextFlyout>
 									<MenuFlyout>
 										<MenuFlyoutItem Text="Обновить"
@@ -71,8 +76,7 @@
 										<Label Style="{StaticResource SubHeadline}"
 												Text="{Binding Title}"
 												Padding="10, 2" />
-										<Label
-												Text="{Binding ErrorMessage}"
+										<Label Text="{Binding ErrorMessage}"
 												TextColor="{StaticResource Danger}"
 												FontSize="12"
 												Padding="10, 0" />
@@ -80,7 +84,7 @@
 									<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
 										<Button toolkit:DockLayout.DockPosition="Left"
 												VerticalOptions="End"
-												Style="{StaticResource iconButton}"
+												Style="{StaticResource IconButton}"
 												Command="{Binding TogglePlayingCommand}"
 												vh:FAIcons.RegularGlyph="CirclePlay">
 											<Button.Triggers>
@@ -93,9 +97,10 @@
 											</Button.Triggers>
 										</Button>
 										<Button toolkit:DockLayout.DockPosition="Right"
+												IsVisible="{Binding Removed, Converter={toolkit:InvertedBoolConverter}}"
 												HorizontalOptions="End"
 												VerticalOptions="End"
-												Style="{StaticResource iconButton}"
+												Style="{StaticResource IconButton}"
 												Command="{Binding ToggleFavoritesCommand}"
 												vh:FAIcons.RegularGlyph="Heart">
 											<Button.Triggers>
@@ -109,9 +114,13 @@
 												</DataTrigger>
 											</Button.Triggers>
 										</Button>
+										<Label Text="Удалено"
+											   Rotation="-30"
+											   Style="{StaticResource Headline}"
+											   TextColor="Gray" />
 										<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
 												vh:FAIcons.GlyphColor="{StaticResource Danger}"
-												Style="{StaticResource iconImage}"
+												Style="{StaticResource IconImage}"
 												IsVisible="{Binding ShowLoading}"
 												VerticalOptions="End"
 												HorizontalOptions="Start"

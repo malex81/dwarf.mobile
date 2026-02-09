@@ -2,13 +2,15 @@
 
 cd %~dp0..
 
-for /r %%a in (.) do (
+for /r /d %%a in (.) do (
 	@echo off
 	:: enter the directory
 	pushd %%a
 	cd
-	rd /s /q "bin" > nul 2>&1
-	rd /s /q "obj" > nul 2>&1
+	if exist "bin\" rd /s /q "bin"
+    if exist "obj\" rd /s /q "obj"
+	@rem rd /s /q "bin" > nul 2>&1
+	@rem rd /s /q "obj" > nul 2>&1
 	:: leave the directory
 	popd
 )

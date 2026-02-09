@@ -27,9 +27,14 @@
 		<Button Grid.Column="0"
 				HorizontalOptions="End"
 				VerticalOptions="End"
-				Style="{StaticResource iconRoundButton}"
+				Style="{StaticResource IconRoundButton}"
 				vh:FAIcons.GlyphDescriptor="{Binding VolumeButtonIcon}"
 				Command="{Binding ToggleMuteCommand}">
+			<Button.Triggers>
+				<DataTrigger TargetType="Button" Binding="{Binding Volume}" Value="0">
+					<Setter Property="TextColor" Value="{toolkit:AppThemeResource FgMuteColor}"/>
+				</DataTrigger>
+			</Button.Triggers>
 		</Button>
 		<Slider Grid.Column="1"
 				VerticalOptions="Center"

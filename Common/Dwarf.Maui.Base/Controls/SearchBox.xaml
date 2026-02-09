@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Dwarf.Maui.Base.Controls.SearchBox">
 	<Grid ColumnDefinitions="*, Auto">
-		<Entry x:Name="EntryField"
+		<Entry x:Name="entryField"
                Grid.Column="0"
                Placeholder="{Binding Placeholder, Source={x:Reference Root}}"
                Text="{Binding Text, Source={x:Reference Root}, Mode=TwoWay}" />
 
-		<ImageButton x:Name="ClearButton"
+		<ImageButton x:Name="clearButton"
                      Grid.Column="1"
                      Source="close.png"
                      BackgroundColor="Transparent"
