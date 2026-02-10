@@ -39,14 +39,14 @@
 								<SwipeItem Text="Удалить"
 									   vh:FAIcons.SolidGlyph="TrashCan"
 									   Command="{Binding ToggleRemovedCommand}"
-									   CommandParameter="{x:Boolean True}"
+									   CommandParameter="{vh:Primitive Bool=True}"
 									   BackgroundColor="{StaticResource Danger}">
 								</SwipeItem>
 							</SwipeView.RightItems>
 							<Border Style="{StaticResource BorderCard}">
 								<Border.Triggers>
 									<DataTrigger TargetType="Border" Binding="{Binding Removed}" Value="true">
-										<Setter Property="Background" Value="{StaticResource Translucent}" />
+										<Setter Property="Background" Value="{StaticResource Danger}" />
 									</DataTrigger>
 								</Border.Triggers>
 								<FlyoutBase.ContextFlyout>
@@ -58,7 +58,7 @@
 													vh:FAIcons.SolidGlyph="TrashCan"
 													vh:FAIcons.GlyphColor="{StaticResource Danger}"
 													Command="{Binding ToggleRemovedCommand}"
-													CommandParameter="{x:Boolean True}" />
+													CommandParameter="{vh:Primitive Bool=True}" />
 									</MenuFlyout>
 								</FlyoutBase.ContextFlyout>
 								<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
@@ -115,17 +115,18 @@
 											</Button.Triggers>
 										</Button>
 										<Label Text="Удалено"
+											   IsVisible="{Binding Removed}"
 											   Rotation="-30"
 											   Style="{StaticResource Headline}"
-											   TextColor="Gray" />
+											   TextColor="{toolkit:AppThemeResource FgMuteColor}" />
 										<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
-												vh:FAIcons.GlyphColor="{StaticResource Danger}"
-												Style="{StaticResource IconImage}"
-												IsVisible="{Binding ShowLoading}"
+												vh:FAIcons.GlyphColor="{toolkit:AppThemeResource AlertColor}"
+												Style="{StaticResource IconImage}"												
 												VerticalOptions="End"
 												HorizontalOptions="Start"
 												Margin="10, 0">
 											<Image.Behaviors>
+												<!--IsVisible="{Binding ShowLoading}"-->
 												<vh:AnimationBehavior>
 													<vh:PulseAnimation/>
 												</vh:AnimationBehavior>

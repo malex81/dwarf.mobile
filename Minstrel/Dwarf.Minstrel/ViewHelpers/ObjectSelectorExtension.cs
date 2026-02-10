@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace Dwarf.Minstrel.ViewHelpers;
 
+[AcceptEmptyServiceProvider]
 [ContentProperty(nameof(Variants))]
 public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension<BindingBase>
 {

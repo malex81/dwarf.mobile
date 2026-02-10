@@ -24,6 +24,7 @@
     <Color x:Key="Black">Black</Color>
     <!--<Color x:Key="MidnightBlue">#190649</Color>-->
     <Color x:Key="OffBlack">#1f1f1f</Color>
+	<!--<Color x:Key="Yellow">#ffc107</Color>-->
 
 	<Color x:Key="Gray100">#E1E1E1</Color>
     <Color x:Key="Gray200">#C8C8C8</Color>
@@ -63,6 +64,7 @@
 	<toolkit:AppThemeColor x:Key="SuccessColor" Light="{StaticResource Green}" Dark="{StaticResource GreenLight}"/>
 	<toolkit:AppThemeColor x:Key="ButtonIndicatorColor" Light="{StaticResource Primary}" Dark="{StaticResource Primary}"/>
 	<toolkit:AppThemeColor x:Key="ActiveButtonBgColor" Light="{StaticResource Light}" Dark="{StaticResource Dark}"/>
+	<toolkit:AppThemeColor x:Key="AlertColor" Light="{StaticResource TertiaryDark}" Dark="{StaticResource Light}"/>
 	<toolkit:AppThemeColor x:Key="BgIconColor" Light="{StaticResource Tertiary}" Dark="{StaticResource TertiaryDark}"/>
 	<toolkit:AppThemeColor x:Key="FgMuteColor" Light="{StaticResource Gray300}" Dark="{StaticResource Gray600}"/>
 
