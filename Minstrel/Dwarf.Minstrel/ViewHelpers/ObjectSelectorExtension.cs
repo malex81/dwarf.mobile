@@ -5,7 +5,7 @@ namespace Dwarf.Minstrel.ViewHelpers;
 
 [AcceptEmptyServiceProvider]
 [ContentProperty(nameof(Variants))]
-public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension<BindingBase>
+public partial class ObjectSelectorExtension : IMarkupExtension<BindingBase>
 {
 	[AttachedProperty]
 	public static partial object? GetKey(BindableObject view);
@@ -23,10 +23,7 @@ public partial class ObjectSelectorExtension : BindableObject, IMarkupExtension<
 		return new Binding(KeyPath, BindingMode.OneWay, new VariantPickerConverter(this));
 	}
 
-	object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
-	{
-		return ProvideValue(serviceProvider);
-	}
+	object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => ProvideValue(serviceProvider);
 
 	class VariantPickerConverter : IValueConverter
 	{

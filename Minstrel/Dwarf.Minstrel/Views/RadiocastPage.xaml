@@ -54,11 +54,32 @@
 										<MenuFlyoutItem Text="Обновить"
 													vh:FAIcons.SolidGlyph="RotateRight"
 													Command="{Binding RefreshCommand}" />
-										<MenuFlyoutItem Text="Удалить"
+										<!--<MenuFlyoutItem Text="Удалить"
 													vh:FAIcons.SolidGlyph="TrashCan"
 													vh:FAIcons.GlyphColor="{StaticResource Danger}"
 													Command="{Binding ToggleRemovedCommand}"
 													CommandParameter="{vh:Primitive Bool=True}" />
+										<MenuFlyoutItem Text="Восстановить"
+													vh:FAIcons.SolidGlyph="TrashCanArrowUp"
+													vh:FAIcons.GlyphColor="{StaticResource Green}"
+													Command="{Binding ToggleRemovedCommand}"
+													CommandParameter="{vh:Primitive Bool=False}" />-->
+										<MenuFlyoutItem Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
+													vh:FAIcons.SolidGlyph="TrashCanArrowUp"
+													vh:FAIcons.GlyphColor="{StaticResource Green}"
+													Command="{Binding ToggleRemovedCommand}" />
+										<!--<MenuFlyoutItem Command="{Binding ToggleRemovedCommand}">
+											<MenuFlyoutItem.Triggers>
+												<DataTrigger TargetType="MenuFlyoutItem" 
+														 Binding="{Binding IsDeleted}" Value="False">
+													<Setter Property="Text" Value="Удалить" />
+												</DataTrigger>
+												<DataTrigger TargetType="MenuFlyoutItem" 
+														 Binding="{Binding IsDeleted}" Value="True">
+													<Setter Property="Text" Value="Восстановить" />
+												</DataTrigger>
+											</MenuFlyoutItem.Triggers>
+										</MenuFlyoutItem>-->
 									</MenuFlyout>
 								</FlyoutBase.ContextFlyout>
 								<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
@@ -120,13 +141,13 @@
 											   Style="{StaticResource Headline}"
 											   TextColor="{toolkit:AppThemeResource FgMuteColor}" />
 										<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
-												vh:FAIcons.GlyphColor="{toolkit:AppThemeResource AlertColor}"
-												Style="{StaticResource IconImage}"												
-												VerticalOptions="End"
-												HorizontalOptions="Start"
-												Margin="10, 0">
+											   IsVisible="{Binding ShowLoading}"
+											   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource AlertColor}"
+											   Style="{StaticResource IconImage}"
+											   VerticalOptions="End"
+											   HorizontalOptions="Start"
+											   Margin="10, 0">
 											<Image.Behaviors>
-												<!--IsVisible="{Binding ShowLoading}"-->
 												<vh:AnimationBehavior>
 													<vh:PulseAnimation/>
 												</vh:AnimationBehavior>

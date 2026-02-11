@@ -28,6 +28,8 @@ public enum FASolidGlyphs
 	ArrowDown = 0xf063,
 	Trash = 0xf1f8,
 	TrashCan = 0xf2ed,
+	TrashArrowUp = 0xf829,
+	TrashCanArrowUp = 0xf82a,
 	Rotate = 0xf2f1,
 	ArrowRotate = 0xf021,
 	RotateRight = 0xf2f9,

@@ -101,10 +101,10 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 	}
 
 	[RelayCommand]
-	async Task ToggleRemoved(bool value)
+	async Task ToggleRemoved()
 	{
-		radioStation.State.Removed = value;
-		Removed = radioStation.State.Removed;
+		Removed = !Removed;
+		radioStation.State.Removed = Removed;
 		await radioStation.SaveState();
 		/*		await db.RemoveRadioSource(radioSource);
 				messenger.Send(RadiocastMessage.ShallowRefresh);
