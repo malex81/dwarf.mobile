@@ -1,21 +1,15 @@
 <Project>
 	<PropertyGroup>
-		<CheckEolWorkloads>false</CheckEolWorkloads>
+		<!--<CheckEolWorkloads>false</CheckEolWorkloads>-->
 		<LangVersion>preview</LangVersion>
+		<Configurations>Debug;Release;Tests</Configurations>
+		<DefaultLanguage>ru-ru</DefaultLanguage>
 	</PropertyGroup>
 	
-	<PropertyGroup Condition="'$(Configuration)' == 'Tests'">
-		<TargetFramework>net8.0</TargetFramework>
-		<!--<NuGetAuditMode>direct</NuGetAuditMode>-->
-		<UseRidGraph>true</UseRidGraph>
-	</PropertyGroup>
-
 	<PropertyGroup Condition="'$(Configuration)' != 'Tests'">
-		<!--<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>-->
-		<TargetFrameworks>net8.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks>net10.0-android</TargetFrameworks>
+		<!--<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst</TargetFrameworks>-->
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
 
 		<!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
@@ -23,16 +17,13 @@
 		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+		
 		<UseMaui>true</UseMaui>
+		<MauiVersion>10.0.30</MauiVersion>
 	</PropertyGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Tests'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.*"/>
-	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' != 'Tests'">
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
 
 </Project>

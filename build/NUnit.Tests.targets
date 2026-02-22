@@ -4,6 +4,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Tests'">
+		<TargetFramework>net10.0</TargetFramework>
+		<!--<NuGetAuditMode>direct</NuGetAuditMode>-->
+		<UseRidGraph>true</UseRidGraph>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<IsPackable>false</IsPackable>
 		<SignAssembly>false</SignAssembly>
@@ -13,9 +16,10 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Tests'">
-		<PackageReference Include="nunit" Version="4.2.*" />
-		<PackageReference Include="NUnit3TestAdapter" Version="4.6.*" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.*" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.*"/>
+		<PackageReference Include="nunit" Version="4.5.*" />
+		<PackageReference Include="NUnit3TestAdapter" Version="6.1.*" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.*" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(Configuration)' != 'Tests'">
 		<Compile Remove="**\Tests\**" />

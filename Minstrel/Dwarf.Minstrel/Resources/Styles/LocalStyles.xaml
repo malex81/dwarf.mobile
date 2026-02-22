@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -32,10 +31,10 @@
 				<RoundRectangle CornerRadius="8"/>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="Background" Value="{AppThemeBinding Light={StaticResource Light2}, Dark={StaticResource Dark2}}" />
+		<Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light2}, Dark={DynamicResource Dark2}}" />
 	</Style>
 
-	<Style TargetType="ToolbarItem">
+	<!--<Style TargetType="ToolbarItem">
 		<Setter Property="vh:FAIcons.GlyphColor" Value="{toolkit:AppThemeResource NavBarFgColor}"/>
-	</Style>
+	</Style>-->
 </ResourceDictionary>
