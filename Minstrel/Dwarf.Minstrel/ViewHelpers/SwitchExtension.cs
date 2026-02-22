@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Dwarf.Toolkit.Maui;
+using System.Globalization;
 
 namespace Dwarf.Minstrel.ViewHelpers;
 
@@ -17,24 +18,8 @@ public partial class SwitchExtension<T> : IMarkupExtension
 		public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();
 	}
 
-	/*public static readonly Microsoft.Maui.Controls.BindableProperty ValueProperty = BindableProperty.Create(
-		nameof(Value),
-		typeof(bool),
-		typeof(SwitchExtension<T>),
-		propertyChanged: (s, vo, vn) =>
-		{
-		});
-
-	public bool Value
-	{
-		get => (bool)GetValue(ValueProperty);
-		set => SetValue(ValueProperty, value);
-	}*/
-
 	public BindingBase? Value { get; set; }
 
-	//[BindableProperty]
-	//public partial bool Value { get; set; }
 	public T OnTrue { get; set; } = default!;
 	public T OnFalse { get; set; } = default!;
 
