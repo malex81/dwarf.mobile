@@ -30,7 +30,7 @@ public partial class NotificationPopup : Popup
 	{
 		_ = notifyBox.TranslateTo(0, -200);
 		await notifyBox.FadeTo(0);
-		Close();
+		await CloseAsync();
 	}
 }
 

@@ -34,7 +34,7 @@
 		<Setter Property="Background" Value="{AppThemeBinding Light={DynamicResource Light2}, Dark={DynamicResource Dark2}}" />
 	</Style>
 
-	<!--<Style TargetType="ToolbarItem">
+	<Style TargetType="ToolbarItem">
 		<Setter Property="vh:FAIcons.GlyphColor" Value="{toolkit:AppThemeResource NavBarFgColor}"/>
-	</Style>-->
+	</Style>
 </ResourceDictionary>

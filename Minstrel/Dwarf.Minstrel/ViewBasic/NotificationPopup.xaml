@@ -6,7 +6,7 @@
 			xmlns:local="using:Dwarf.Minstrel.ViewBasic"
 			x:Class="Dwarf.Minstrel.ViewBasic.NotificationPopup"
 			x:DataType="local:NotificationPopupModel"
-			Color="Transparent">
+			BackgroundColor="Transparent">
 	<Frame Padding="10, 200">
 		<Frame.GestureRecognizers>
 			<TapGestureRecognizer Tapped="OnOuterFrameTapped"/>
