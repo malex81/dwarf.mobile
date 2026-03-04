@@ -3,12 +3,6 @@
 		<CheckEolWorkloads>false</CheckEolWorkloads>
 		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
-	
-	<PropertyGroup Condition="'$(Configuration)' == 'Tests'">
-		<TargetFramework>net8.0</TargetFramework>
-		<!--<NuGetAuditMode>direct</NuGetAuditMode>-->
-		<UseRidGraph>true</UseRidGraph>
-	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' != 'Tests'">
 		<!--<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>-->
@@ -25,11 +19,26 @@
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 		<UseMaui>true</UseMaui>
 	</PropertyGroup>
+		
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+		<!-- Эти свойства — "родные" для MSBuild Android и не конфликтуют с boot-class-path -->
+		<!--<AndroidJavacSource>11</AndroidJavacSource>
+		<AndroidJavacTarget>11</AndroidJavacTarget>-->
 
-	<ItemGroup Condition="'$(Configuration)' == 'Tests'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.*"/>
-	</ItemGroup>
+		<!-- Пытаемся переопределить внутреннюю переменную MSBuild напрямую -->
+		<!--<JavaSource>11</JavaSource>
+		<JavaTarget>11</JavaTarget>-->
+		<!--<JavacSourceVersion Condition=" '$(JavacSourceVersion)' == '' ">11</JavacSourceVersion>
+		<JavacTargetVersion Condition=" '$(JavacTargetVersion)' == '' ">11</JavacTargetVersion>
+		<AndroidJavacDefaultOptions>-source 11 -target 11</AndroidJavacDefaultOptions>-->
 
+		<!-- Попытки заткнуть рот компилятору - не удачные -->
+		<!--<MSBuildWarningsAsMessages Condition="'$(MSBuildWarningsAsMessages)' == ''">JAVAC</MSBuildWarningsAsMessages>
+		<MSBuildWarningsAsMessages Condition="'$(MSBuildWarningsAsMessages)' != ''">$(MSBuildWarningsAsMessages);JAVAC</MSBuildWarningsAsMessages>
+		<NoWarn>$(NoWarn);JAVAC;[options]</NoWarn>
+		<AndroidJavacExtraArgs>-Xlint:-options</AndroidJavacExtraArgs>-->
+	</PropertyGroup>
+	
 	<ItemGroup Condition="'$(Configuration)' != 'Tests'">
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
