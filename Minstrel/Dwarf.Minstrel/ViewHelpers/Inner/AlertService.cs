@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Extensions;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
 using Dwarf.Minstrel.ViewBasic;
 using Dwarf.Toolkit.Basic.SystemExtension;
@@ -7,10 +8,8 @@ namespace Dwarf.Minstrel.ViewHelpers.Inner;
 
 internal class AlertService : IAlertService
 {
-	Page SomePage => Application.Current?.Windows is [{ Page: Page activePage }, ..]
-					? activePage
-					: throw new InvalidOperationException("Active window or page not initialized");
 	//Page SomePage => Application.Current?.MainPage ?? throw new InvalidOperationException("Main page not initialized");
+	Page SomePage => AppHelper.MainPage ?? throw new InvalidOperationException("Main page not initialized");
 
 	/// <summary>
 	/// Show an alert dialog to the application user with a single cancel button.
@@ -26,7 +25,7 @@ internal class AlertService : IAlertService
 	public IDisposable ShowNotification(string title, string message, AlertIconKind icon = AlertIconKind.None)
 	{
 		var popup = new NotificationPopup(new(title, message, icon));
-		SomePage.ShowPopup(popup);
+		SomePage.ShowPopup(popup, new PopupOptions { Shape = null, Shadow = null });
 		return DisposableHelper.FromAction(() => { popup.CloseAsync(); }, false);
 	}
 }

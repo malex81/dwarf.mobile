@@ -4,6 +4,8 @@ namespace Dwarf.Minstrel;
 
 public partial class App : Application
 {
+	public static Window? MainWindow { get; private set; }
+
 #if WINDOWS
 	const int WindowWidth = 480;
 	const int WindowHeight = 800;
@@ -23,7 +25,7 @@ public partial class App : Application
 	{
 		var mediaBox = services.GetService<MediaBox>();
 		Window window = new(new AppShell());
-
+		MainWindow = window;
 #if WINDOWS
 		window.Width = WindowWidth;
 		window.Height = WindowHeight;

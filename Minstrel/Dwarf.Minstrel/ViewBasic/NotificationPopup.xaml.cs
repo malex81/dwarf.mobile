@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Views;
 using Dwarf.Minstrel.ViewHelpers;
 using System.ComponentModel;
