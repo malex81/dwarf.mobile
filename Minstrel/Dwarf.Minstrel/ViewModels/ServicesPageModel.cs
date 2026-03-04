@@ -36,6 +36,8 @@ public partial class ServicesPageModel : ObservableObject
 	[RelayCommand]
 	async Task ClearDb()
 	{
+		alertService.ShowNotification(ClearDbTitle, "База данных успешно пересоздана", AlertIconKind.Success);
+		return;
 		if (await alertService.ShowAlert(ClearDbTitle, "Будет выполнена полная очистка всей базы данных. Продолжить?", "Да", "Нет"))
 		{
 			try

@@ -6,11 +6,12 @@
 			xmlns:local="using:Dwarf.Minstrel.ViewBasic"
 			x:Class="Dwarf.Minstrel.ViewBasic.NotificationPopup"
 			x:DataType="local:NotificationPopupModel"
+			Margin="0"
 			BackgroundColor="Transparent">
-	<Frame Padding="10, 200">
-		<Frame.GestureRecognizers>
+	<Border Padding="10, 200" Stroke="Transparent" BackgroundColor="Transparent">
+		<Border.GestureRecognizers>
 			<TapGestureRecognizer Tapped="OnOuterFrameTapped"/>
-		</Frame.GestureRecognizers>
+		</Border.GestureRecognizers>
 		<Border x:Name="notifyBox"
 				BackgroundColor="{toolkit:AppThemeResource ActiveButtonBgColor}"
 				StrokeThickness="0"
@@ -21,7 +22,7 @@
 				Text="{Binding Title}"/>
 				<Grid Padding="0, 10" ColumnDefinitions="auto,*">
 					<Image VerticalOptions="Start" Margin="0,0,12,0"
-						   IsVisible="{Binding Source={RelativeSource Self}, Path=Source, Converter={toolkit:IsNotNullConverter}}">
+						   IsVisible="{Binding Source={RelativeSource Self}, Path=Source, x:DataType=Image, Converter={toolkit:IsNotNullConverter}}">
 						<Image.Source>
 							<vh:ObjectSelector KeyPath="Icon">
 								<FontImageSource vh:ObjectSelector.Key="{x:Static vh:AlertIconKind.Success}"
@@ -35,5 +36,5 @@
 				</Grid>
 			</VerticalStackLayout>
 		</Border>
-	</Frame>
+	</Border>
 </toolkit:Popup>

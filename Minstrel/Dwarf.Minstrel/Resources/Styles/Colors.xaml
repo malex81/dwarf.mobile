@@ -69,7 +69,4 @@
 	<toolkit:AppThemeColor x:Key="BgIconColor" Light="{StaticResource Tertiary}" Dark="{StaticResource TertiaryDark}"/>
 	<toolkit:AppThemeColor x:Key="FgMuteColor" Light="{StaticResource Gray300}" Dark="{StaticResource Gray600}"/>
 
-	<SolidColorBrush x:Key="ButtonTextBrush" Color="{toolkit:AppThemeResource ButtonTextColor}"/>
-	<SolidColorBrush x:Key="SuccessBrush" Color="{toolkit:AppThemeResource SuccessColor}"/>
-
 </ResourceDictionary>

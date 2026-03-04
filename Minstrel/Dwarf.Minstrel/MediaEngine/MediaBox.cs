@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Dwarf.Minstrel.ViewHelpers;
 using Dwarf.Toolkit.Basic.SystemExtension;
 using System.ComponentModel;
 
@@ -31,8 +32,9 @@ public partial class MediaBox : ObservableObject, IDisposable
 	{
 		if (mediaPlayer == null)
 		{
-			var page = ((App)app).MainPage;
-			mediaPlayer = page!.GetVisualTreeDescendants().OfType<MediaElement>().FirstOrDefault();
+			//var page = ((App)app).MainPage;
+			//mediaPlayer = page!.GetVisualTreeDescendants().OfType<MediaElement>().FirstOrDefault();
+			mediaPlayer = AppHelper.FindFirstVisualTreeElement<MediaElement>();
 			if (mediaPlayer != null)
 			{
 				mediaPlayer.MediaFailed += MediaPlayer_MediaFailed;
