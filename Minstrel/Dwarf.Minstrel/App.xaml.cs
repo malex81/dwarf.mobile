@@ -1,4 +1,5 @@
-﻿using Dwarf.Minstrel.MediaEngine;
+﻿using Dwarf.Minstrel.Helpers;
+using Dwarf.Minstrel.MediaEngine;
 
 namespace Dwarf.Minstrel;
 
@@ -43,14 +44,13 @@ public partial class App : Application
 		Window window = base.CreateWindow(activationState);
 
 #if WINDOWS
-		window.Width = WindowWidth;
-		window.Height = WindowHeight;
 		window.MinimumWidth = WindowWidth;
 		window.MinimumHeight = WindowHeight;
+		window.KeepeBounds(Preferences.Default, new(WindowWidth, WindowHeight));
 #endif
 
-		window.Created += (s, e) => { };
-		window.Stopped += (s, e) => { };
+		//window.Created += (s, e) => { };
+		//window.Stopped += (s, e) => { };
 		window.Destroying += (s, e) => { mediaBox?.Stop(); };
 		return window;
 	}
