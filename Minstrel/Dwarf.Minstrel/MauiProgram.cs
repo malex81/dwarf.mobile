@@ -2,6 +2,7 @@
 using Dwarf.Minstrel.Base;
 using Dwarf.Minstrel.Views;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 
 namespace Dwarf.Minstrel;
 
@@ -23,8 +24,32 @@ public static class MauiProgram
 				fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", FontNames.FASolid);
 			}).ConfigureMauiHandlers(handlers =>
 			{
-			});
+			}).ConfigureLifecycleEvents(ev =>
+			{
+#if WINDOWS
+				ev.AddWindows(windows => windows
+					.OnWindowCreated(window =>
+					{
+						/*
+						var handle = WinRT.Interop.WindowNative.GetWindowHandle(window);
+						var id = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(handle);
+						var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(id);
 
+						appWindow.Closing += (s, e) =>
+						{
+							Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
+							{
+								Microsoft.Maui.Controls.Application.Current?.Quit();
+							});
+						};*/
+						window.Closed += (s, e) =>
+						{
+							System.Diagnostics.Process.GetCurrentProcess().Kill();
+							//System.Environment.Exit(0);
+						};
+					}));
+#endif
+			});
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
@@ -37,7 +62,7 @@ public static class MauiProgram
 			.AddBatch<Views.Services>()
 			.AddBatch<ViewModels.Services>()
 			.AddBatch<Messaging.Services>();
-		
+
 		return builder.Build();
 	}
 

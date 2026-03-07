@@ -30,7 +30,7 @@ public partial class App : Application
 				#endif
 			*/
 		});
-
+		
 		MainPage = new AppShell();
 	}
 
