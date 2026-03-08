@@ -2,24 +2,48 @@
 	<PropertyGroup>
 		<CheckEolWorkloads>false</CheckEolWorkloads>
 		<LangVersion>preview</LangVersion>
+		<DotNetVersion>net10.0</DotNetVersion>
+		<!-- Говорим .NET 10 использовать новую логику поиска библиотек -->
+		<UseRidGraph>false</UseRidGraph>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
+		<!-- Только портативные RID для .NET 10 на Windows -->
+		<RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+		<!-- Чтобы студия знала, какой из них дефолтный для отладки -->
+		<RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win-x64</RuntimeIdentifier>
+		<!-- Явно указываем версию CsWinRT, совместимую с .NET 10 -->
+		<CsWinRTVerson>2.1.1</CsWinRTVerson>
+		<!-- Отключаем проверку совместимости версий проекций -->
+		<CsWinRTSuppressOutdatedVersionCheck>true</CsWinRTSuppressOutdatedVersionCheck>
+		<!-- Для поддержки сворачивания в tray нужен WinForms -->
+		<UseWinForms>true</UseWinForms>
+	</PropertyGroup>
+
+	<!-- Блок для Android -->
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+		<!-- Для Android используются свои идентификаторы (ABI) -->
+		<RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' != 'Tests'">
-		<!--<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>-->
-		<TargetFrameworks>net8.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks>$(DotNetVersion)-android</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);$(DotNetVersion)-windows10.0.19041.0</TargetFrameworks>
 
-		<!-- Note for MacCatalyst:
-		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
-		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
-		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
-		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
-		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 		<UseMaui>true</UseMaui>
+		<MauiVersion>8.0.100</MauiVersion>
 	</PropertyGroup>
-		
+
+	<!--<ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+		<SupportedPlatform Include="android" />
+	</ItemGroup>-->
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+		<SupportedOSPlatformVersion>26.0</SupportedOSPlatformVersion>
+		<TargetPlatformIdentifier>android</TargetPlatformIdentifier>
+		<!-- Заставляем JDK 21 использовать совместимый режим -->
+		<AndroidJavacSource>11</AndroidJavacSource>
+		<AndroidJavacTarget>11</AndroidJavacTarget>
+	</PropertyGroup>
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
 		<!-- Эти свойства — "родные" для MSBuild Android и не конфликтуют с boot-class-path -->
 		<!--<AndroidJavacSource>11</AndroidJavacSource>
@@ -38,7 +62,7 @@
 		<NoWarn>$(NoWarn);JAVAC;[options]</NoWarn>
 		<AndroidJavacExtraArgs>-Xlint:-options</AndroidJavacExtraArgs>-->
 	</PropertyGroup>
-	
+
 	<ItemGroup Condition="'$(Configuration)' != 'Tests'">
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />

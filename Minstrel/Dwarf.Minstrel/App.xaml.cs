@@ -1,14 +1,9 @@
-﻿using Dwarf.Minstrel.Helpers;
-using Dwarf.Minstrel.MediaEngine;
+﻿using Dwarf.Minstrel.MediaEngine;
 
 namespace Dwarf.Minstrel;
 
 public partial class App : Application
 {
-#if WINDOWS
-	const int WindowWidth = 480;
-	const int WindowHeight = 800;
-#endif
 	private readonly IServiceProvider services;
 
 	public App(IServiceProvider services)
@@ -31,7 +26,7 @@ public partial class App : Application
 				#endif
 			*/
 		});
-		
+
 		MainPage = new AppShell();
 	}
 
@@ -44,9 +39,7 @@ public partial class App : Application
 		Window window = base.CreateWindow(activationState);
 
 #if WINDOWS
-		window.MinimumWidth = WindowWidth;
-		window.MinimumHeight = WindowHeight;
-		window.KeepeBounds(Preferences.Default, new(WindowWidth, WindowHeight));
+		Dwarf.Minstrel.Platforms.Windows.StartupConfig.Setup(window);
 #endif
 
 		//window.Created += (s, e) => { };
