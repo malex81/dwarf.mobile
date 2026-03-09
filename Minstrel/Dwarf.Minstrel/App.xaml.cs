@@ -1,4 +1,5 @@
 ﻿using Dwarf.Minstrel.MediaEngine;
+using System.Runtime.InteropServices;
 
 namespace Dwarf.Minstrel;
 
@@ -10,6 +11,24 @@ public partial class App : Application
 	{
 		this.services = services;
 		InitializeComponent();
+
+
+#if WINDOWS
+		Microsoft.Maui.Handlers.ElementHandler.ElementMapper.AppendToMapping("FixCursor", (handler, view) =>
+		{
+			if (view is Border && handler.PlatformView is Microsoft.UI.Xaml.UIElement element)
+			{
+				element.PointerPressed += (s, e) =>
+				{
+					if (e.GetCurrentPoint(element).Properties.IsRightButtonPressed)
+					{
+						var cursor = Platforms.Windows.NativeMethods.LoadCursor(IntPtr.Zero, Platforms.Windows.NativeMethods.IDC_ARROW);
+						Platforms.Windows.NativeMethods.SetCursor(cursor);
+					}
+				};
+			}
+		});
+#endif
 
 		MainPage = new AppShell();
 	}

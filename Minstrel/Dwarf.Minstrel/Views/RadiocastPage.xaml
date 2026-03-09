@@ -66,9 +66,10 @@
 													CommandParameter="{vh:Primitive Bool=False}" />-->
 										<MenuFlyoutItem Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
 													vh:FAIcons.SolidGlyph="TrashCanArrowUp"
-													vh:FAIcons.GlyphColor="{StaticResource Green}"
+													vh:FAIcons.GlyphColor="{vh:ColorSwitch OnTrue={StaticResource Green}, OnFalse={StaticResource Danger}, Value={Binding Removed}}"
 													Command="{Binding ToggleRemovedCommand}" />
-										<!--<MenuFlyoutItem Command="{Binding ToggleRemovedCommand}">
+										<!--vh:FAIcons.GlyphColor="{StaticResource Green}"
+										<MenuFlyoutItem Command="{Binding ToggleRemovedCommand}">
 											<MenuFlyoutItem.Triggers>
 												<DataTrigger TargetType="MenuFlyoutItem" 
 														 Binding="{Binding IsDeleted}" Value="False">

@@ -35,3 +35,4 @@ public partial class SwitchExtension<T> : IMarkupExtension
 }
 
 public partial class TextSwitchExtension : SwitchExtension<string>;
+public partial class ColorSwitchExtension : SwitchExtension<Color>;

@@ -25,6 +25,7 @@ public partial class ObjectSelectorExtension : IMarkupExtension<BindingBase>
 
 	object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => ProvideValue(serviceProvider);
 
+	#region VariantPickerConverter
 	class VariantPickerConverter : IValueConverter
 	{
 		private readonly ObjectSelectorExtension parent;
@@ -35,13 +36,9 @@ public partial class ObjectSelectorExtension : IMarkupExtension<BindingBase>
 		}
 
 		public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-		{
-			return parent.Variants.FirstOrDefault(v => Equals(GetKey(v), value));
-		}
-
+			=> parent.Variants.FirstOrDefault(v => Equals(GetKey(v), value));
 		public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+			=> throw new NotImplementedException();
 	}
+	#endregion
 }
