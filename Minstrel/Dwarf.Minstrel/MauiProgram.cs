@@ -30,18 +30,6 @@ public static class MauiProgram
 				ev.AddWindows(windows => windows
 					.OnWindowCreated(window =>
 					{
-						/*
-						var handle = WinRT.Interop.WindowNative.GetWindowHandle(window);
-						var id = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(handle);
-						var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(id);
-
-						appWindow.Closing += (s, e) =>
-						{
-							Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
-							{
-								Microsoft.Maui.Controls.Application.Current?.Quit();
-							});
-						};*/
 						window.Closed += (s, e) =>
 						{
 							System.Diagnostics.Process.GetCurrentProcess().Kill();
