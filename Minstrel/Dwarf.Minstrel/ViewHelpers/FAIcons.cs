@@ -117,15 +117,34 @@ public static partial class FAIcons
 		SetGlyph(view, font, glyph);
 	}
 
-	static void OnGlyphColorChanged(BindableObject view, Color? color) => view.GetImageSource()?.Color = color;
-	static void OnGlyphSizeChanged(BindableObject view, double size) => view.GetImageSource()?.Size = size;
+	static void OnGlyphColorChanged(BindableObject view, Color? color) => view.UpdateImageSource(fs => fs.Color = color);
+	static void OnGlyphSizeChanged(BindableObject view, double size) => view.UpdateImageSource(fs => fs.Size = size);
 
-	static FontImageSource? GetImageSource(this BindableObject view) => view switch
+	//static FontImageSource? GetImageSource(this BindableObject view) => view switch
+	//{
+	//	Image img => img.Source as FontImageSource,
+	//	MenuItem menuItem => menuItem.IconImageSource as FontImageSource,
+	//	_ => null
+	//};
+
+	static (Func<FontImageSource?>, Action<FontImageSource?>) BuildImageSourceAccessors(this BindableObject view)
 	{
-		Image img => img.Source as FontImageSource,
-		MenuItem tabItem => tabItem.IconImageSource as FontImageSource,
-		_ => null
-	};
+		return view switch
+		{
+			Image img => (() => img.Source as FontImageSource, s => img.Source = s),
+			MenuItem menuItem => (() => menuItem.IconImageSource as FontImageSource, s => menuItem.IconImageSource = s),
+			_ => (() => null, s => { })
+		};
+	}
+
+	static void UpdateImageSource(this BindableObject view, Action<FontImageSource> update)
+	{
+		var (getSource, setSource) = view.BuildImageSourceAccessors();
+		var fs = getSource();
+		if (fs == null)
+			return;
+		update(fs);
+	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
 	{
@@ -151,7 +170,7 @@ public static partial class FAIcons
 		}
 		else if (view is Image img)
 			img.Source = createFontImageSource();
-		else if (view is MenuItem tabItem)
-			tabItem.IconImageSource = createFontImageSource();
+		else if (view is MenuItem menuItem)
+			menuItem.IconImageSource = createFontImageSource();
 	}
 }

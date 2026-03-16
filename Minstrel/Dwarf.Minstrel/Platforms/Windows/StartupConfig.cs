@@ -9,7 +9,30 @@ internal static class StartupConfig
 	const int WindowWidth = 480;
 	const int WindowHeight = 800;
 
-	public static void Setup(Window window)
+	public static void SetupMapping()
+	{
+		FixCursor();
+	}
+
+	static void FixCursor()
+	{
+		Microsoft.Maui.Handlers.ElementHandler.ElementMapper.AppendToMapping("FixCursor", (handler, view) =>
+		{
+			if (view is Border && handler.PlatformView is Microsoft.UI.Xaml.UIElement element)
+			{
+				element.PointerPressed += (s, e) =>
+				{
+					if (e.GetCurrentPoint(element).Properties.IsRightButtonPressed)
+					{
+						var cursor = NativeMethods.LoadCursor(IntPtr.Zero, NativeMethods.IDC_ARROW);
+						NativeMethods.SetCursor(cursor);
+					}
+				};
+			}
+		});
+	}
+
+	public static void SetupWindow(Window window)
 	{
 		window.MinimumWidth = WindowWidth;
 		window.MinimumHeight = WindowHeight;
