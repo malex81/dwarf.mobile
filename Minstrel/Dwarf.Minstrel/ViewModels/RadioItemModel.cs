@@ -20,8 +20,8 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 	static readonly ImageSource DefaultIcon = ImageSource.FromFile("logo.png");
 
 	private readonly DisposableList dispSelf = [];
+	private readonly RadiocastPageModel pageModel;
 	private readonly RadioItemFacade radioStation;
-	private readonly MinstrelDatabase db;
 	private readonly MediaBox mediaBox;
 	private readonly IAlertService alertService;
 	private readonly IMessenger messenger;
@@ -42,10 +42,14 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 	public ImageSource Icon => radioStation.Image ?? DefaultIcon;
 	public string? StreamUrl => radioStation.StreamUrl;
 
-	public RadioItemModel(RadioItemFacade radioStation, MinstrelDatabase db, MediaBox mediaBox, IAlertService alertService, IMessenger messenger)
+	public RadioItemModel(RadiocastPageModel pageModel,
+		RadioItemFacade radioStation,
+		MediaBox mediaBox,
+		IAlertService alertService,
+		IMessenger messenger)
 	{
+		this.pageModel = pageModel;
 		this.radioStation = radioStation;
-		this.db = db;
 		this.mediaBox = mediaBox;
 		this.alertService = alertService;
 		this.messenger = messenger;
@@ -128,5 +132,5 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 
 public interface IRadioItemFactory
 {
-	RadioItemModel Create(RadioItemFacade radioStation);
+	RadioItemModel Create(RadiocastPageModel pageModel, RadioItemFacade radioStation);
 }
