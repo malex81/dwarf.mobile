@@ -22,15 +22,15 @@ public partial class NotificationPopup : Popup
 		if(e.PropertyName == nameof(notifyBox.Width) && notifyBox.Width > 0)
 		{
 			notifyBox.PropertyChanged -= NotifyBox_PropertyChanged;
-			notifyBox.FadeTo(1, 400);
-			notifyBox.TranslateTo(0, 0, length: 600, easing: Easing.SpringOut);
+			notifyBox.FadeToAsync(1, 400);
+			notifyBox.TranslateToAsync(0, 0, length: 600, easing: Easing.SpringOut);
 		}
 	}
 
 	private async void OnOuterFrameTapped(object sender, TappedEventArgs e)
 	{
-		_ = notifyBox.TranslateTo(0, -200);
-		await notifyBox.FadeTo(0);
+		_ = notifyBox.TranslateToAsync(0, -200);
+		await notifyBox.FadeToAsync(0);
 		await CloseAsync();
 	}
 }

@@ -20,7 +20,7 @@ internal class AlertService : IAlertService
 	/// <param name="cancel">Text to be displayed on the 'Cancel' button.</param>
 	/// <returns>A <see cref="Task"/> that contains the user's choice as a <see cref="bool"/> value. <see langword="true"/> indicates that the user accepted the alert. <see langword="false"/> indicates that the user cancelled the alert.</returns>
 	/// <exception cref="ArgumentNullException">Thrown when <paramref name="cancel"/> is <see langword="null"/> or empty.</exception>
-	public Task<bool> ShowAlert(string title, string message, string? accept, string cancel) => SomePage.DisplayAlert(title, message, accept, cancel);
+	public Task<bool> ShowAlert(string title, string message, string? accept, string cancel) => SomePage.DisplayAlertAsync(title, message, accept, cancel);
 
 	public IDisposable ShowNotification(string title, string message, AlertIconKind icon = AlertIconKind.None)
 	{

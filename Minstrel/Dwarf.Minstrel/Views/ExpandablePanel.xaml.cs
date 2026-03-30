@@ -29,8 +29,8 @@ public partial class ExpandablePanel : ContentView
 		base.OnSizeAllocated(width, height);
 		if (heightRange == null && height > 0 && CollapsableContent != null)
 		{
-			SizeRequest measurement = CollapsableContent.Measure(self.Width, double.PositiveInfinity);
-			heightRange = IsExpanded ? new(height - measurement.Request.Height, height) : new(height, height + measurement.Request.Height);
+			Size measurement = CollapsableContent.Measure(self.Width, double.PositiveInfinity);
+			heightRange = IsExpanded ? new(height - measurement.Height, height) : new(height, height + measurement.Height);
 		}
 	}
 
