@@ -19,7 +19,7 @@
 		<!--<vh:ImageSourceConverter x:Key="mainIconConverter" GlyphColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource TertiaryDark}}"/>
 		<vh:ImageSourceConverter x:Key="secondaryIconConverter" GlyphColor="{StaticResource Danger}"/>-->
 	</ContentPage.Resources>
-	<VerticalStackLayout>
+	<VerticalStackLayout Spacing="4">
 		<local:ActionFrame Title="Очистить базу данных"
 						   Description="База данных будет полностью удалена и проинициализирована заново"
 						   Command="{Binding ClearDbCommand}">
@@ -28,11 +28,11 @@
 				<FontImageSource vh:FAIcons.SolidGlyph="Rotate" Color="{StaticResource Danger}"/>
 			</local:ActionFrame.Icons>
 		</local:ActionFrame>
-		<local:ActionFrame Title="test">
+		<!--<local:ActionFrame Title="test">
 			<local:ActionFrame.Icons>
 				<FontImageSource vh:FAIcons.SolidGlyph="CloudArrowDown" Color="{toolkit:AppThemeResource BgIconColor}"/>
-				<!--<FontImageSource vh:FAIcons.SolidGlyph="ArrowDown" Color="{toolkit:AppThemeResource SuccessColor}"/>-->
+				<FontImageSource vh:FAIcons.SolidGlyph="ArrowDown" Color="{toolkit:AppThemeResource SuccessColor}"/>
 			</local:ActionFrame.Icons>
-		</local:ActionFrame>
+		</local:ActionFrame>-->
 	</VerticalStackLayout>
 </ContentPage>

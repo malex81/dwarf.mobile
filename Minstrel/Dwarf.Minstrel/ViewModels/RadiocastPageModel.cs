@@ -27,6 +27,8 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 	//[NotifyPropertyChangedFor(nameof(ViewRadioSet))]
 	public partial string? FilterText { get; set; }
 	[ObservableProperty]
+	public partial bool FilterRemoved { get; set; }
+	[ObservableProperty]
 	public partial RadioItemModel[] ViewRadioList { get; set; } = [];
 
 	public VolumeModel VolumeModel { get; }
@@ -39,21 +41,23 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		this.messenger = messenger;
 		messenger.RegisterAll(this);
 		_ = LoadData();
-		vlInvalidator = ActionFlow.CreateInvalidator(() => ViewRadioList = GetRadioViewSet(), TimeSpan.FromMilliseconds(1000));
+		vlInvalidator = ActionFlow.CreateInvalidator(() => ViewRadioList = GetRadioViewSet(), TimeSpan.FromMilliseconds(300));
 	}
 
+	readonly string[] filterProps = [nameof(RadioSet), nameof(FilterText), nameof(FilterRemoved)];
 	protected override void OnPropertyChanged(PropertyChangedEventArgs e)
 	{
 		base.OnPropertyChanged(e);
-		if (e.PropertyName == nameof(RadioSet) || e.PropertyName == nameof(FilterText))
+		if (filterProps.Contains(e.PropertyName))
 			vlInvalidator.Invalidate();
 	}
 
 	RadioItemModel[] GetRadioViewSet()
 	{
 		if (RadioSet == null) return [];
-		var source = string.IsNullOrWhiteSpace(FilterText) ? RadioSet
-			: RadioSet.Where(r => r.Title.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase));
+		var source = RadioSet.Where(r => r.Removed == FilterRemoved);
+		if (!string.IsNullOrWhiteSpace(FilterText))
+			source = source.Where(r => r.Title.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase));
 		return source.OrderByDescending(r => r.InFavorites).ToArray();
 	}
 
@@ -63,7 +67,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 	{
 		var radioList = await FetchData();
 		RadioSet.DisposeAll();
-		RadioSet = radioList.Select(itemFactory.Create).ToArray();
+		RadioSet = radioList.Select(item => itemFactory.Create(this, item)).ToArray();
 		ForceUpdateViewList();
 	}
 
@@ -86,7 +90,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		{
 			var rItem = backItems.Find(ri => ri.Id == rs.Id);
 			if (rItem != null) backItems.Remove(rItem);
-			else rItem = itemFactory.Create(rs);
+			else rItem = itemFactory.Create(this, rs);
 			items.Add(rItem);
 		}
 		backItems.DisposeAll();

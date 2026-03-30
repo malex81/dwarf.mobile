@@ -6,6 +6,15 @@
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<Configurations>Debug;Release;Tests</Configurations>
+		<!--<Version>1.0.0</Version>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>-->
+		<!-- Это свойство "склеивает" версии при линковке в Android -->
+		<!--<Deterministic>true</Deterministic>-->
+		<!-- Это заставит библиотеку генерировать метаданные для Android -->
+		<!--<AndroidGenerateResourceDesigner>true</AndroidGenerateResourceDesigner>-->
+		<!-- Важно для .NET 10: указываем, что это MAUI библиотека -->
+		<!--<IsMauiSingleProject>true</IsMauiSingleProject>-->
 	</PropertyGroup>
 
 	<ItemGroup>

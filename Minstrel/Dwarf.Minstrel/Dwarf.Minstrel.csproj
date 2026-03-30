@@ -71,9 +71,9 @@
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\Common\Dwarf.Maui.Base\Dwarf.Maui.Base.csproj" />
-	</ItemGroup>
+	<!--<ItemGroup>
+		<ProjectReference Include="..\..\Common\Dwarf.Maui.Base\Dwarf.Maui.Base.csproj"/>
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<MauiXaml Update="ViewBasic\*.xaml">

@@ -13,16 +13,41 @@
 	<ContentPage.Resources>
 		<ResourceDictionary>
 			<!--<toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />-->
+			<Style x:Key="PlayButtonStyle" TargetType="Button" BasedOn="{StaticResource IconButton}" x:DataType="vm:RadioItemModel">
+				<Setter Property="VerticalOptions" Value="End"/>
+				<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePlay" />
+				<Style.Triggers>
+					<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="false">
+						<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonTextColor}"/>
+					</DataTrigger>
+					<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="True">
+						<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
+						<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
+						<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style x:Key="FavoriteButtonStyle" TargetType="Button" BasedOn="{StaticResource IconButton}" x:DataType="vm:RadioItemModel">
+				<Setter Property="VerticalOptions" Value="End"/>
+				<Setter Property="HorizontalOptions" Value="End"/>
+				<Setter Property="vh:FAIcons.RegularGlyph" Value="Heart" />
+				<Setter Property="vh:FAIcons.SolidGlyph" Value="None" />
+				<Style.Triggers>
+					<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="false">
+						<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonTextColor}"/>
+					</DataTrigger>
+					<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="True">
+						<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
+						<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
+						<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
+						<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
 		</ResourceDictionary>
 	</ContentPage.Resources>
 	<Grid RowDefinitions="auto, *">
-		<toolkit:DockLayout Grid.Row="0" Margin="4,2">
-			<local:VolumeControl toolkit:DockLayout.DockPosition="Right" BindingContext="{Binding VolumeModel}"/>
-			<SearchBar Placeholder="Поиск"
-					   Text="{Binding FilterText}"
-					   SearchCommand="{Binding ForceUpdateViewListCommand}"
-					   Margin="{OnIdiom Default='0,0,40,0', Desktop='0,0,10,0'}"/>
-		</toolkit:DockLayout>
+		<local:RadiocastHeaderPanel Grid.Row="0" BindingContext="{Binding}"/>
 		<RefreshView Grid.Row="1"
 				windows:RefreshView.RefreshPullDirection="TopToBottom"
 				IsRefreshing="{Binding IsRefreshing}"
@@ -36,17 +61,17 @@
 					<DataTemplate x:DataType="vm:RadioItemModel">
 						<SwipeView>
 							<SwipeView.RightItems>
-								<SwipeItem Text="Удалить"
+								<SwipeItem Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
 									   vh:FAIcons.SolidGlyph="TrashCan"
 									   Command="{Binding ToggleRemovedCommand}"
 									   CommandParameter="{vh:Primitive Bool=True}"
-									   BackgroundColor="{StaticResource Danger}">
+									   BackgroundColor="{vh:ColorSwitch OnTrue={StaticResource Green}, OnFalse={StaticResource Danger}, Value={Binding Removed}}">
 								</SwipeItem>
 							</SwipeView.RightItems>
 							<Border Style="{StaticResource BorderCard}">
 								<Border.Triggers>
 									<DataTrigger TargetType="Border" Binding="{Binding Removed}" Value="true">
-										<Setter Property="Background" Value="{StaticResource Danger}" />
+										<Setter Property="Background" Value="{StaticResource Gray500}" />
 									</DataTrigger>
 								</Border.Triggers>
 								<FlyoutBase.ContextFlyout>
@@ -54,32 +79,11 @@
 										<MenuFlyoutItem Text="Обновить"
 													vh:FAIcons.SolidGlyph="RotateRight"
 													Command="{Binding RefreshCommand}" />
-										<!--<MenuFlyoutItem Text="Удалить"
-													vh:FAIcons.SolidGlyph="TrashCan"
-													vh:FAIcons.GlyphColor="{StaticResource Danger}"
-													Command="{Binding ToggleRemovedCommand}"
-													CommandParameter="{vh:Primitive Bool=True}" />
-										<MenuFlyoutItem Text="Восстановить"
+										<MenuFlyoutItem
+													Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
 													vh:FAIcons.SolidGlyph="TrashCanArrowUp"
-													vh:FAIcons.GlyphColor="{StaticResource Green}"
-													Command="{Binding ToggleRemovedCommand}"
-													CommandParameter="{vh:Primitive Bool=False}" />-->
-										<MenuFlyoutItem Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
-													vh:FAIcons.SolidGlyph="TrashCanArrowUp"
-													vh:FAIcons.GlyphColor="{StaticResource Green}"
+													vh:FAIcons.GlyphColor="{vh:ColorSwitch OnTrue={StaticResource Green}, OnFalse={StaticResource Danger}, Value={Binding Removed}}"
 													Command="{Binding ToggleRemovedCommand}" />
-										<!--<MenuFlyoutItem Command="{Binding ToggleRemovedCommand}">
-											<MenuFlyoutItem.Triggers>
-												<DataTrigger TargetType="MenuFlyoutItem" 
-														 Binding="{Binding IsDeleted}" Value="False">
-													<Setter Property="Text" Value="Удалить" />
-												</DataTrigger>
-												<DataTrigger TargetType="MenuFlyoutItem" 
-														 Binding="{Binding IsDeleted}" Value="True">
-													<Setter Property="Text" Value="Восстановить" />
-												</DataTrigger>
-											</MenuFlyoutItem.Triggers>
-										</MenuFlyoutItem>-->
 									</MenuFlyout>
 								</FlyoutBase.ContextFlyout>
 								<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
@@ -104,40 +108,15 @@
 									</VerticalStackLayout>
 									<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
 										<Button toolkit:DockLayout.DockPosition="Left"
-												VerticalOptions="End"
-												Style="{StaticResource IconButton}"
-												Command="{Binding TogglePlayingCommand}"
-												vh:FAIcons.RegularGlyph="CirclePlay">
-											<Button.Triggers>
-												<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
-													<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
-													<Setter Property="TextColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
-													<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
-													<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
-												</DataTrigger>
-											</Button.Triggers>
-										</Button>
+												Style="{StaticResource PlayButtonStyle}"
+												Command="{Binding TogglePlayingCommand}" />
 										<Button toolkit:DockLayout.DockPosition="Right"
-												IsVisible="{Binding Removed, Converter={toolkit:InvertedBoolConverter}}"
-												HorizontalOptions="End"
-												VerticalOptions="End"
-												Style="{StaticResource IconButton}"
-												Command="{Binding ToggleFavoritesCommand}"
-												vh:FAIcons.RegularGlyph="Heart">
-											<Button.Triggers>
-												<DataTrigger TargetType="Button" Binding="{Binding InFavorites}" Value="true">
-													<!--<Setter Property="BorderColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>-->
-													<Setter Property="vh:FAIcons.RegularGlyph" Value="None"/>
-													<Setter Property="vh:FAIcons.SolidGlyph" Value="Heart"/>
-													<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
-													<!--<Setter Property="Background" Value="{StaticResource Translucent}" />-->
-													<Setter Property="TextColor" Value="{toolkit:AppThemeResource SuccessColor}"/>
-												</DataTrigger>
-											</Button.Triggers>
-										</Button>
+												Style="{StaticResource FavoriteButtonStyle}"
+												Command="{Binding ToggleFavoritesCommand}" 
+												IsVisible="{Binding Removed, Converter={toolkit:InvertedBoolConverter}}" />
 										<Label Text="Удалено"
 											   IsVisible="{Binding Removed}"
-											   Rotation="-30"
+											   Rotation="-25"
 											   Style="{StaticResource Headline}"
 											   TextColor="{toolkit:AppThemeResource FgMuteColor}" />
 										<Image vh:FAIcons.SolidGlyph="TowerBroadcast"

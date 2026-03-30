@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:vm="using:Dwarf.Minstrel.ViewModels"
+			 xmlns:vh="using:Dwarf.Minstrel.ViewHelpers"
+			 xmlns:local="using:Dwarf.Minstrel.Views"
+             x:Class="Dwarf.Minstrel.Views.ExpandablePanel"
+			 x:DataType="local:ExpandablePanel"
+			 x:Name="self">
+	<Border
+		BackgroundColor="{toolkit:AppThemeResource PanelBgColor}"
+		StrokeThickness="1"
+		StrokeShape="{RoundRectangle CornerRadius='0,0,8,8'}">
+		<Border.GestureRecognizers>
+			<PanGestureRecognizer PanUpdated="ExpandButtonPanUpdated"/>
+		</Border.GestureRecognizers>
+		<Grid RowDefinitions="Auto, *, Auto" Margin="10, 10, 10, 4 ">
+			<ContentView Grid.Row="0" Content="{Binding StaticHeader, Source={x:Reference self}}" Margin="0,10" />
+			<ContentView Grid.Row="1" Content="{Binding CollapsableContent, Source={x:Reference self}}"
+						 IsVisible="{Binding IsExpanded, Source={x:Reference self}}"
+						 Opacity="{Binding ContentOpacity, Source={x:Reference self}}">
+				<!--<ContentView.Triggers>
+					<DataTrigger TargetType="ContentView" Binding="{Binding IsIntermediateState, Source={x:Reference self}}" Value="true">
+						<Setter Property="Opacity" Value="0.3"/>
+					</DataTrigger>
+				</ContentView.Triggers>-->
+			</ContentView>
+			<ContentView Grid.Row="2">
+				<ContentView.GestureRecognizers>
+					<TapGestureRecognizer Tapped="ExpandButtonTapped"/>
+				</ContentView.GestureRecognizers>
+				<Image vh:FAIcons.SolidGlyph="ChevronDown"
+				   vh:FAIcons.GlyphSize="48"
+				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource FgMuteColor}"
+				   WidthRequest="48"
+				   HeightRequest="12"
+				   Aspect="Fill">
+					<Image.Triggers>
+						<DataTrigger TargetType="Image" Binding="{Binding IsExpanded, Source={x:Reference self}}" Value="true">
+							<Setter Property="vh:FAIcons.SolidGlyph" Value="ChevronUp" />
+						</DataTrigger>
+					</Image.Triggers>
+				</Image>
+			</ContentView>
+		</Grid>
+	</Border>
+</ContentView>
