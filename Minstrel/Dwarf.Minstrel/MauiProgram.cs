@@ -19,9 +19,9 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", FontNames.OpenSansRegular);
 				fonts.AddFont("OpenSans-Semibold.ttf", FontNames.OpenSansSemibold);
+				fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", FontNames.FASolid);
 				fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", FontNames.FARegular);
 				fonts.AddFont("Font Awesome 6 Brands-Regular-400.otf", FontNames.FABrands);
-				fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", FontNames.FASolid);
 			}).ConfigureMauiHandlers(handlers =>
 			{
 			}).ConfigureLifecycleEvents(ev =>

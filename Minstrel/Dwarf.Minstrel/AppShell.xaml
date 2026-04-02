@@ -12,5 +12,8 @@
 	<FlyoutItem>
 		<ShellContent Title="Радио" vh:FAIcons.SolidGlyph="Radio" ContentTemplate="{DataTemplate views:RadiocastPage}" />
 		<ShellContent Title="Настройки" vh:FAIcons.SolidGlyph="Gear" ContentTemplate="{DataTemplate views:ServicesPage}" />
+		<ShellContent Title="Test"
+					  ContentTemplate="{DataTemplate views:ServicesPage}"
+					  Icon="{FontImageSource Glyph='&#xf015;', FontFamily='FASolid', Color='Red', Size=22}"/>
 	</FlyoutItem>
 </Shell>
