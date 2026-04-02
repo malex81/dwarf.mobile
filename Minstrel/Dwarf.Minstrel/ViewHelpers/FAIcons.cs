@@ -86,7 +86,7 @@ public static partial class FAIcons
 	public static partial FASolidGlyphs GetSolidGlyph(BindableObject view);
 	[AttachedProperty(DefaultValue = FARegularGlyphs.None)]
 	public static partial FARegularGlyphs GetRegularGlyph(BindableObject view);
-	[AttachedProperty()]
+	[AttachedProperty]
 	public static partial FontIconDescriptor GetGlyphDescriptor(BindableObject view);
 	[AttachedProperty]
 	public static partial Color? GetGlyphColor(BindableObject view);
@@ -120,19 +120,14 @@ public static partial class FAIcons
 	static void OnGlyphColorChanged(BindableObject view, Color? color) => view.UpdateImageSource(fs => fs.Color = color);
 	static void OnGlyphSizeChanged(BindableObject view, double size) => view.UpdateImageSource(fs => fs.Size = size);
 
-	//static FontImageSource? GetImageSource(this BindableObject view) => view switch
-	//{
-	//	Image img => img.Source as FontImageSource,
-	//	MenuItem menuItem => menuItem.IconImageSource as FontImageSource,
-	//	_ => null
-	//};
-
 	static (Func<FontImageSource?>, Action<FontImageSource?>) BuildImageSourceAccessors(this BindableObject view)
 	{
 		return view switch
 		{
 			Image img => (() => img.Source as FontImageSource, s => img.Source = s),
 			MenuItem menuItem => (() => menuItem.IconImageSource as FontImageSource, s => menuItem.IconImageSource = s),
+			Button btn => (() => btn.ImageSource as FontImageSource, s => btn.ImageSource = s),
+			ShellContent shellCont => (() => shellCont.Icon as FontImageSource, s => shellCont.Icon = s),
 			_ => (() => null, s => { })
 		};
 	}
@@ -141,36 +136,28 @@ public static partial class FAIcons
 	{
 		var (getSource, setSource) = view.BuildImageSourceAccessors();
 		var fs = getSource();
-		if (fs == null)
-			return;
-		update(fs);
+		if (fs != null)
+			update(fs);
 	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
 	{
 		var glyphText = Convert.ToChar(glyph).ToString();
-		FontImageSource createFontImageSource() => new()
-		{
-			FontFamily = font,
-			Glyph = glyphText,
-			Color = GetGlyphColor(view),
-			Size = GetGlyphSize(view)
-		};
 		if (view is FontImageSource fis)
 		{
 			fis.FontFamily = font;
 			fis.Glyph = glyphText;
 		}
-		else if (view is ShellContent shellContent)
-			shellContent.Icon = createFontImageSource();
-		else if (view is Button btn)
+		else
 		{
-			btn.FontFamily = font;
-			btn.Text = glyphText;
+			var (getSource, setSource) = view.BuildImageSourceAccessors();
+			setSource(new()
+			{
+				FontFamily = font,
+				Glyph = glyphText,
+				Color = GetGlyphColor(view),
+				Size = GetGlyphSize(view)
+			});
 		}
-		else if (view is Image img)
-			img.Source = createFontImageSource();
-		else if (view is MenuItem menuItem)
-			menuItem.IconImageSource = createFontImageSource();
 	}
 }
