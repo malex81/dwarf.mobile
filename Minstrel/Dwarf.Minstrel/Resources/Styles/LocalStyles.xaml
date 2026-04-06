@@ -8,9 +8,11 @@
 		<Setter Property="WidthRequest" Value="60"/>
 		<Setter Property="HeightRequest" Value="60"/>
 		<Setter Property="FontSize" Value="32"/>
+		<Setter Property="vh:FAIcons.GlyphSize" Value="32"/>
 		<Setter Property="Padding" Value="2"/>
 		<Setter Property="BorderWidth" Value="1"/>
 		<Setter Property="BorderColor" Value="{StaticResource Translucent2}"/>
+		<Setter Property="vh:FAIcons.GlyphColor" Value="{toolkit:AppThemeResource ButtonTextColor}" />
 	</Style>
 	
 	<Style TargetType="Button" x:Key="IconRoundButton" BasedOn="{StaticResource IconButton}">
@@ -18,6 +20,7 @@
 		<Setter Property="HeightRequest" Value="40"/>
 		<Setter Property="CornerRadius" Value="20"/>
 		<Setter Property="FontSize" Value="18"/>
+		<Setter Property="vh:FAIcons.GlyphSize" Value="18"/>
 	</Style>
 
 	<Style TargetType="Image" x:Key="IconImage">

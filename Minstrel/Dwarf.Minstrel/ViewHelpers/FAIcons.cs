@@ -136,8 +136,16 @@ public static partial class FAIcons
 	{
 		var (getSource, setSource) = view.BuildImageSourceAccessors();
 		var fs = getSource();
-		if (fs != null)
-			update(fs);
+		if (fs == null)
+			return;
+		update(fs);
+		//setSource(new()
+		//{
+		//	FontFamily = fs.FontFamily,
+		//	Glyph = fs.Glyph,
+		//	Color = fs.Color,
+		//	Size = fs.Size
+		//});
 	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
