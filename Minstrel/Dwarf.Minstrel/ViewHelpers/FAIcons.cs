@@ -1,5 +1,6 @@
 ﻿using Dwarf.Minstrel.Base;
 using Dwarf.Toolkit.Maui;
+using System.Runtime.CompilerServices;
 
 namespace Dwarf.Minstrel.ViewHelpers;
 /*
@@ -132,20 +133,12 @@ public static partial class FAIcons
 		};
 	}
 
+	private readonly static ConditionalWeakTable<BindableObject, UpdateQueue> updateQueueTable = new();
+	private static UpdateQueue GetUpdateQueue(this BindableObject view) => updateQueueTable.GetOrAdd(view, v => new UpdateQueue(v));
+
 	static void UpdateImageSource(this BindableObject view, Action<FontImageSource> update)
 	{
-		var (getSource, setSource) = view.BuildImageSourceAccessors();
-		var fs = getSource();
-		if (fs == null)
-			return;
-		update(fs);
-		//setSource(new()
-		//{
-		//	FontFamily = fs.FontFamily,
-		//	Glyph = fs.Glyph,
-		//	Color = fs.Color,
-		//	Size = fs.Size
-		//});
+		view.GetUpdateQueue().EnqueueUpdate(update);
 	}
 
 	static void SetGlyph(BindableObject view, string font, uint glyph)
@@ -158,13 +151,75 @@ public static partial class FAIcons
 		}
 		else
 		{
-			var (getSource, setSource) = view.BuildImageSourceAccessors();
-			setSource(new()
+			view.GetUpdateQueue().SetSource(new()
 			{
 				FontFamily = font,
 				Glyph = glyphText,
 				Color = GetGlyphColor(view),
 				Size = GetGlyphSize(view)
+			});
+		}
+}
+
+	class UpdateQueue
+	{
+		private readonly Func<FontImageSource?> getSource;
+		private readonly Action<FontImageSource?> setSource;
+		private readonly BindableObject view;
+		private FontImageSource? nextSource;
+		private Task? applyTask;
+		private readonly Queue<Action<FontImageSource>> updateQueue = [];
+
+		public UpdateQueue(BindableObject view)
+		{
+			(getSource, setSource) = view.BuildImageSourceAccessors();
+			this.view = view;
+		}
+
+		public void SetSource(FontImageSource next)
+		{
+			lock (this)
+			{
+				nextSource = next;
+				updateQueue.Clear();
+				EnqueueApply();
+			}
+		}
+
+		public void EnqueueUpdate(Action<FontImageSource> update)
+		{
+			lock (this)
+			{
+				if (nextSource != null)
+				{
+					updateQueue.Enqueue(update);
+					EnqueueApply();
+				}
+			}
+		}
+
+		void EnqueueApply()
+		{
+			if (applyTask != null) return;
+			applyTask = Task.Run(() =>
+			{
+				Thread.Sleep(100);
+				view.Dispatcher.Dispatch(() =>
+				{
+					lock (this)
+					{
+						try
+						{
+							if (nextSource != null)
+							{
+								while (updateQueue.TryDequeue(out var up))
+									up(nextSource);
+								setSource(nextSource);
+							}
+						}
+						finally { applyTask = null; }
+					}
+				});
 			});
 		}
 	}
