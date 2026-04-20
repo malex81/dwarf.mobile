@@ -69,23 +69,13 @@ internal static class StartupConfig
 
 		trayIcon.DoubleClick += (s, e) =>
 		{
-			if (window.Handler?.PlatformView is Microsoft.UI.Xaml.Window platformWindow)
-			{
-				// 1. Показываем в панели задач
-				platformWindow.AppWindow.Show();
-				// 2. Устанавливаем обычный размер (если оно было свернуто)
-				if (platformWindow.AppWindow.Presenter is OverlappedPresenter presenter)
-				{
-					presenter.Restore();
-				}
-				// 3. Выводим на передний план
-				platformWindow.Activate();
-			}
+			window.TryActivate();
 		};
 
 		// Добавление контекстного меню
 		trayIcon.ContextMenuStrip = new WinForms.ContextMenuStrip();
 		trayIcon.ContextMenuStrip.Items.Add("Выйти", null, (s, e) => Application.Current?.Quit());
+		trayIcon.ContextMenuStrip.Items.Add("Показать", null, (s, e) => window.TryActivate());
 
 		window.PerformOnPlatform(platformWindow =>
 		{
@@ -106,5 +96,20 @@ internal static class StartupConfig
 				}
 			};
 		});
+	}
+
+	static void TryActivate(this Window window)
+	{
+		if (window.Handler?.PlatformView is not Microsoft.UI.Xaml.Window platformWindow)
+			return;
+		// 1. Показываем в панели задач
+		platformWindow.AppWindow.Show();
+		// 2. Устанавливаем обычный размер (если оно было свернуто)
+		if (platformWindow.AppWindow.Presenter is OverlappedPresenter presenter)
+		{
+			presenter.Restore();
+		}
+		// 3. Выводим на передний план
+		platformWindow.Activate();
 	}
 }

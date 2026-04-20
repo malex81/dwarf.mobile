@@ -7,6 +7,7 @@ public partial class ExpandablePanel : ContentView
 	record HeightRange(double Collapsed, double Expanded);
 
 	private HeightRange? heightRange;
+	private bool isExpandedOnStart;
 
 	[BindableProperty]
 	public partial View? StaticHeader { get; set; }
@@ -59,11 +60,14 @@ public partial class ExpandablePanel : ContentView
 			case GestureStatus.Started:
 				startHeight = self.Height;
 				IsIntermediateState = true;
+				isExpandedOnStart = IsExpanded;
 				break;
 			case GestureStatus.Running:
+				//var closeness = Math.Min(1.0, (2 * self.Height - heightRange.Collapsed - heightRange.Expanded) / (heightRange.Expanded - heightRange.Collapsed)); // [-1 .. 1]
+				var closeness = Math.Clamp((self.Height - heightRange.Collapsed) / (heightRange.Expanded - heightRange.Collapsed), 0, 1); // [0 .. 1]
 				self.HeightRequest = Math.Clamp(startHeight + e.TotalY, heightRange.Collapsed - 5, heightRange.Expanded + 40);
-				IsExpanded = Math.Abs(self.Height - heightRange.Expanded) < Math.Abs(self.Height - heightRange.Collapsed);
-				ContentOpacity = Math.Min(1.0, (2 * self.Height - heightRange.Collapsed - heightRange.Expanded) / (heightRange.Expanded - heightRange.Collapsed));
+				IsExpanded = closeness > 0.8 || !isExpandedOnStart && closeness > 0.2;
+				ContentOpacity = closeness;
 				break;
 			case GestureStatus.Completed:
 				ResetPanState();
