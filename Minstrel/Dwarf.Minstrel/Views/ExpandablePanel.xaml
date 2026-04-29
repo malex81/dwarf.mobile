@@ -27,21 +27,30 @@
 				</ContentView.Triggers>-->
 			</ContentView>
 			<ContentView Grid.Row="2">
-				<ContentView.GestureRecognizers>
-					<TapGestureRecognizer Tapped="ExpandButtonTapped"/>
-				</ContentView.GestureRecognizers>
-				<Image vh:FAIcons.SolidGlyph="ChevronDown"
-				   vh:FAIcons.GlyphSize="48"
-				   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource FgMuteColor}"
-				   WidthRequest="48"
-				   HeightRequest="12"
-				   Aspect="Fill">
-					<Image.Triggers>
-						<DataTrigger TargetType="Image" Binding="{Binding IsExpanded, Source={x:Reference self}}" Value="true">
-							<Setter Property="vh:FAIcons.SolidGlyph" Value="ChevronUp" />
-						</DataTrigger>
-					</Image.Triggers>
-				</Image>
+				<Border Background="Transparent"
+						StrokeThickness="0"
+						HorizontalOptions="Center"
+						VerticalOptions="Center"
+						Padding="18,16,18,4">
+					<Border.Behaviors>
+						<toolkit:TouchBehavior HoveredScale="1.2" />
+					</Border.Behaviors>
+					<Border.GestureRecognizers>
+						<TapGestureRecognizer Tapped="ExpandButtonTapped"/>
+					</Border.GestureRecognizers>
+					<Image vh:FAIcons.SolidGlyph="ChevronDown"
+						   vh:FAIcons.GlyphSize="48"
+						   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource FgMuteColor}"
+						   WidthRequest="48"
+						   HeightRequest="14"
+						   Aspect="Fill">
+						<Image.Triggers>
+							<DataTrigger TargetType="Image" Binding="{Binding IsExpanded, Source={x:Reference self}}" Value="true">
+								<Setter Property="vh:FAIcons.SolidGlyph" Value="ChevronUp" />
+							</DataTrigger>
+						</Image.Triggers>
+					</Image>
+				</Border>
 			</ContentView>
 		</Grid>
 	</Border>
