@@ -30,6 +30,8 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 	public partial bool FilterRemoved { get; set; }
 	[ObservableProperty]
 	public partial RadioItemModel[] ViewRadioList { get; set; } = [];
+	[ObservableProperty]
+	public partial RadioItemModel? CurrentRadioItem { get; set; }
 
 	public VolumeModel VolumeModel { get; }
 
@@ -103,6 +105,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		{
 			RadiocastCommandKind.Refresh => Refresh(),
 			RadiocastCommandKind.ShallowRefresh => ShallowRefresh(),
+			RadiocastCommandKind.Invalidate => vlInvalidator.Invalidate(),
 			_ => null
 		};
 	}

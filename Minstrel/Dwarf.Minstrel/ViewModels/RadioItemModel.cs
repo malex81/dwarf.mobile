@@ -102,6 +102,7 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 			mediaBox.Stop();
 		else if (StreamUrl != null)
 			mediaBox.PlayURL(StreamUrl);
+		pageModel.CurrentRadioItem = this;
 	}
 
 	[RelayCommand]
@@ -110,9 +111,7 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 		Removed = !Removed;
 		radioStation.State.Removed = Removed;
 		await radioStation.SaveState();
-		/*		await db.RemoveRadioSource(radioSource);
-				messenger.Send(RadiocastMessage.ShallowRefresh);
-		*/
+		messenger.Send(RadiocastMessage.Invalidate);
 	}
 
 	[RelayCommand]
