@@ -26,7 +26,7 @@
 		  ColumnSpacing="6">
 		<Button Grid.Column="0"
 				HorizontalOptions="End"
-				VerticalOptions="End"
+				VerticalOptions="Center"
 				Style="{StaticResource IconRoundButton}"
 				vh:FAIcons.GlyphDescriptor="{Binding VolumeButtonIcon}"
 				Command="{Binding ToggleMuteCommand}">
@@ -40,8 +40,8 @@
 		<Slider Grid.Column="1"
 				VerticalOptions="Center"
 				WidthRequest="100"
-				Maximum="1.0"
-				Value="{Binding Volume}"
+				Maximum="100"
+				Value="{Binding Path=Volume, Converter={vh:MultiplyConverter Factor=100}}"
 				IsVisible="{OnIdiom Default=false, Desktop=true}"/>
 	</Grid>
 </ContentView>

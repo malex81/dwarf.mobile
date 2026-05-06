@@ -9,7 +9,21 @@
 			 x:DataType="vm:RadiocastPageModel">
 	<local:ExpandablePanel>
 		<local:ExpandablePanel.StaticHeader>
-			<Grid ColumnDefinitions="*, Auto">
+			<Grid ColumnDefinitions="*, auto">
+				<Grid ColumnDefinitions="auto, auto, *"
+					  BindingContext="{Binding CurrentRadioItem}"
+					  x:DataType="vm:RadioItemModel">
+					<Image Source="{Binding Icon}"
+						   Aspect="AspectFit"
+						   HeightRequest="48"
+						   WidthRequest="48" />
+					<!--Style="{StaticResource PlayButtonStyle}"-->
+					<Button Grid.Column="1"							
+							WidthRequest="48"
+							HeightRequest="48"
+							Margin="16, 0"
+							Command="{Binding TogglePlayingCommand}" />
+				</Grid>
 				<local:VolumeControl Grid.Column="1" BindingContext="{Binding VolumeModel}"/>
 			</Grid>
 		</local:ExpandablePanel.StaticHeader>

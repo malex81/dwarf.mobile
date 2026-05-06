@@ -93,9 +93,9 @@
 												HeightRequest="128"
 												WidthRequest="128" />-->
 										<Image Source="{Binding Icon}"
-												Aspect="AspectFit"
-												HeightRequest="128"
-												WidthRequest="128" />
+											   Aspect="AspectFit"
+											   HeightRequest="128"
+											   WidthRequest="128" />
 									</Frame>
 									<VerticalStackLayout Grid.Column="1">
 										<Label Style="{StaticResource SubHeadline}"

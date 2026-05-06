@@ -12,11 +12,11 @@ public sealed partial class VolumeModel : ObservableObject
 {
 #if WINDOWS
 	static double DefaultVolume => Preferences.Get(PreferenceNames.Volume, 0.5);
+	private readonly Func<Action, Task> volumeCallback = ActionFlow.Debounce(TimeSpan.FromSeconds(0.5));
 #else
 	static double DefaultVolume => 1;
 #endif
 
-	private readonly Func<Action, Task> volumeCallback = ActionFlow.Debounce(TimeSpan.FromSeconds(0.5));
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(VolumeButtonIcon))]
