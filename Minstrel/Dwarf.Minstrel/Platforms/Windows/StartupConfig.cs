@@ -1,6 +1,8 @@
 ﻿using Microsoft.UI.Windowing;
+using WinRT.Interop;
 using SysDrow = System.Drawing;
 using WinForms = System.Windows.Forms;
+using static Dwarf.Minstrel.Platforms.Windows.NativeMethods;
 
 namespace Dwarf.Minstrel.Platforms.Windows;
 
@@ -109,6 +111,11 @@ internal static class StartupConfig
 		{
 			presenter.Restore();
 		}
+
+		IntPtr hwnd = WindowNative.GetWindowHandle(platformWindow);
+		ShowWindow(hwnd, SW_RESTORE);
+		SetForegroundWindow(hwnd);
+
 		// 3. Выводим на передний план
 		platformWindow.Activate();
 	}

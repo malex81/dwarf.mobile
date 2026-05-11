@@ -11,18 +11,26 @@
 		<local:ExpandablePanel.StaticHeader>
 			<Grid ColumnDefinitions="*, auto">
 				<Grid ColumnDefinitions="auto, auto, *"
+					  IsVisible="{Binding ., Converter={toolkit:IsNotNullConverter}}"
 					  BindingContext="{Binding CurrentRadioItem}"
 					  x:DataType="vm:RadioItemModel">
 					<Image Source="{Binding Icon}"
 						   Aspect="AspectFit"
 						   HeightRequest="48"
 						   WidthRequest="48" />
-					<!--Style="{StaticResource PlayButtonStyle}"-->
 					<Button Grid.Column="1"							
-							WidthRequest="48"
-							HeightRequest="48"
 							Margin="16, 0"
-							Command="{Binding TogglePlayingCommand}" />
+							Style="{StaticResource IconRoundButton}"
+							vh:FAIcons.RegularGlyph="CirclePlay"
+							Command="{Binding TogglePlayingCommand}">
+						<Button.Triggers>
+							<DataTrigger TargetType="Button" Binding="{Binding IsPlaying}" Value="true">
+								<Setter Property="vh:FAIcons.RegularGlyph" Value="CirclePause"/>
+								<Setter Property="vh:FAIcons.GlyphColor" Value="{toolkit:AppThemeResource ButtonIndicatorColor}"/>
+								<Setter Property="Background" Value="{toolkit:AppThemeResource ActiveButtonBgColor}"/>
+							</DataTrigger>
+						</Button.Triggers>
+					</Button>
 				</Grid>
 				<local:VolumeControl Grid.Column="1" BindingContext="{Binding VolumeModel}"/>
 			</Grid>

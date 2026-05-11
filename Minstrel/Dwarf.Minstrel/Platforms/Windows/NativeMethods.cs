@@ -4,6 +4,7 @@ namespace Dwarf.Minstrel.Platforms.Windows;
 
 static partial class NativeMethods
 {
+	public const int SW_RESTORE = 9;
 	public static readonly IntPtr IDC_ARROW = new(32512);
 
 	[LibraryImport("user32.dll", EntryPoint = "SetCursor")]
@@ -11,6 +12,14 @@ static partial class NativeMethods
 
 	[LibraryImport("user32.dll", EntryPoint = "LoadCursorW", StringMarshalling = StringMarshalling.Utf16)]
 	public static partial IntPtr LoadCursor(IntPtr hInstance, IntPtr lpCursorName);
+
+	[LibraryImport("user32.dll")]
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public static partial bool SetForegroundWindow(IntPtr hWnd);
+
+	[LibraryImport("user32.dll")]
+	[return: MarshalAs(UnmanagedType.Bool)]
+	public static partial bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
 	/*	
 		const int GWL_STYLE = -16;

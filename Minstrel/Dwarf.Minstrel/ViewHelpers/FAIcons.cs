@@ -159,7 +159,7 @@ public static partial class FAIcons
 				Size = GetGlyphSize(view)
 			});
 		}
-}
+	}
 
 	class UpdateQueue
 	{
@@ -176,13 +176,18 @@ public static partial class FAIcons
 			this.view = view;
 		}
 
+		bool NeedApplyImmediatly => view is MenuFlyoutItem;
+
 		public void SetSource(FontImageSource next)
 		{
 			lock (this)
 			{
 				nextSource = next;
 				updateQueue.Clear();
-				EnqueueApply();
+				if (NeedApplyImmediatly)
+					setSource(nextSource);
+				else
+					EnqueueApply();
 			}
 		}
 
@@ -192,8 +197,13 @@ public static partial class FAIcons
 			{
 				if (nextSource != null)
 				{
-					updateQueue.Enqueue(update);
-					EnqueueApply();
+					if (NeedApplyImmediatly)
+						update(nextSource);
+					else
+					{
+						updateQueue.Enqueue(update);
+						EnqueueApply();
+					}
 				}
 			}
 		}
