@@ -53,11 +53,14 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		base.OnPropertyChanged(e);
 		if (filterProps.Contains(e.PropertyName))
 			vlInvalidator.Invalidate();
+		if (e.PropertyName == nameof(RadioSet) && RadioSet != null && CurrentRadioItem != null)
+			CurrentRadioItem = RadioSet.FirstOrDefault(r => r.Id == CurrentRadioItem.Id);
 	}
 
 	RadioItemModel[] GetRadioViewSet()
 	{
-		if (RadioSet == null) return [];
+		if (RadioSet == null)
+			return [];
 		var source = RadioSet.Where(r => r.Removed == FilterRemoved);
 		if (!string.IsNullOrWhiteSpace(FilterText))
 			source = source.Where(r => r.Title.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase));
