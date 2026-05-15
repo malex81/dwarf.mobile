@@ -52,13 +52,14 @@
 				windows:RefreshView.RefreshPullDirection="TopToBottom"
 				IsRefreshing="{Binding IsRefreshing}"
 				Command="{Binding RefreshCommand}">
-			<CollectionView x:Name="radioListView" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ViewRadioList}">
+			<CollectionView x:Name="radioListView" ItemsSource="{Binding ViewRadioList}">
 				<CollectionView.ItemsLayout>
 					<LinearItemsLayout Orientation="Vertical" ItemSpacing="2"/>
 				</CollectionView.ItemsLayout>
 				<CollectionView.ItemTemplate>
 					<DataTemplate x:DataType="vm:RadioItemModel">
-						<SwipeView>
+						<Grid>
+							<SwipeView>
 								<SwipeView.RightItems>
 									<SwipeItem Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
 									   vh:FAIcons.SolidGlyph="TrashCan"
@@ -135,6 +136,7 @@
 									</Grid>
 								</Border>
 							</SwipeView>
+						</Grid>
 					</DataTemplate>
 				</CollectionView.ItemTemplate>
 			</CollectionView>
