@@ -33,7 +33,7 @@
 						VerticalOptions="Center"
 						Padding="18,16,18,4">
 					<Border.Behaviors>
-						<toolkit:TouchBehavior HoveredScale="1.2" />
+						<toolkit:TouchBehavior HoveredScale="1.2"/>
 					</Border.Behaviors>
 					<Border.GestureRecognizers>
 						<TapGestureRecognizer Tapped="ExpandButtonTapped"/>

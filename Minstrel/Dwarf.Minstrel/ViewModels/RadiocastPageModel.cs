@@ -34,6 +34,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 	public partial RadioItemModel? CurrentRadioItem { get; set; }
 
 	public VolumeModel VolumeModel { get; }
+	public IRadiocastView? View { get; set; }
 
 	public RadiocastPageModel(MinstrelDatabase db, VolumeModel volumeModel, IRadioItemFactory itemFactory, IMessenger messenger)
 	{
@@ -109,4 +110,9 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 			_ => null
 		};
 	}
+}
+
+public interface IRadiocastView
+{
+	void ScrollTo(RadioItemModel itemModel);
 }

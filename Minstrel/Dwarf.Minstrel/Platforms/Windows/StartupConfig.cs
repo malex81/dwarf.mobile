@@ -26,8 +26,8 @@ internal static class StartupConfig
 				{
 					if (e.GetCurrentPoint(element).Properties.IsRightButtonPressed)
 					{
-						var cursor = NativeMethods.LoadCursor(IntPtr.Zero, NativeMethods.IDC_ARROW);
-						NativeMethods.SetCursor(cursor);
+						var cursor = LoadCursor(IntPtr.Zero, IDC_ARROW);
+						SetCursor(cursor);
 					}
 				};
 			}
@@ -69,7 +69,7 @@ internal static class StartupConfig
 			trayIcon.Dispose();
 		};
 
-		trayIcon.DoubleClick += (s, e) =>
+		trayIcon.Click += (s, e) =>
 		{
 			window.TryActivate();
 		};

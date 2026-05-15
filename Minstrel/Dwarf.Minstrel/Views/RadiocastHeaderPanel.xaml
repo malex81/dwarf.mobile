@@ -14,10 +14,15 @@
 					  IsVisible="{Binding ., Converter={toolkit:IsNotNullConverter}}"
 					  BindingContext="{Binding CurrentRadioItem}"
 					  x:DataType="vm:RadioItemModel">
-					<Image Source="{Binding Icon}"
-						   Aspect="AspectFit"
-						   HeightRequest="48"
-						   WidthRequest="48" />
+					<Border Style="{StaticResource BorderFrame}">
+						<Border.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding ScrollToCommand}"/>
+						</Border.GestureRecognizers>
+						<Image Source="{Binding Icon}"
+							   Aspect="AspectFit"
+							   HeightRequest="48"
+							   WidthRequest="48" />
+					</Border>
 					<Button Grid.Column="1"							
 							Margin="16, 0"
 							Style="{StaticResource IconRoundButton}"

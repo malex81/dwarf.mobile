@@ -52,90 +52,89 @@
 				windows:RefreshView.RefreshPullDirection="TopToBottom"
 				IsRefreshing="{Binding IsRefreshing}"
 				Command="{Binding RefreshCommand}">
-			<CollectionView ItemsSource="{Binding ViewRadioList}">
+			<CollectionView x:Name="radioListView" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ViewRadioList}">
 				<CollectionView.ItemsLayout>
-					<LinearItemsLayout Orientation="Vertical"
-								   ItemSpacing="2" />
+					<LinearItemsLayout Orientation="Vertical" ItemSpacing="2"/>
 				</CollectionView.ItemsLayout>
 				<CollectionView.ItemTemplate>
 					<DataTemplate x:DataType="vm:RadioItemModel">
 						<SwipeView>
-							<SwipeView.RightItems>
-								<SwipeItem Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
+								<SwipeView.RightItems>
+									<SwipeItem Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
 									   vh:FAIcons.SolidGlyph="TrashCan"
 									   Command="{Binding ToggleRemovedCommand}"
 									   CommandParameter="{vh:Primitive Bool=True}"
 									   BackgroundColor="{vh:ColorSwitch OnTrue={StaticResource Green}, OnFalse={StaticResource Danger}, Value={Binding Removed}}">
-								</SwipeItem>
-							</SwipeView.RightItems>
-							<Border Style="{StaticResource BorderCard}">
-								<Border.Triggers>
-									<DataTrigger TargetType="Border" Binding="{Binding Removed}" Value="true">
-										<Setter Property="Background" Value="{StaticResource Gray500}" />
-									</DataTrigger>
-								</Border.Triggers>
-								<FlyoutBase.ContextFlyout>
-									<MenuFlyout>
-										<MenuFlyoutItem Text="Обновить"
+									</SwipeItem>
+								</SwipeView.RightItems>
+								<Border Style="{StaticResource BorderCard}">
+									<Border.Triggers>
+										<DataTrigger TargetType="Border" Binding="{Binding Removed}" Value="true">
+											<Setter Property="Background" Value="{StaticResource Gray500}" />
+										</DataTrigger>
+									</Border.Triggers>
+									<FlyoutBase.ContextFlyout>
+										<MenuFlyout>
+											<MenuFlyoutItem Text="Обновить"
 													vh:FAIcons.SolidGlyph="RotateRight"
 													Command="{Binding RefreshCommand}" />
-										<MenuFlyoutItem
+											<MenuFlyoutItem
 													Text="{vh:TextSwitch OnTrue='Восстановить', OnFalse='Удалить', Value={Binding Removed}}"
 													vh:FAIcons.SolidGlyph="TrashCanArrowUp"
 													vh:FAIcons.GlyphColor="{vh:ColorSwitch OnTrue={StaticResource Green}, OnFalse={StaticResource Danger}, Value={Binding Removed}}"
 													Command="{Binding ToggleRemovedCommand}" />
-									</MenuFlyout>
-								</FlyoutBase.ContextFlyout>
-								<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
-									<Frame Grid.RowSpan="2" Padding="0">
-										<!--<Image Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+										</MenuFlyout>
+									</FlyoutBase.ContextFlyout>
+									<Grid RowDefinitions="auto, *" ColumnDefinitions="auto, *">
+										<Frame Grid.RowSpan="2" Padding="0">
+											<!--<Image Source="{Binding Icon, Converter={StaticResource ByteArrayToImageSourceConverter}}"
 												Aspect="AspectFit"
 												HeightRequest="128"
 												WidthRequest="128" />-->
-										<Image Source="{Binding Icon}"
+											<Image Source="{Binding Icon}"
 											   Aspect="AspectFit"
 											   HeightRequest="128"
 											   WidthRequest="128" />
-									</Frame>
-									<VerticalStackLayout Grid.Column="1">
-										<Label Style="{StaticResource SubHeadline}"
+										</Frame>
+										<VerticalStackLayout Grid.Column="1">
+											<Label Style="{StaticResource SubHeadline}"
 												Text="{Binding Title}"
 												Padding="10, 2" />
-										<Label Text="{Binding ErrorMessage}"
+											<Label Text="{Binding ErrorMessage}"
 												TextColor="{StaticResource Danger}"
 												FontSize="12"
 												Padding="10, 0" />
-									</VerticalStackLayout>
-									<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
-										<Button toolkit:DockLayout.DockPosition="Left"
+										</VerticalStackLayout>
+										<toolkit:DockLayout Grid.Column="2" Grid.Row="2" Padding="10, 0">
+											<Button toolkit:DockLayout.DockPosition="Left"
 												Style="{StaticResource PlayButtonStyle}"
 												Command="{Binding TogglePlayingCommand}" />
-										<Button toolkit:DockLayout.DockPosition="Right"
+											<Button toolkit:DockLayout.DockPosition="Right"
 												Style="{StaticResource FavoriteButtonStyle}"
 												Command="{Binding ToggleFavoritesCommand}" 
 												IsVisible="{Binding Removed, Converter={toolkit:InvertedBoolConverter}}" />
-										<Label Text="Удалено"
+											<Label Text="Удалено"
 											   IsVisible="{Binding Removed}"
 											   Rotation="-25"
 											   Style="{StaticResource Headline}"
 											   TextColor="{toolkit:AppThemeResource FgMuteColor}" />
-										<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
+											<Image vh:FAIcons.SolidGlyph="TowerBroadcast"
 											   IsVisible="{Binding ShowLoading}"
 											   vh:FAIcons.GlyphColor="{toolkit:AppThemeResource AlertColor}"
 											   Style="{StaticResource IconImage}"
 											   VerticalOptions="End"
 											   HorizontalOptions="Start"
 											   Margin="10, 0">
-											<Image.Behaviors>
-												<vh:AnimationBehavior>
-													<vh:PulseAnimation/>
-												</vh:AnimationBehavior>
-											</Image.Behaviors>
-										</Image>
-									</toolkit:DockLayout>
-								</Grid>
-							</Border>
-						</SwipeView>
+												<Image.Behaviors>
+													<vh:AnimationBehavior>
+														<vh:PulseAnimation/>
+													</vh:AnimationBehavior>
+												</Image.Behaviors>
+											</Image>
+										</toolkit:DockLayout>
+									</Grid>
+								</Border>
+							</SwipeView>
 					</DataTemplate>
 				</CollectionView.ItemTemplate>
 			</CollectionView>

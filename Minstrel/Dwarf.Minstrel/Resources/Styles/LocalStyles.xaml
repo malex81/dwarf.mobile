@@ -19,6 +19,7 @@
 		<Setter Property="WidthRequest" Value="40"/>
 		<Setter Property="HeightRequest" Value="40"/>
 		<Setter Property="CornerRadius" Value="20"/>
+		<Setter Property="BorderWidth" Value="2"/>
 		<Setter Property="FontSize" Value="18"/>
 		<Setter Property="vh:FAIcons.GlyphSize" Value="18"/>
 	</Style>
@@ -26,6 +27,15 @@
 	<Style TargetType="Image" x:Key="IconImage">
 		<Setter Property="WidthRequest" Value="32"/>
 		<Setter Property="HeightRequest" Value="32"/>
+	</Style>
+
+	<Style TargetType="Border" x:Key="BorderFrame">
+		<Setter Property="StrokeThickness" Value="0"/>
+		<Setter Property="StrokeShape">
+			<Setter.Value>
+				<RoundRectangle CornerRadius="6"/>
+			</Setter.Value>
+		</Setter>
 	</Style>
 
 	<Style TargetType="Border" x:Key="BorderCard">

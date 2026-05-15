@@ -88,6 +88,12 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 	}
 
 	[RelayCommand]
+	void ScrollTo()
+	{
+		pageModel.View?.ScrollTo(this);
+	}
+
+	[RelayCommand]
 	async Task ToggleFavorites()
 	{
 		radioStation.State.InFavorites = !radioStation.State.InFavorites;
