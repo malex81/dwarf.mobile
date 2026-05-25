@@ -71,7 +71,8 @@ internal static class StartupConfig
 
 		trayIcon.Click += (s, e) =>
 		{
-			window.TryActivate();
+			if (e is WinForms.MouseEventArgs ma && ma.Button == WinForms.MouseButtons.Left)
+				window.TryActivate();
 		};
 
 		// Добавление контекстного меню
