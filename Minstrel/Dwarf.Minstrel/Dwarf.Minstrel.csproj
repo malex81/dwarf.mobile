@@ -32,7 +32,7 @@
 		<Configurations>Debug;Release;Tests</Configurations>
 		<DefaultLanguage>ru-ru</DefaultLanguage>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<!-- App icon for Windows -->
 		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\AppIcon\logo_win.svg" />
