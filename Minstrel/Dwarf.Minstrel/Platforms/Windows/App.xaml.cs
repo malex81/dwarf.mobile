@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Dwarf.Minstrel.Platforms.Windows;
+using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using System.Diagnostics;
 
@@ -21,7 +22,7 @@ public partial class App : MauiWinUIApplication
 	{
 		var singleInstance = AppInstance.FindOrRegisterForKey(AppKey);
 
-		// 2. Если мы НЕ являемся текущим главным процессом
+		// Если мы НЕ являемся текущим главным процессом
 		if (!singleInstance.IsCurrent)
 		{
 			// Получаем аргументы запуска этой копии
@@ -39,9 +40,7 @@ public partial class App : MauiWinUIApplication
 		this.InitializeComponent();
 	}
 
-	private void SingleInstance_Activated(object? sender, AppActivationArguments e)
-	{
-	}
+	private void SingleInstance_Activated(object? sender, AppActivationArguments e) => StartupConfig.TryActivate();
 
 	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }

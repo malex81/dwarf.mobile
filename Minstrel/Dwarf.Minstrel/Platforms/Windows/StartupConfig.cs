@@ -11,6 +11,8 @@ internal static class StartupConfig
 	const int WindowWidth = 480;
 	const int WindowHeight = 800;
 
+	static Window? mainWindow;
+
 	public static void SetupMapping()
 	{
 		FixCursor();
@@ -47,6 +49,7 @@ internal static class StartupConfig
 				presenter.IsMaximizable = false;
 			}
 		});
+		mainWindow = window;
 	}
 
 	static WinForms.NotifyIcon? trayIcon;
@@ -119,5 +122,13 @@ internal static class StartupConfig
 
 		// 3. Выводим на передний план
 		platformWindow.Activate();
+	}
+
+	public static void TryActivate()
+	{
+		mainWindow?.Dispatcher.Dispatch(() =>
+		{
+			mainWindow.TryActivate();
+		});
 	}
 }
