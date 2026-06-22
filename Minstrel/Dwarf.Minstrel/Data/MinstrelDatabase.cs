@@ -16,6 +16,11 @@ public class MinstrelDatabase
 {
 	static readonly JsonSerializerOptions JsonCaseInsensitive = new() { PropertyNameCaseInsensitive = true };
 
+	static MinstrelDatabase()
+	{
+		SQLitePCL.Batteries_V2.Init();
+	}
+
 	SQLiteAsyncConnection? db;
 
 	public MinstrelDatabase()

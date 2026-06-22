@@ -2,6 +2,8 @@
 using Dwarf.Minstrel.Base;
 using Dwarf.Minstrel.Views;
 using Microsoft.Extensions.Logging;
+using Dwarf.Minstrel.Helpers;
+using Serilog;
 using Microsoft.Maui.LifecycleEvents;
 
 namespace Dwarf.Minstrel;
@@ -10,6 +12,7 @@ public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
 	{
+		LogService.Initialize();
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
@@ -39,7 +42,7 @@ public static class MauiProgram
 #endif
 			});
 #if DEBUG
-		builder.Logging.AddDebug();
+		builder.Logging.AddSerilog();
 #endif
 
 		RegisterRouting();

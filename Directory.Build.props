@@ -1,5 +1,6 @@
 <Project>
 	<PropertyGroup>
+		<SatelliteResourceLanguages>en;ru</SatelliteResourceLanguages>
 		<CheckEolWorkloads>false</CheckEolWorkloads>
 		<LangVersion>preview</LangVersion>
 		<DotNetVersion>net10.0</DotNetVersion>

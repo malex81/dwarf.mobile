@@ -7,6 +7,7 @@ using Dwarf.Minstrel.MediaEngine;
 using Dwarf.Minstrel.Messaging;
 using Dwarf.Toolkit.Basic.AsyncHelpers;
 using Dwarf.Toolkit.Basic.SystemExtension;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;
@@ -14,6 +15,7 @@ namespace Dwarf.Minstrel.ViewModels;
 public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<RadiocastMessage>
 {
 	private readonly MinstrelDatabase db;
+	private readonly ILogger<RadiocastPageModel> logger;
 	private readonly IRadioItemFactory itemFactory;
 	private readonly IMessenger messenger; // https://learn.microsoft.com/ru-ru/dotnet/communitytoolkit/mvvm/messenger
 	private readonly InvalidatorBase vlInvalidator;
@@ -36,15 +38,16 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 	public VolumeModel VolumeModel { get; }
 	public IRadiocastView? View { get; set; }
 
-	public RadiocastPageModel(MinstrelDatabase db, VolumeModel volumeModel, IRadioItemFactory itemFactory, IMessenger messenger)
+	public RadiocastPageModel(MinstrelDatabase db, ILogger<RadiocastPageModel> logger, VolumeModel volumeModel, IRadioItemFactory itemFactory, IMessenger messenger)
 	{
 		this.db = db;
+		this.logger = logger;
 		VolumeModel = volumeModel;
 		this.itemFactory = itemFactory;
 		this.messenger = messenger;
 		messenger.RegisterAll(this);
-		_ = LoadData();
 		vlInvalidator = ActionFlow.CreateInvalidator(() => ViewRadioList = GetRadioViewSet(), TimeSpan.FromMilliseconds(300));
+		_ = LoadData();
 	}
 
 	readonly string[] filterProps = [nameof(RadioSet), nameof(FilterText), nameof(FilterRemoved)];
@@ -71,10 +74,14 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 
 	async Task LoadData()
 	{
-		var radioList = await FetchData();
-		RadioSet.DisposeAll();
-		RadioSet = radioList.Select(item => itemFactory.Create(this, item)).ToArray();
-		ForceUpdateViewList();
+		try
+		{
+			var radioList = await FetchData();
+			RadioSet.DisposeAll();
+			RadioSet = radioList.Select(item => itemFactory.Create(this, item)).ToArray();
+			ForceUpdateViewList();
+		}
+		catch (Exception ex) { logger.LogError(ex, "LoadData"); }
 	}
 
 	[RelayCommand]
