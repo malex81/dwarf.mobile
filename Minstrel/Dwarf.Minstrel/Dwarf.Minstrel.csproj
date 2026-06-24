@@ -19,7 +19,7 @@
 
 		<!-- Versions -->
 		<PackageVersion>1.0.0</PackageVersion>
-		<ApplicationDisplayVersion>1.0.7</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.0.8</ApplicationDisplayVersion>
 		<ApplicationVersion>4</ApplicationVersion>
 		<AssemblyVersion>$(ApplicationDisplayVersion).$(ApplicationVersion)</AssemblyVersion>
 
@@ -35,9 +35,12 @@
 	
 	<ItemGroup>
 		<!-- App icon for Windows -->
-		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\AppIcon\logo_win.svg" />
-		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\logo.svg" ForegroundScale="0.5" />
+		<!--<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\AppIcon\logo_win.svg" ForegroundFile="Resources\AppIcon\logo.svg" ForegroundScale="0.9"/>-->
+		<!--<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\logo.svg" ForegroundScale="0.65" />-->
+		<!--<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\AppIcon\logo_win.svg" Color="#FFaa00" BaseSize="128,128"/>-->
+		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Resources\AppIcon\logo_win.svg"/>
+		<!-- App Icon (non-Windows) -->
+		<MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'" Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\logo.svg" ForegroundScale="0.5" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#80BFBF" BaseSize="128,128" />
