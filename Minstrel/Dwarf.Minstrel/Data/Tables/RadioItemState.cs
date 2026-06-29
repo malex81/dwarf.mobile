@@ -14,4 +14,7 @@ public class RadioItemState : DbObjectBase
 
 	[Column("favorite")]
 	public bool InFavorites { get; set; }
+
+	[Column("lastPlayed")]
+	public DateTime LastPlayed { get; set; }
 }

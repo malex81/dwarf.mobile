@@ -67,7 +67,7 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 		var source = RadioSet.Where(r => r.Removed == FilterRemoved);
 		if (!string.IsNullOrWhiteSpace(FilterText))
 			source = source.Where(r => r.Title.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase));
-		return source.OrderByDescending(r => r.InFavorites).ToArray();
+		return source.OrderByDescending(r => r.InFavorites).ThenByDescending(r => r.LastPlayed).ThenBy(r => r.Title).ToArray();
 	}
 
 	async Task<RadioItemFacade[]> FetchData() => await db.LoadStations();

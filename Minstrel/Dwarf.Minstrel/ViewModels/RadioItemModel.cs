@@ -10,6 +10,7 @@ using Dwarf.Minstrel.MediaEngine;
 using Dwarf.Minstrel.Messaging;
 using Dwarf.Minstrel.ViewHelpers;
 using Dwarf.Toolkit.Basic.SystemExtension;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 
 namespace Dwarf.Minstrel.ViewModels;
@@ -25,11 +26,14 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 	private readonly MediaBox mediaBox;
 	private readonly IAlertService alertService;
 	private readonly IMessenger messenger;
+	private readonly ILogger<RadioButton> logger;
 
 	[ObservableProperty]
 	public partial bool InFavorites { get; set; }
 	[ObservableProperty]
 	public partial bool Removed { get; set; }
+	[ObservableProperty]
+	public partial DateTime LastPlayed { get; set; }
 	[ObservableProperty]
 	public partial bool IsPlaying { get; set; }
 	[ObservableProperty]
@@ -46,16 +50,18 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 		RadioItemFacade radioStation,
 		MediaBox mediaBox,
 		IAlertService alertService,
-		IMessenger messenger)
+		IMessenger messenger,
+		ILogger<RadioButton> logger)
 	{
 		this.pageModel = pageModel;
 		this.radioStation = radioStation;
 		this.mediaBox = mediaBox;
 		this.alertService = alertService;
 		this.messenger = messenger;
-
+		this.logger = logger;
 		InFavorites = radioStation.State.InFavorites;
 		Removed = radioStation.State.Removed;
+		LastPlayed = radioStation.State.LastPlayed;
 
 		//UpdateState();
 		Dispatcher.GetForCurrentThread()!.DispatchDelayed(TimeSpan.FromMilliseconds(100), UpdateState);
@@ -85,6 +91,33 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 		IsPlaying = curState == MediaElementState.Playing || curState == MediaElementState.Buffering;
 		ShowLoading = curState == MediaElementState.Opening || curState == MediaElementState.Buffering;
 		ErrorMessage = mediaBox.State.ErrorMessage;
+	}
+
+	private CancellationTokenSource? _lastPlayedConfirmationCts;
+	partial void OnIsPlayingChanged(bool value)
+	{
+		_lastPlayedConfirmationCts?.Cancel();
+		if (!value)
+			return;
+		_lastPlayedConfirmationCts = new CancellationTokenSource();
+		var token = _lastPlayedConfirmationCts.Token;
+		_ = Task.Run(async () =>
+		{
+			try
+			{
+				await Task.Delay(TimeSpan.FromMinutes(5), token);
+				if (IsPlaying)
+				{
+					radioStation.State.LastPlayed = LastPlayed = DateTime.Now;
+					await radioStation.SaveState();
+				}
+			}
+			catch (OperationCanceledException) { }
+			catch (Exception ex)
+			{
+				logger.LogError(ex, "Error in LastPlayed updating");
+			}
+		});
 	}
 
 	[RelayCommand]
