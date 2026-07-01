@@ -120,6 +120,16 @@ public sealed partial class RadiocastPageModel : ObservableObject, IRecipient<Ra
 			_ => null
 		};
 	}
+
+	public void ExcludeItem(RadioItemModel radioItem)
+	{
+		var rInd = ViewRadioList.IndexOf(radioItem);
+		ViewRadioList = ViewRadioList.Where(m => m != radioItem).ToArray();
+		if (rInd >= ViewRadioList.Length)
+			rInd = ViewRadioList.Length - 1;
+		if (rInd >= 0)
+			View?.ScrollTo(ViewRadioList[rInd]);
+	}
 }
 
 public interface IRadiocastView

@@ -150,7 +150,8 @@ public partial class RadioItemModel : ObservableObject, IDisposable
 		Removed = !Removed;
 		radioStation.State.Removed = Removed;
 		await radioStation.SaveState();
-		messenger.Send(RadiocastMessage.Invalidate);
+		//messenger.Send(RadiocastMessage.Invalidate);
+		pageModel.ExcludeItem(this);
 	}
 
 	[RelayCommand]
